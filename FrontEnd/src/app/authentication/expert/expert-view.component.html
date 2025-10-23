@@ -1,0 +1,57 @@
+<div class="multi-step-container" id="div">
+  <div class="form-card">
+    <div class="form-header">
+      <h2 class="form-title">Expert Details</h2>
+    </div>
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="!loading && error" class="error-message">{{ error }}</div>
+    <div *ngIf="!loading && expert">
+      <div class="header">
+        <div class="avatar-container">
+          <img [src]="API + expert.profilePicture" alt="Profile Picture" class="avatar" *ngIf="expert.profilePicture">
+          <div class="avatar-placeholder" *ngIf="!expert.profilePicture">
+            <i class="bi bi-person-fill"></i>
+          </div>
+        </div>
+        <div class="title">
+          <div class="name">{{ expert.fullName }}</div>
+          <div class="email">{{ expert.email }}</div>
+          <span class="badge" [class.active]="(expert.status || '').toLowerCase() === 'active'"
+            [class.inactive]="(expert.status || '').toLowerCase() !== 'active'">{{ expert.status || '—' }}</span>
+        </div>
+      </div>
+      <div style="margin-top:12px; display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px;" class="info">
+        <div><strong>Phone:</strong> {{ expert.phoneNumber }}</div>
+        <div><strong>Nationality:</strong> {{ expert.nationality }}</div>
+        <div><strong>ID Type:</strong> {{ expert.idType }}</div>
+        <div><strong>ID Number:</strong> {{ expert.idNumber }}</div>
+        <div><strong>Experience:</strong> {{ expert.experienceYears }} years</div>
+        <div><strong>Education:</strong> {{ expert.educationDetails }}</div>
+        <div><strong>LinkedIn:</strong> <a [href]="expert.linkedInProfileURL" target="_blank">{{
+            expert.linkedInProfileURL }}</a></div>
+        <div><strong>Created:</strong> {{ expert.createdAt | date:'medium' }}</div>
+        <div><strong>Area of Expertise:</strong> {{ expert.areaOfExpertiseIDs }}</div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div *ngIf="!loading && expert">
+        <div style="margin-top:20px; display:flex; gap:10px;">
+          <!-- Accept Button -->
+          <button *ngIf="expert.status?.toLowerCase() !== 'active' && expert.status?.toLowerCase() !== 'rejected'"
+            class="btn btn-success" (click)="acceptExpert()" [disabled]="acceptLoading">
+            <span *ngIf="acceptLoading">Processing...</span>
+            <span *ngIf="!acceptLoading">Accept</span>
+          </button>
+          <!-- Reject Button -->
+          <button *ngIf="expert.status?.toLowerCase() !== 'active' && expert.status?.toLowerCase() !== 'rejected'"
+            class="btn btn-danger" (click)="rejectExpert()">
+            Reject
+          </button>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="rejectError" class="error-message" style="margin-top: 10px;">{{ rejectError }}</div>
+    </div>
+  </div>
+</div>

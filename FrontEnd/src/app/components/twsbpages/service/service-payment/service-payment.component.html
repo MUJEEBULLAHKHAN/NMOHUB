@@ -1,0 +1,218 @@
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title"> Payment
+                    <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                        *ngIf="showLoaderAcceptReject"></span>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <div>
+                        <!-- <input type="text" placeholder="Search Here" aria-label=".form-control-sm example"
+                            class="form-control form-control-sm"> -->
+                    </div>
+                    <div *ngIf="roleId == 1">
+                        <a (click)="CreateNewPaymentPopUp()" href="javascript:void(0);" aria-expanded="false"
+                            class="btn btn-primary btn-sm btn-wave waves-effect waves-light no-caret">
+                            Add Payment</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table text-nowrap">
+                        <thead>
+                            <tr>
+                                <!-- <th scope="row" class="ps-4"><input type="checkbox" id="checkboxNoLabeljob1" value=""
+                                        aria-label="..." class="form-check-input"></th> -->
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Document</th>
+                                <th scope="col">Reject Reason</th>
+                                <th scope="col" *ngIf="roleId == 10">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of paymentList; let i = index">
+                                <!-- <td class="ps-4"><input type="checkbox" id="checkboxNoLabeljob2" value=""
+                                        aria-label="..." class="form-check-input"></td> -->
+                                <td>
+                                    {{item.paymentName}}
+                                </td>
+                                <td> {{item.amount}} </td>
+                                <td>
+
+                                    <span *ngIf="item.isVerified == null || item.isVerified == undefined"
+                                        class="badge bg-primary-transparent">Pending</span>
+                                    <span *ngIf="item.isVerified && item.isVerified != null"
+                                        class="badge bg-info-transparent">Payment
+                                        Success</span>
+                                    <span *ngIf="!item.isVerified && item.isVerified != null"
+                                        class="badge bg-danger-transparent">Payment
+                                        Failed</span>
+                                </td>
+                                <td>
+                                    <a href="{{APIURL}}{{item.transactionReciptUrl}}" target="_blank"
+                                        title="Payment Receipt" data-bs-toggle="offcanvas"
+                                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                        Payment Receipt
+                                    </a>
+                                </td>
+                                <td>
+                                    <div *ngIf="item.declineReason != null && item.declineReason != undefined">
+                                        <span title="item.declineReason"
+                                            *ngIf="item.declineReason.length > 50">{{item.declineReason |
+                                            slice:0:15}}
+                                            ...</span>
+                                        <span *ngIf="item.declineReason.length <=50">{{item.declineReason}}</span>
+                                    </div>
+                                </td>
+
+                                <td *ngIf="roleId == 10">
+                                    <div class="btn-list">
+                                        <button title="Reject"
+                                            *ngIf="item.isVerified == null || item.isVerified == undefined"
+                                            (click)="RejectPaymentPopUp(item)" class="btn btn-sm btn-warning btn-wave">
+                                            <i class="las la-arrow-alt-circle-down"></i>
+                                        </button>
+
+                                        <button title="Accept"
+                                            *ngIf="item.isVerified == null || item.isVerified == undefined"
+                                            (click)="AcceptPayment(item)"
+                                            class="btn btn-sm btn-icon btn-secondary-light btn-wave"><i
+                                                class="ti ti-color-picker"></i>
+                                        </button>
+
+                                        <h3 *ngIf="item.isVerified == false" title="Rejected">
+                                            <i class='bx  bx-check-square' style="color: red;"></i>
+                                        </h3>
+
+                                        <h3 *ngIf="item.isVerified == true" title="Accepted">
+                                            <i class='bx  bx-check-square' style="color: green;"></i>
+                                        </h3>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex align-items-center">
+                    <div> Showing {{paymentList.length}} Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i>
+                    </div>
+                    <div class="ms-auto">
+                        <nav aria-label="Page navigation" class="pagination-style-4">
+                            <!-- <ul class="pagination mb-0">
+                                <li class="page-item disabled"><a href="javascript:void(0);" class="page-link"> Prev
+                                    </a></li>
+                                <li class="page-item active"><a href="javascript:void(0);" class="page-link">1</a>
+                                </li>
+                                <li class="page-item"><a href="javascript:void(0);" class="page-link">2</a></li>
+                                <li class="page-item"><a href="javascript:void(0);" class="page-link text-primary"> next
+                                    </a></li>
+                            </ul> -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #paymentModelPopUp let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title">Add Payment Record</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDocumentPopup()"></button>
+    </div>
+    <div class="modal-body px-4">
+        <div class="row">
+            <div class="col-xl-6 mb-2">
+                <label for="fromMail" class="form-label">Payment Type </label>
+                <ng-select placeholder="Payment Type" [(ngModel)]="paymentActivity.paymentName" data-trigger
+                    name="invoice-currency" id="invoice-currency">
+                    <ng-option *ngFor="let item of paymentTypeList; let i = index" value="{{item}}">{{item}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="col-xl-6 mb-2">
+                <label class="form-label">Amount </label>
+                <input type="text" [(ngModel)]="paymentActivity.amount" class="form-control" placeholder="Amount">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="upload-container">
+                <div class="upload-section">
+                    <h3 class="section-title">Upload Payment Proof <span class="required">*</span></h3>
+
+                    <!-- Hidden file input -->
+                    <input type="file" id="fileInput" (change)="onFileSelected($event)" #fileInput
+                        style="display: none;">
+
+                    <!-- Image wrapped in a label -->
+                    <label for="fileInput">
+
+                        <div class="upload-area" data-type="accident" id="fileInput">
+                            <div class="upload-icon">
+
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14,2 14,8 20,8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10,9 9,9 8,9" />
+                                </svg>
+                            </div>
+                            <p>
+                                <a href="javascript:void(0);" *ngIf="IsPaymentDocumentFile" (click)="RemoveFile()">
+                                    Remove File
+                                </a>
+                            </p>
+                            <p class="support-text">Only Support</p>
+                            <p class="file-types">.jpg / .png .PDF</p>
+                        </div>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="Payment()">
+            Submit
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="showLoader"></span>
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #rejectPaymentModelPopUp let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title">Payment Reject Reason</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDocumentPopup()"></button>
+    </div>
+    <div class="modal-body px-4">
+        <div class="row">
+            <div class="mb-2">
+                <label for="fromMail" class="form-label">Reject Reason </label>
+                <textarea rows="5" name="" id="" required #methodEndInput="ngModel" matInput
+                    [(ngModel)]="paymentDeclineReason" class="form-control" placeholder="Comment">
+                </textarea>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="RejectPayment()">
+            Submit
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="showLoader"></span>
+        </button>
+    </div>
+</ng-template>

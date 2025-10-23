@@ -1,0 +1,51 @@
+export class RegisterWalkInJob
+{
+    vehicleMakeId:any;
+    vehicleModelId:any;
+    colorId:any;
+    vehicleYearModel:any;
+    vehicleMileage:any;
+    vehicleRegistrationNumber:any;
+    vehicleVinNumber:any;
+    vehicleOnSite:any;
+    vehicleDrivableOrTowed:any;
+    vehicleBodyTypeId:any;
+    clientFirstName:any;
+    clientLastName:any;
+    clientCellNumber:any;
+    clientAlternateNumber:any;
+    clientEmailAddress:any;
+    clientAddress:any;
+    clientCsiConsent:any;
+    jobTypeId?:any;
+    estimatorId:any;
+    serviceAdvisorId:any;
+    insuranceCompanyId:any;
+    claimNumber:any;
+    policyNumber:any;
+    orderNumber:any;
+    assessorEmail:any;
+    assessorName:any;
+    assessorContactNumber:any;
+    jobNotes:any;
+    brokerName:any;
+    brokerEmail:any;
+    brokerNumber:any;
+    basicExcess:any;
+    excessOptionOnePercentage:any;
+    excessOptionOneMinimum:any;
+    excessOptionTwoPercentage:any;
+    excessOptionTwoMinimum:any;
+    scheduledBookInDate:any;
+    scheduledCompletionDate:any;
+    companyName:any;
+    isClaimAuthorised?:any;
+    audatexGuid:any;
+    smartQuoteAssessmentNumber:any;
+    smartQuoteClaimNumber:any;
+    audatexOriginatorCode:any;
+    audatexAssessmentNumber:any;
+    audatexAssessemntGuid:any;
+    audatexAssessmentPayload:any;
+    
+}

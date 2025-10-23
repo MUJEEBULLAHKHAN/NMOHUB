@@ -1,0 +1,374 @@
+<div class="d-flex flex-row-reverse bd-highlight mb-4">
+    <div>
+        <button (click)="openCreateBookingPopUp()" class="btn btn-primary-light btn-wave me-2 waves-effect waves-light">
+            <i class="ri-add-line align-middle me-1 fw-medium d-inline-block"></i> Book </button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xl-9">
+        <!-- <div class="card custom-card">
+        <div class="card-header justify-content-between">
+          <div class="card-title">All Events</div>
+          <button class="btn btn-primary btn-wave waves-effect waves-light">
+            <i class="ri-add-line align-middle me-1 fw-medium d-inline-block"> </i
+            >Create New Event
+          </button>
+        </div>
+        <div class="card-body p-0">
+          <div
+            mwlDroppable
+            (drop)="externalDrop($event.dropData.event)"
+            dragOverClass="drag-over"
+            id="external-events"
+            class="border-bottom p-3 d-flex align-items-center flex-wrap gap-3"
+          >
+            @for(event of events;track $index){
+            <div
+              mwlDraggable
+              [dropData]="{ event: event }"
+              [touchStartLongPress]="{ delay: 300, delta: 30 }"
+              dragActiveClass="drag-active"
+              class="fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event bg-{{event.cssClass}}-transparent"
+            >
+              <div class="fc-event-main text-{{event.cssClass}}">
+               {{event.title}}
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div> -->
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Full Calendar</div>
+            </div>
+            <div class="card-body">
+                <div id="calendar2">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-1">
+                        <div class="text-start mb-2">
+                            <div class="btn-group">
+                                <div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
+                                    [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                </div>
+                                <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                                    (viewDateChange)="closeOpenMonthViewDay()">
+                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="btn btn-primary ms-2 disabled" mwlCalendarToday [(viewDate)]="viewDate">
+                                Today
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <h3>{{ viewDate | calendarDate : view + "ViewTitle" : "en" }}</h3>
+                        </div>
+                        <div class="text-end mb-2">
+                            <div class="btn-group">
+                                <div class="btn btn-primary mb-1" (click)="setView(CalendarView.Month)"
+                                    [class.active]="view === CalendarView.Month">
+                                    Month
+                                </div>
+                                <div class="btn btn-primary mb-1" (click)="setView(CalendarView.Week)"
+                                    [class.active]="view === CalendarView.Week">
+                                    Week
+                                </div>
+                                <div class="btn btn-primary mb-1" (click)="setView(CalendarView.Day)"
+                                    [class.active]="view === CalendarView.Day">
+                                    Day
+                                </div>
+                                <!-- <button class="btn btn-raised btn-primary float-end mb-1" (click)="addEvent()">
+                                    List
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @switch (view) { @case ('month') {
+                <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" [activeDayIsOpen]="activeDayIsOpen"
+                    [refresh]="refresh" (dayClicked)="dayClicked($event.day)"
+                    (eventClicked)="handleEvent('Clicked', $event.event)"
+                    (eventTimesChanged)="eventTimesChanged($event)">
+                </mwl-calendar-month-view>
+                } @case ("week"){
+                <mwl-calendar-week-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+                    [snapDraggedEvents]="false" (eventClicked)="handleEvent('Clicked', $event.event)"
+                    (eventTimesChanged)="eventDropped($event)">
+                </mwl-calendar-week-view>
+                } @case ("day"){
+                <mwl-calendar-day-view [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+                    [snapDraggedEvents]="false" (eventClicked)="handleEvent('Clicked', $event.event)"
+                    (eventTimesChanged)="eventDropped($event)">
+                </mwl-calendar-day-view>
+                } }
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3">
+        <div class="card custom-card">
+            <div class="card-body p-0">
+                <div class="p-3">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h6 class="fw-medium">Activity :</h6>
+                        <button class="btn btn-primary-light btn-sm btn-wave waves-effect waves-light">
+                            View All
+                        </button>
+                    </div>
+                </div>
+                <div class="p-3 border-bottom simplebar-scrollable-y" id="full-calendar-activity" data-simplebar="init">
+                    <div class="simplebar-wrapper" style="margin: -16px">
+                        <div class="simplebar-height-auto-observer-wrapper">
+                            <div class="simplebar-height-auto-observer"></div>
+                        </div>
+                        <div class="simplebar-mask">
+                            <div class="simplebar-offset" style="right: 0px; bottom: 0px">
+                                <div class="simplebar-content-wrapper" tabindex="0" role="region"
+                                    aria-label="scrollable content" style="height: auto; overflow: hidden scroll">
+                                    <div class="simplebar-content" style="padding: 16px">
+                                        <ul class="list-unstyled mb-0 fullcalendar-events-activity">
+                                            <li  *ngFor="let item of appointments; let i = index">
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <a href="javascript:void(0);" (click)="EditBooking(item)"><p class="mb-1 fw-medium">{{ item.scheduledBookInDate | date:'MMM dd, yyyy' }} - {{item.name}} - {{item.modelDesc}} - {{item.vehicleRegistration}}</p>
+                                                    </a>
+                                                    <!-- <span class="badge bg-light text-default mb-1">{{item.scheduledBookInDate}}</span> -->
+                                                </div>
+                                                <p class="mb-0 text-muted fs-12">
+                                                    {{item.description}}
+                                                </p>
+                                            </li>
+                                            <!-- <li>
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <p class="mb-1 fw-medium">Thursday, Dec 29,2022</p>
+                                                    <span class="badge bg-success mb-1">Completed</span>
+                                                </div>
+                                                <p class="mb-0 text-muted fs-12">
+                                                    Birthday party of niha suka
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <p class="mb-1 fw-medium">Wednesday, Jan 3,2024</p>
+                                                    <span class="badge bg-warning-transparent mb-1">Reminder</span>
+                                                </div>
+                                                <p class="mb-0 text-muted fs-12">
+                                                    WOrk taget for new project is completing
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <p class="mb-1 fw-medium">Friday, Jan 20,2024</p>
+                                                    <span class="badge bg-light text-default mb-1">06:00PM -
+                                                        09:00PM</span>
+                                                </div>
+                                                <p class="mb-0 text-muted fs-12">
+                                                    Watch new movie with family
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between flex-wrap">
+                                                    <p class="mb-1 fw-medium">Saturday, Jan 07,2024</p>
+                                                    <span class="badge bg-danger-transparent mb-1">Due Date</span>
+                                                </div>
+                                                <p class="mb-0 text-muted fs-12">
+                                                    Last day to pay the electricity bill and water bill.need
+                                                    to check the bank details.
+                                                </p>
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="simplebar-placeholder" style="width: 306px; height: 421px"></div>
+                    </div>
+                    <div class="simplebar-track simplebar-horizontal" style="visibility: hidden">
+                        <div class="simplebar-scrollbar" style="width: 0px; display: none"></div>
+                    </div>
+                    <div class="simplebar-track simplebar-vertical" style="visibility: visible">
+                        <div class="simplebar-scrollbar" style="
+                  height: 348px;
+                  transform: translate3d(0px, 0px, 0px);
+                  display: block;
+                "></div>
+                    </div>
+                </div>
+                <!-- <div class="p-4">
+                    <img src="./assets/images/media/media-81.svg" class="full-calendar-image img-fluid" alt="" />
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+<ng-template #modalAddCourtesyCarsPopUp let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">{{ modalData.action }}</h5>
+        <button type="button" class="btn-close" (click)="close()">
+            
+        </button>
+    </div>
+    <div class="modal-body">
+        <form action="#" class="form form-horizontal">
+            <div class="form-body">
+                <div class="form-group mb-2">
+                    <label>Event Title:</label>
+                    <input type="text" name="event-title" class="form-control" [(ngModel)]="modalData['event']['title']"
+                        (keyup)="refresh.next(true)" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label>Starts At:</label>
+                    <input class="form-control" name="event-title2" type="text" mwlFlatpickr
+                        [(ngModel)]="modalData['event']['start']" ngbDatepicker #d="ngbDatepicker"
+                        (click)="d.toggle()" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="close()">OK</button>
+    </div>
+</ng-template> -->
+
+
+<ng-template #modalAddCourtesyCarsPopUp let-c="close" let-d="dismiss" class="modal-lg">
+    <div class="modal-header">
+        <h5 class="modal-title"> Appointment</h5>
+        <button type="button" class="btn-close" (click)="CloseAppointmentPopUp()">
+
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-2">
+                        <label>Vehicle Make</label>
+                        <select class="form-control textfieldheight dropdowntextalign"
+                            [(ngModel)]="appointment.vehicleMakeId" (change)="getVehicleModelsByMakeId()">
+                            <option *ngFor="let item of vehicleMakes" [value]="item.makeId">
+                                {{item.name}}
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-2">
+                        <label>Vehicle Model</label>
+                        <select class="form-control textfieldheight dropdowntextalign"
+                            [(ngModel)]="appointment.vehicleModelId">
+                            <option *ngFor="let item of vehicleModels" [value]="item.modelId">
+                                {{item.modelDesc}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label>Customer Name</label>
+                            <input class="form-control" name="customerName" [(ngModel)]="appointment.customerName" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label>Customer Mobile</label>
+                            <input class="form-control" name="customerMobile" [(ngModel)]="appointment.customerMobile" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label>customer Email</label>
+                            <input class="form-control" name="customerEmail" [(ngModel)]="appointment.customerEmail" type="text" />
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label>Registration</label>
+                            <input class="form-control" name="vehicleRegistration" [(ngModel)]="appointment.vehicleRegistration" type="text" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                 <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label>Booking Date:</label>
+                            <input class="form-control" name="scheduledBookInDate" type="text" mwlFlatpickr [(ngModel)]="appointment.scheduledBookInDate" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-2">
+                            <label>Notes</label>
+                            <input class="form-control" name="notes" [(ngModel)]="appointment.notes" type="text" />
+
+                        </div>
+                    </div>
+                    <!-- <div class="row mt-2" *ngIf="appointment.id > 0">
+                        <div class="col-md-6">
+                            <input class="form-check-input me-2" [(ngModel)]="appointment.isComplete" name="isComplete"
+                      type="checkbox" [value]="appointment.isComplete" id="employees{{appointment.isComplete}}">
+                    <label class="form-check-label" for="c-1">
+                       Booking Complete
+                    </label>
+                        </div>
+                    </div> -->
+                </div> 
+            </div> 
+
+            <div class="form-group">
+                <div class="row">
+     
+                   <div class="col-md-6" *ngIf="appointment.jobId != 0 && appointment.jobId != null">
+                       <div class="form-group mb-2">
+                           <label>Job Reference</label>
+                          
+                       </div>
+                       <div>
+                        <a href="/job-overview?id={{appointment.jobId}}" class="btn btn-primary-light" >
+                            {{appointment.damageReportNumber}} <i class="ri-arrow-right-s-line"></i>
+                            </a>
+                       </div>
+                   </div>
+                   <br>
+                   <br>
+                   <div class="row mt-2" *ngIf="appointment.id > 0">
+                       <div class="col-md-8">
+                           <input class="form-check-input me-2" [(ngModel)]="appointment.isComplete" name="isComplete"
+                     type="checkbox" [value]="appointment.isComplete" id="employees{{appointment.isComplete}}">
+                   <label class="form-check-label" for="c-1">
+                      Booking Completed ? <small style="color: red;">This booking will be removed from your calender</small> 
+                   </label>
+                       </div>
+                   </div>
+               </div> 
+           </div> 
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button *ngIf="appointment.id == 0" type="button" class="btn btn-primary" (click)="bookAppointment()">Submit
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle" *ngIf="showLoader"></span>
+        </button>
+
+        <button *ngIf="appointment.id > 0" type="button" class="btn btn-primary" (click)="UpdateBookAppointment()">Update
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle" *ngIf="showLoader"></span>
+        </button>
+    </div>
+</ng-template>

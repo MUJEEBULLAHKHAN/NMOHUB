@@ -1,0 +1,91 @@
+<div class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack" [routerLink]="['../admin']">
+          <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+
+</div>
+
+<div class="row">
+<div class="col-xl-12">
+  <div class="card custom-card">
+    <div class="card-header justify-content-between">
+      <div class="card-title">
+        Roles
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <div>
+          <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+            (keyup)="updateFilter($event)" aria-label=".form-control-sm example">
+        </div>
+        <div ngbDropdown class="dropdown">
+          <div class="ml-auto margin-5px" (click)="RolePopUp()" *ngIf="user.jobTitle == 'Administrator' || user.jobTitle == 'Super Administrator'">
+            <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                class="fa fa-plus mr-1"></i> Add New</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table text-nowrap">
+          <thead>
+            <tr>
+              <th scope="col">Role</th>
+                <th scope="col">Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of roleList">
+              <td>{{item.name}}</td>
+              <td>
+                
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<ng-template #modalRolePopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">Add / Update</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <div class="row mb-3">
+      <div class="col-md-12  mb-3">
+        <div class="form-group text-start">
+          <label>Role Name <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="roleModel.name" class="form-control" placeholder="Role Name"
+            type="text" required #roleNameInput="ngModel">
+          <div *ngIf="roleNameInput.invalid && roleNameInput.touched">
+            <span class="text-danger">name is required.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" *ngIf="roleModel.id == ''" (click)="Submit()">Submit</button>
+        <button class="btn ripple btn-primary btn-block" *ngIf="roleModel.id != ''"
+          (click)="Update()">Update</button>
+
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

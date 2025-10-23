@@ -1,0 +1,96 @@
+<div id="div">
+  <div
+    class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+      <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack"
+        [routerLink]="['../admin']">
+        <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row-reverse bd-highlight mb-4">
+    <div>
+      <button class="btn" (click)="openModal()">
+        <i class="ri-add-line align-middle me-1 fw-medium d-inline-block"></i> Add New </button>
+    </div>
+  </div>
+
+  <div class="row my-4">
+    <div class="col-xl-12">
+      <div class="card custom-card">
+        <div class="card-header justify-content-between">
+          <div class="card-title">
+            Foreign Package
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+              *ngIf="showLoader"></span>
+
+          </div>
+        </div>
+
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table text-nowrap">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of foreignPackages">
+                  <td>{{ item.packageName }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>
+                    <a href="javascript:void(0);" (click)="editClosedOffice(item)">Edit</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #modalForeignPackage let-c="close" let-d="dismiss">
+    <div id="div">
+      <div class="modal-header">
+        <h6 class="modal-title">Add / Update Package</h6>
+      </div>
+
+      <div class="modal-body">
+        <div class="row mb-2">
+          <label>Name</label>
+          <input [(ngModel)]="foreignPackageModel.packageName" class="form-control" />
+        </div>
+
+        <div class="row mb-2">
+          <label>Description</label>
+          <input [(ngModel)]="foreignPackageModel.description" class="form-control" />
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button *ngIf="foreignPackageModel.id <= 0" class="btn" (click)="Save()">
+          Add
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="showLoader"></span>
+        </button>
+
+        <button *ngIf="foreignPackageModel.id > 0" class="btn" (click)="UpdateForeignPackage()">
+          Update
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="showLoader"></span>
+        </button>
+        <button class="btn btn-danger" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

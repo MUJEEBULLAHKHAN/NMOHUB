@@ -1,0 +1,111 @@
+<div id="div">
+  <div
+    class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+      <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack"
+        [routerLink]="['../admin']">
+        <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+  </div>
+
+
+  <div class="d-flex flex-row-reverse bd-highlight mb-4">
+    <div>
+      <button (click)="openModal()" class="btn">
+        <i class="ri-add-line align-middle me-1 fw-medium d-inline-block"></i> Add New </button>
+    </div>
+  </div>
+
+
+  <div class="container my-4">
+    <!-- <div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-success btn-sm" (click)="openModal()">
+      <i class="bi bi-plus-circle"></i> Add New
+    </button>
+  </div> -->
+
+    <div class="table-responsive" *ngIf="newsletters.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Created Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let n of newsletters">
+            <td>{{ n.title }}</td>
+            <td>{{ n.category }}</td>
+            <td>{{ n.createdDate | date : "dd-MM-yyyy HH:mm" }}</td>
+            <td>
+              <a href="javascript:void(0)" (click)="edit(n)">Edit</a> |
+              <a href="javascript:void(0)" class="text-danger" (click)="delete(n.newsletterId)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="!newsletters.length && !showLoader" class="text-muted">
+      No newsletters found.
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <ng-template #modalNewsletterPopUp let-c="close">
+    <div id="div">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          {{
+          newsletterModel.newsletterId === 0
+          ? "Add Newsletter"
+          : "Edit Newsletter"
+          }}
+        </h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mb-2">
+          <label>Title *</label>
+          <input [(ngModel)]="newsletterModel.title" class="form-control" placeholder="Enter title" />
+        </div>
+        <div class="form-group mb-2">
+          <label>Title Arabic</label>
+          <input [(ngModel)]="newsletterModel.titleArabic" class="form-control" placeholder="Enter Arabic title" />
+        </div>
+        <!-- <div class="form-group mb-2">
+      <label>Content *</label>
+      <textarea [(ngModel)]="newsletterModel.content" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="form-group mb-2">
+      <label>Content Arabic</label>
+      <textarea [(ngModel)]="newsletterModel.contentArabic" class="form-control" rows="3"></textarea>
+    </div> -->
+        <div class="form-group mb-2">
+          <label>Content *</label>
+          <angular-editor [(ngModel)]="newsletterModel.content" [config]="editorConfig" class="form-control">
+          </angular-editor>
+        </div>
+
+        <div class="form-group mb-2">
+          <label>Content Arabic</label>
+          <angular-editor [(ngModel)]="newsletterModel.contentArabic" [config]="editorConfig" class="form-control">
+          </angular-editor>
+        </div>
+
+        <div class="form-group mb-2">
+          <label>Category</label>
+          <input [(ngModel)]="newsletterModel.category" class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" (click)="save()">
+          {{ newsletterModel.newsletterId === 0 ? "Submit" : "Update" }}
+        </button>
+        <button class="btn btn-danger" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

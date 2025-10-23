@@ -1,0 +1,401 @@
+<div class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack" [routerLink]="['../admin']">
+          <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+
+</div>
+
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Vendor List
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div>
+            <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+              (keyup)="updateFilter($event)" aria-label=".form-control-sm example">
+          </div>
+          <div ngbDropdown class="dropdown">
+            <div class="ml-auto margin-5px" (click)="AddCompanyPopUp()">
+              <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                  class="fa fa-plus mr-1"></i> Add New</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Branch Name</th>
+                <th scope="col">Company Type</th>
+                <th scope="col">Telephone</th>
+                <th scope="col">Fax No</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">External Email</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of companyBranchList">
+                <td>
+                  <span *ngIf="item.branchName.length > 15" title="{{item.branchName}}">{{ item.branchName |
+                    slice:0:15}} ...</span>
+                  <span *ngIf="item.branchName.length < 15">{{item.branchName}}</span>
+                </td>
+                <td>{{item.companyTypeDescription}}</td>
+                <td>{{item.telephone}}</td>
+                <td>{{item.faxNo}}</td>
+                <td>{{item.emailAddress}}</td>
+                <td>
+                  <a href="javascript:void(0);" (click)="GetExternalEmailByCompanyBranchId(item.companyBranchId)">View</a>
+                </td>
+                <td>
+                  <a href="javascript:void(0);" (click)="EditBranchCompany(item)">Edit</a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <!-- <div class="d-flex align-items-center">
+          <div> Showing 6 Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i> </div>
+          <div class="ms-auto">
+            <nav aria-label="Page navigation" class="pagination-style-4">
+              <ul class="pagination mb-0">
+                <li class="page-item disabled"> <a class="page-link" href="javascript:void(0);"> Prev </a> </li>
+                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                <li class="page-item"> <a class="page-link text-primary" href="javascript:void(0);"> next </a> </li>
+              </ul>
+            </nav>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalAddCompanyPopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">Add / Update</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Branch Name <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="companyBranchModel.branchName" class="form-control"
+            placeholder="Enter company Name Number" type="text" required #companyNameInput="ngModel">
+          <div *ngIf="companyNameInput.invalid && companyNameInput.touched">
+            <span class="text-danger">Company Name is required.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Company Type<span class="text-danger">*</span></label>
+          <span style="float: right;">Add New <a href="javascript:;" (click)="AddNewCompanyType()"><i
+                class="bi bi-plus" style="color:green;font-weight: bold;font-size: larger;"></i></a></span>
+          <select class="form-control col-md-12" [(ngModel)]="companyBranchModel.companyTypeId" id="CompanyTypeId"
+            name="CompanyTypeId" required #CompanyTypeIdSelect="ngModel">
+            <option *ngFor="let item of CompanyTypeList" [value]="item.id">{{item.companyTypeDescription}}
+            </option>
+          </select>
+          <div *ngIf="CompanyTypeIdSelect.invalid && CompanyTypeIdSelect.touched">
+            <span class="text-danger">company selection is required.</span>
+          </div>
+          <div class="col-md-12" *ngIf="showCompanyTypeActionRow">
+            <input style="margin-top: 5px;" class="row form-control" type="text" #newCompanyType
+              id="companyTypeRefValue" />
+            <a href="javascript:;" (click)="submitNewCompanyType(newCompanyType.value)">save</a> |
+            <a href="javascript:;" (click)="cancelCompanyTypeAdd()">cancel</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Fax No <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="companyBranchModel.faxNo" class="form-control" placeholder="Enter Fax Number"
+            type="text" required #faxNoInput="ngModel">
+          <div *ngIf="faxNoInput.invalid && faxNoInput.touched">
+            <span class="text-danger">Fax No is required.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Contact Person <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="companyBranchModel.contactPerson" class="form-control"
+            placeholder="Enter Contact Person Number" type="text" required #contactPersonInput="ngModel">
+          <div *ngIf="contactPersonInput.invalid && contactPersonInput.touched">
+            <span class="text-danger">Contact Person is required.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Email Address <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="companyBranchModel.emailAddress" class="form-control"
+            placeholder="Enter Email Address Number" type="text" required #emailAddressInput="ngModel">
+          <div *ngIf="emailAddressInput.invalid && emailAddressInput.touched">
+            <span class="text-danger">Email Address is required.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>FullStreet Address</label>
+          <input matInput [(ngModel)]="companyBranchModel.fullStreetAddress" class="form-control"
+            placeholder="Enter FullStreet Address" type="text" required #fullStreetAddressInput="ngModel">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Street Name</label>
+          <input matInput [(ngModel)]="companyBranchModel.streetAddressName" class="form-control"
+            placeholder="Enter Street Name" type="text" required #streetNameInput="ngModel">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Street No</label>
+          <input matInput [(ngModel)]="companyBranchModel.streetAddressNo" class="form-control"
+            placeholder="Enter Street No" type="text" required #streetNoInput="ngModel">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Suburb</label>
+          <input matInput [(ngModel)]="companyBranchModel.addressPlace" class="form-control"
+            placeholder="Enter Suburb" type="text" required #suburbInput="ngModel">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>City</label>
+          <input matInput [(ngModel)]="companyBranchModel.addressTown" class="form-control"
+            placeholder="Enter City" type="text" required #cityInput="ngModel">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Postal Code</label>
+          <input matInput [(ngModel)]="companyBranchModel.addressCode" class="form-control"
+            placeholder="Enter Postal Code" type="text" required #postalCodeInput="ngModel">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Province</label>
+          <input matInput [(ngModel)]="companyBranchModel.province" class="form-control"
+            placeholder="Enter Province" type="text" required #provinceInput="ngModel">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+
+      <!-- <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Postal Place</label>
+          <input matInput [(ngModel)]="companyBranchModel.postalPlace" class="form-control"
+            placeholder="Enter Postal Place" type="text" required #postalPlaceInput="ngModel">
+        </div>
+      </div> -->
+      <!-- <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Postal Code</label>
+          <input matInput [(ngModel)]="companyBranchModel.postalCode" class="form-control"
+            placeholder="Enter Postal Code" type="text" required #postalCodeInput="ngModel">
+        </div>
+      </div> -->
+
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Vat No</label>
+          <input matInput [(ngModel)]="companyBranchModel.vatNo" class="form-control" placeholder="Enter Vat No"
+            type="text" required #vatNoInput="ngModel">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Telephone </label>
+          <input matInput [(ngModel)]="companyBranchModel.telephone" class="form-control"
+            placeholder="Enter Telephone Number" type="text" #telephoneInput="ngModel">
+        </div>
+      </div>
+
+      <div class="col-md-4">
+
+        <label class="form-label">Vat Exempt</label>
+          <div class="btn-group" role="group" aria-label="Basic"
+              style="width: -webkit-fill-available;">
+              <input type="radio" class="btn-check" name="isVatExempt" id="isVatExempt"
+              [value]="true" [(ngModel)]="companyBranchModel.isVatExempt">
+              <label class="btn btn-outline-primary" for="isVatExempt">Yes</label>
+
+              <input type="radio" class="btn-check" name="isVatExempt" id="isVatExempt1"
+              [value]="false" [(ngModel)]="companyBranchModel.isVatExempt">
+              <label class="btn btn-outline-primary" for="isVatExempt1">No &nbsp;</label>
+
+          </div>
+
+      </div>
+
+    </div>
+
+    <!-- <div class="row mb-3">
+     
+       <div class="col-md-4">
+        <div class="form-group text-start">
+          <label>Physical Address <span class="text-danger">*</span></label>
+          <p class="onoffswitch2 my-0">
+            <span>Yes</span>
+            <input type="radio" name="isPhysicalAddress" id="isPhysicalAddress"
+              [(ngModel)]="companyBranchModel.isPhysicalAddress" [value]="true">
+            <span>No</span>
+            <input type="radio" name="isPhysicalAddress" id="isPhysicalAddress"
+              [(ngModel)]="companyBranchModel.isPhysicalAddress" [value]="false">
+          </p>
+        </div>
+      </div> 
+
+      
+
+    </div> -->
+
+    <div class="row mb-3">
+      <div class="col-md-4" *ngIf="companyBranchModel.companyTypeId == 2">
+        <label class="form-label">OEM</label>
+        <div class="btn-group" role="group" aria-label="Basic"
+            style="width: -webkit-fill-available;">
+            <input type="radio" class="btn-check" name="isOem" id="isOem"
+            [value]="true" [(ngModel)]="companyBranchModel.isOem">
+            <label class="btn btn-outline-primary" for="isOem">Yes</label>
+
+            <input type="radio" class="btn-check" name="isOem" id="isOem1"
+            [value]="false" [(ngModel)]="companyBranchModel.isOem">
+            <label class="btn btn-outline-primary" for="isOem1">No &nbsp;</label>
+
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" *ngIf="companyBranchModel.companyBranchId == 0"
+          (click)="Submit()">Submit</button>
+        <button class="btn ripple btn-primary btn-block" *ngIf="companyBranchModel.companyBranchId != 0"
+          (click)="UpdateCompanyBranch()">Update</button>
+
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalExternalEmailPopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">External Emails</h6>
+  </div>
+  <div class="card-body padding-1rem">
+
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="form-group text-start">
+          <label> Email <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="externalCompanyEmailModel.emailAddress" class="form-control"
+            placeholder="Enter Email Address" type="text" required #externalEmailAddressInput="ngModel">
+          <div *ngIf="externalEmailAddressInput.invalid && externalEmailAddressInput.touched">
+            <span class="text-danger">Email Address is required.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row d-flex justify-content-end">
+      
+        <button class="btn ripple btn-primary btn-block w-auto" *ngIf="externalCompanyEmailModel.id == 0"
+          (click)="CreateExternalCompanyEmail()">Submit</button>
+        <button class="btn ripple btn-primary btn-block w-auto" *ngIf="externalCompanyEmailModel.id != 0"
+          (click)="UpdateExternalCompanyEmail()">Update</button>
+          <button class="btn btn-danger w-auto margin-left-5px" (click)="c('Close click')">Cancel</button>
+
+      
+      <!-- <div class="col-md-6">
+        <button class="btn btn-white w-auto" (click)="c('Close click')">Cancel</button>
+      </div> -->
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <!-- <h4 class="card-title">Product Summary</h4> -->
+          </div>
+          <div class="card-body pt-0 example1-table">
+            <div class="table-responsive">
+              <table class="table  table-bordered text-nowrap mb-0" id="example1">
+                <thead>
+                  <tr>
+                    <th class="text-center">Email</th>
+                    <th>Edit</th>
+                    <th *ngIf="user.jobTitle == 'Administrator'">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of externalCompanyEmailList">
+                    <td class="text-center">{{item.emailAddress}}</td>
+                    <td>
+                      <a href="javascript:void(0);" (click)="GetExternalEmailById(item)">Edit</a>
+                    </td>
+                    <td *ngIf="user.jobTitle == 'Administrator'">
+                      <a href="javascript:void(0);" (click)="DeleteExternalEmailById(item.id)">Delete</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+   
+  </div>
+</ng-template>

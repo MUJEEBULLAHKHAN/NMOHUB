@@ -1,0 +1,170 @@
+<div class="container mt-4">
+  <h3 class="medium">Closed Office Requests</h3>
+
+  <div *ngIf="showLoader" class="text-center my-4">
+    <div class="spinner-border" role="status"></div>
+  </div>
+<a href="javascript:;" (click)="generateReport()" class="btn ">Export Data</a>
+
+  <div class="table-responsive">
+    <table
+      class="table table-striped table-bordered"
+      *ngIf="!showLoader && closedOfficeRequests.length > 0"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th>Employee</th>
+          <th>Office Name</th>
+           <th>Office Sizes</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Price</th>
+          <!-- <th>Booking Type</th> -->
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of closedOfficeRequests">
+          <!-- <td>{{ req.closedOfficeRequestId }}</td> -->
+          <td>{{ req.firstNames }}</td>
+          <td>{{ req.closeOfficeName }}</td>
+          <td>{{ req.officeSizes }}</td>
+          <td>{{ req.startDate | date : "d/M/yyyy" }}</td>
+          <td>{{ req.endDate | date : "d/M/yyyy" }}</td>
+          <td>{{ req.price }}</td>
+          <!-- <td>{{ req.bookType }}</td> -->
+          <td>
+            <span [class]="req.status ? 'badge bg-danger' : 'badge bg-success'">
+              {{ req.status}}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="req.status === 'Submit'" type="submit" class="btn btn-primary m-1"
+              (click)="ApproveClosedOfficeRequest(req.closedOfficeRequestId)">
+              Accept
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="closedSpaceLoader"></span>
+            </button>
+
+            <button *ngIf="req.status == 'Approve'" type="submit" class="btn btn-primary m-1"
+              (click)="OpenDocumentModel(req)">
+              Upload Document
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="closedSpaceLoader"></span>
+            </button>
+
+            <br>
+
+            <button *ngIf="req.status == 'Approve' && req.status != 'Activate' " type="button" class="btn btn-primary m-1"
+              (click)="ActivateCoWorkingSpaceRequest(req.closedOfficeRequestId)">
+              Activate
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="closedSpaceLoader"></span>
+            </button>
+
+            <button *ngIf="req.status === 'Submit'" type="submit" class="btn btn-primary"
+              (click)="RejectClosedOfficeRequest(req.closedOfficeRequestId)">
+              Reject
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="closedSpaceLoader"></span>
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div
+    *ngIf="!showLoader && closedOfficeRequests.length === 0"
+    class="alert alert-warning"
+  >
+    No Closed Office Requests found.
+  </div>
+</div>
+
+<ng-template #documentModelPopUp let-modal>
+    <div class="modal-header">
+        <h6 class="modal-title">Upload New Document</h6>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeDocumentPopup()"></button>
+    </div>
+    <div class="modal-body px-4">
+        <div class="row">
+            <div class="col-xl-6 mb-2">
+                <label for="fromMail" class="form-label">Document Type </label>
+                <ng-select placeholder="Document Type" [(ngModel)]="documentType" data-trigger name="invoice-currency"
+                    id="invoice-currency">
+                    <ng-option *ngFor="let item of documentTypesList; let i = index"
+                        value="{{item.documentId}}">{{item.documentType}}</ng-option>
+                </ng-select>
+            </div>
+            <div class="col-xl-6 mb-2">
+                <label for="toMail" class="form-label">Choose File</label>
+                <input type="file" (change)="onFileSelected($event)" #fileInput>
+            </div>
+        </div>
+
+
+        <div class="p-3 file-folders-container">
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="table-responsive border border-bottom-0">
+                                    <table class="table text-nowrap table-hover">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th scope="col">Document Type</th> -->
+                                                <th scope="col">File Name</th>
+                                                <th scope="col">Date</th>
+                                                <!-- <th scope="col">Delete</th> -->
+                                                <!-- <th scope="col">Action</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody class="files-list">
+                                            <tr *ngFor="let data of documents; let i = index">
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div>
+                                                            <a href="{{APIURL}}{{data.documentUrl}}" target="_blank"
+                                                                title="{{data.name}}" data-bs-toggle="offcanvas"
+                                                                data-bs-target="#offcanvasRight"
+                                                                aria-controls="offcanvasRight">
+
+                                                                <span *ngIf="data.name.length > 50">{{data.name |
+                                                                    slice:0:15}}
+                                                                    ...</span>
+                                                                <span *ngIf="data.name.length <=50">{{data.name}}</span>
+
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                </td>
+                                                <td>{{data.createAt | date:'MM-dd-yyyy'}}</td>
+                                                <!-- <td>
+                                                    <a href="javascript:void(0);"
+                                                        >Delete</a>
+                                                </td> -->
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="UploadDocument()">
+            Upload
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="showLoader"></span>
+        </button>
+    </div>
+</ng-template>

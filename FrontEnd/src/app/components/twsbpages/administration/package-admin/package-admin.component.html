@@ -1,0 +1,190 @@
+<div
+  class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+  <div>
+    <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack"
+      [routerLink]="['../admin']">
+      <i class="bi bi-arrow-left-circle align-middle"></i> Back
+    </button>
+  </div>
+</div>
+
+<div class="row" id="div">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Package
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="showLoader"></span>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <!-- <div>
+            <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+              (keyup)="updateFilter($event)" aria-label=".form-control-sm example" />
+          </div>
+          <div ngbDropdown class="dropdown">
+            <div class="ml-auto margin-5px" (click)="PackagePopUp()">
+              <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                  class="fa fa-plus mr-1"></i> Add New
+                <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                  *ngIf="showLoader"></span>
+              </a>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Package Name</th>
+                <th scope="col">Price</th>
+
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of packageList">
+                <td>
+                  {{ item.name }}
+                </td>
+                <td>
+                  {{ item.price }}
+                </td>
+                <td>
+                  <a href="javascript:void(0);" (click)="EditPackage(item)">Edit</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer"></div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalPackagePopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">Add / Update</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <!-- <div class="row mb-3">
+      <div class="col-md-12">
+        <div class="form-group text-start">
+          <label>Service <span class="text-danger">*</span></label>
+          <select class="form-control col-md-12" [(ngModel)]="packageModel.serviceId" id="serviceId" name="serviceId"
+            required #serviceIdSelect="ngModel">
+            <option *ngFor="let item of serviceList" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <div *ngIf="serviceIdSelect.invalid && serviceIdSelect.touched">
+            <span class="text-danger">Service selection is required.</span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <div class="form-group text-start">
+          <label>Package Name <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="packageModel.name" class="form-control" placeholder="Enter Package Name"
+            type="text" required #name="ngModel" />
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="form-group text-start">
+          <label>Price <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="packageModel.price" class="form-control" placeholder="Enter Price" type="number"
+            required #priceInput="ngModel" />
+
+          <div *ngIf="priceInput.invalid && priceInput.touched">
+            <span class="text-danger">price is required.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Meeting Access Room Consume</label>
+        <input [(ngModel)]="packageModel.meetingAccessRoomConsume" type="number" class="form-control"
+          placeholder="Enter Meeting Access Room Consume" />
+      </div>
+      <div class="col-md-6 mb-3">
+        <label>Billing Package</label>
+        <select class="form-control col-md-12" [(ngModel)]="packageModel.billingPackage" id="billingPackage"
+          name="billingPackage" required #serviceIdSelect="ngModel">
+          <option [value]="'Montly'">
+            Montly
+          </option>
+
+          <option [value]="'Quarterly'">
+            Quarterly
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Office Address</label>
+        <textarea
+            [(ngModel)]="packageModel.officeAddress"
+            class="form-control"
+            rows="2"
+            placeholder="Office Address"
+          ></textarea>
+        <!-- <input [(ngModel)]="packageModel.officeAddress" type="text" class="form-control" placeholder="Office Address" /> -->
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label>Features</label>
+        <textarea
+            [(ngModel)]="packageModel.features"
+            class="form-control"
+            rows="2"
+            placeholder="Features"
+          ></textarea>
+        <!-- <input [(ngModel)]="packageModel.features" type="text" class="form-control" placeholder="Features" /> -->
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label>Package Validity In Month</label>
+        <input [(ngModel)]="packageModel.packageValidityInMonth" type="number" class="form-control"
+          placeholder="Enter Daily Hours" />
+      </div>
+    </div>
+
+     <div class="form-group mb-2">
+          <label style="color: red;font-weight: bold;">Note:- Please Add Features On Separator Comma</label>
+          <!-- <textarea
+            formControlName="description"
+            class="form-control"
+            rows="2"
+          ></textarea> -->
+        </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" *ngIf="packageModel.packageId == 0" (click)="Submit()">
+          Submit
+        </button>
+        <button class="btn ripple btn-primary btn-block" *ngIf="packageModel.packageId != 0" (click)="UpdatePackage()">
+          Update
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

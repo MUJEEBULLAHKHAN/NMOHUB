@@ -1,0 +1,31 @@
+.disabled-form {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.slot-card {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.slot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-color: #0d6efd;
+}
+
+.slot-card.selected {
+  border-color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+.alert {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.6em;
+}

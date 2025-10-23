@@ -1,0 +1,73 @@
+<div class="multi-step-container">
+  <div class="form-card">
+   
+
+    <!-- Form Header -->
+    <div class="form-header">
+      <h1 class="form-title"> Login </h1>
+    </div>
+
+    <!-- Form Content -->
+
+    <div class="form-content">
+      <!-- Step 1: Personal Data -->
+      <div id="step-1-content" class="step-content">
+         <div class="form-field">
+          <div class="input-group ">
+            <span class="input-group-text label-group"><label for="fullName" class="form-label mb-0 ">Email</label></span>
+            <input  type="text" id="fullName" [(ngModel)]="authentication.emailAddress"
+               class="form-control form-input custom-input" placeholder="Enter your Email" />
+            <span class="input-group-text icon-group"> 
+              <ng-container *ngIf="authentication.emailAddress; else empty">
+                <i class="bi bi-check-lg"></i>
+              </ng-container>
+              <ng-template #empty></ng-template>
+            </span>
+            </div>
+            <div id="email-error" class="error-message"></div>
+        </div>
+          <div class="form-field">
+          <div class="input-group ">
+            <span class="input-group-text label-group"><label  for="Password" class="form-label mb-0 ">Password</label></span>
+            <input  type="password" id="Password" [(ngModel)]="authentication.password"
+               class="form-control form-input custom-input" placeholder="Enter Password" />
+            <span class="input-group-text icon-group"> 
+              <ng-container *ngIf="authentication.password; else empty">
+                <i class="bi bi-check-lg"></i>
+              </ng-container>
+              <ng-template #empty></ng-template>
+            </span>
+            </div>
+            <div id="email-error" class="error-message"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="form-navigation">
+
+      <button type="button" id="next-btn" class="nav-button next-button" (click)="login()">
+        Login
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+        <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle" *ngIf="showLoader"></span>
+      </button>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="form-footer">
+      <p class="footer-text">
+        Already have an account?
+        <a href="/customer-register" class="footer-link">Sign Up</a>
+      </p>
+            <p class="footer-text">
+        Go To Home
+        <a href="/home" class="footer-link">Home</a>
+      </p>
+    </div>
+  </div>
+</div>

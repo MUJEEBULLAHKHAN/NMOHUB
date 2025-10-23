@@ -1,0 +1,1285 @@
+<!-- Start Service 1 ::row-1 -->
+<div *ngIf="serviceId == 1">
+    <div class="row">
+
+        <div class="col-lg-4" *ngIf="serviceId == 1">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Personal Data
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Email ID</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ userRegisterModel.emailAddress}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.fullName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Date Of Birth</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.dateOfBirth | date : 'dd-MM-yyyy' }}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Mobile Number</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.mobileNumber}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">LinkedIn</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.linkedInProfileLink}}
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Country</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.countryName}}
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="serviceId == 1">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Project Details
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Project Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ requestModel.projectName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Current Phase of the Project</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{projectPhase.name}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">FollowUp Start</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.followUpStart | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">FollowUp End</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.followUpEnd | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Program Start</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.programStarted | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Start End</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.programEnd | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Project Area</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            {{projectArea?.name}}
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Accelerator Programs </label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            <span *ngIf="requestModel?.alreadyParticipatedProgram">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!requestModel?.alreadyParticipatedProgram">
+                                No
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="requestModel?.alreadyParticipatedProgram"
+                        class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Incubator Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            {{serviceRequestDetails.otherProgramAttend?.incubatorName}}
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="requestModel?.alreadyParticipatedProgram"
+                        class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Incubator Details</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{serviceRequestDetails.otherProgramAttend?.incubatorName}}
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Brief Description</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.briefDescription}}
+                        </div>
+                    </div>
+
+                    <!-- <table class="table borderless">
+                        <tr>
+                            <td style="text-align: left;padding: 0px;">Hope Achieve</td>
+                            <td style="text-align: right;padding: 0px;">
+                                {{requestModel?.hopeAchieve}}
+                            </td>
+                        </tr>
+
+                    </table> -->
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="serviceId == 1">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Additional Information
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">IS Partner</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            <span *ngIf="requestModel?.isPartnerAvailable">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!requestModel?.isPartnerAvailable">
+                                No
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="requestModel?.isPartnerAvailable"
+                        class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Paartner Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            {{serviceRequestDetails.partner?.partnerName}}
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="requestModel?.isPartnerAvailable"
+                        class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Partner Role</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{serviceRequestDetails.partner?.role}}
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Is Business Plan</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <span *ngIf="requestModel?.isWrittenBusinessPlan">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!requestModel?.isWrittenBusinessPlan">
+                                No
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Program End</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.programEnd}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Brief Description</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.briefDescription}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Is Evaluate</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            <span *ngIf="requestModel?.isEvaluate">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!requestModel?.isEvaluate">
+                                No
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Is Partner Available</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            <span *ngIf="requestModel?.isPartnerAvailable">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!requestModel?.isPartnerAvailable">
+                                No
+                            </span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Hope Achieve</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.hopeAchieve}}
+                        </div>
+                    </div>
+
+                    <table class="table borderless">
+                        <tr>
+                            <td style="text-align: left;padding: 0px;">Supports Needs</td>
+                            <td style="text-align: right;padding: 0px;">
+                                {{requestModel?.supportsNeeds}}
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--End Service 1::row-1 -->
+
+
+
+
+
+
+<!-- Start Service 2 ::row-1 -->
+<div *ngIf="serviceId == 2">
+    <div class="row">
+
+        <div class="col-lg-4" *ngIf="serviceId == 2">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Personal Data
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Email ID</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ userRegisterModel.emailAddress}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.fullName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Mobile Number</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.mobileNumber}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="serviceId == 2">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Timeline & Budget
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Desired Launch Date</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ requestModel?.desiredLaunchDate | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Estimated Budget (SAR)</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.estimatedBudget}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">FollowUp Start</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.followUpStart | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">FollowUp End</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.followUpEnd | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Program Start</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.programStarted | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Program End</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel?.programEnd | date : 'dd-MM-yyyy'}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="serviceId == 2">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Project & Tech Specs
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Project Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ requestModel.projectName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Project Description</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel.projectDescription}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Desired Tech Stack</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+
+                            <p title="{{requestModel.desiredTechStack}}">
+                                {{requestModel.desiredTechStack | slice:0:20}} ...</p>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">UI Mockups Uploaded</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <span *ngIf="requestModel?.uiMockupsUploaded">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!requestModel?.uiMockupsUploaded">
+                                No
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Prototype Link</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            {{requestModel?.prototypeLink}}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--End Service 2::row-1 -->
+
+
+
+<!-- Start Service 3 ::row-1 -->
+<div *ngIf="serviceId == 3">
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Personal Data
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Email ID</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ userRegisterModel.emailAddress}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.fullName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Mobile Number</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.mobileNumber}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Organization </label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.mobileNumber}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Country of Residence</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.countryName}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Project & Tech Specs
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Project Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ feasibilityRequestDetails.requestModel.projectName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Industry Sector</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{feasibilityRequestDetails.requestModel.industrySector}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Estimated Budget</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+
+                            {{feasibilityRequestDetails.requestModel.estimatedBudget}}
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Study Objectives</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{feasibilityRequestDetails.requestModel.studyObjectives}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Key Assumptions</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <p title="{{feasibilityRequestDetails.requestModel.keyAssumptions}}">
+                                {{feasibilityRequestDetails.requestModel.keyAssumptions | slice:0:20}} ...</p>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Do You Have Market Research Doc</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+                            <span *ngIf="feasibilityRequestDetails.requestModel?.hasMarketResearch">
+                                Yes
+                            </span>
+
+                            <span *ngIf="!feasibilityRequestDetails.requestModel?.hasMarketResearch">
+                                No
+                            </span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--End Service 3::row-1 -->
+
+
+<!-- Start Service 4 ::row-1 -->
+<div *ngIf="serviceId == 4">
+    <div class="row">
+
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Founder Details
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Email ID</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ userRegisterModel.emailAddress}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.fullName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Mobile Number</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.mobileNumber}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">LinkedIn Profile </label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{userRegisterModel.linkedInProfileLink}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Prior Programs</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel.priorPrograms}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">programs List</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel.priorProgramList}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Startup Information
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Startup Name</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{ requestModel.startupName}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Current Stage</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel.currentStage}}
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Team Size</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+
+
+                            {{requestModel.teamSize}}
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Main Problem You Solve</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <p title="{{requestModel.problemSolved}}">
+                                {{requestModel.problemSolved | slice:0:20}} ...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">
+                        Goals & Commitment
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-left justify-content-between mb-4">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+                                <!-- <div class="min-w-fit-content">
+                                        <span class="avatar bg-primary rounded-circle"><i class="ti ti-home fs-16"></i></span>
+                                    </div> -->
+
+                                <h6 class="fs-16 mb-0 fw-semibold">
+                                    <!-- Incubation Program -->
+                                </h6>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <!-- <div class="btn btn-sm btn-light btn-icon border">
+                                <a href="javascript:;" (click)="editVehicle()"> <i class="ri-edit-line"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">What do you hope to achieve?</label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            <p title="{{requestModel.hopeAchieve}}">
+                                {{requestModel.hopeAchieve | slice:0:20}} ...</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-left justify-content-between mb-2">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-left gap-2">
+
+                                <label class="fs-14 mb-0">Availability </label>
+                            </div>
+                        </div>
+                        <div class="min-w-fit-content">
+                            {{requestModel.availability}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!--End Service 4::row-1 -->
+<!-- Start Service 5 ::row-1 -->
+<div *ngIf="serviceId == 9">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">Personal Data</div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-2"><b>Name:</b> {{ userRegisterModel?.fullName }}</div>
+                    <div class="mb-2"><b>Email:</b> {{ userRegisterModel?.emailAddress }}</div>
+                    <div class="mb-2"><b>Mobile:</b> {{ userRegisterModel?.mobileNumber }}</div>
+                    <div class="mb-2"><b>Country:</b> {{ userRegisterModel?.countryName }}</div>
+                    <div class="mb-2"><b>Date of Birth:</b> {{ userRegisterModel?.dateOfBirth | date:'mediumDate' }}</div>
+                    <div class="mb-2"><b>LinkedIn:</b> {{ userRegisterModel?.linkedInProfileLink }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <div class="card-title flex-grow-1">Other Details</div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-2"><b>Business Description:</b> {{ requestModel?.businessDescription }}</div>
+                    <div class="mb-2"><b>Created At:</b> {{ requestModel?.createdAt | date:'medium' }}</div>
+                    <div class="mb-2"><b>Current Stage:</b> {{ requestModel?.currentStage }}</div>
+                    <div class="mb-2"><b>Target Industries:</b> {{ requestModel?.targetIndustries }}</div>
+                    <div class="mb-2"><b>Timeframe:</b> {{ requestModel?.timeframe }}</div>
+                    <div class="mb-2"><b>Other Industry Details:</b> {{ requestModel?.otherIndustryDetails }}</div>
+                    <div class="mb-2"><b>Other Stage Details:</b> {{ requestModel?.otherStageDetails }}</div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
+<!--End Service 5::row-1 -->
+<!-- End Service Details -->
+ 

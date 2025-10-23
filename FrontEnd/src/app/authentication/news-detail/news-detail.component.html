@@ -1,0 +1,221 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/animate.css" />
+  <!-- <link rel="stylesheet" href="./assets/staticwebsite/css/animate.css"> -->
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/icomoon.css" />
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/bootstrap.css" />
+
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/magnific-popup.css" />
+
+  <!-- Theme style  -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/style.css" />
+
+  <!-- Modernizr JS -->
+  <script src="../home-customer1/assets/staticwebsite/js/modernizr-2.6.2.min.js"></script>
+  <!-- <script src="./assets/js/modernizr-2.6.2.min.js"></script> -->
+</head>
+
+<body>
+
+  <div class="container py-5 mt-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small bg-transparent px-0 py-1">
+        <li class="breadcrumb-item"><a [routerLink]="['/news']">News</a></li>
+        <li class="breadcrumb-item active text-primary" aria-current="page">
+          {{ slug }}
+        </li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- Blog Content -->
+      <div class="col-lg-12">
+        <h2 class="fw-bold mb-3">The Future Of Fintech: Trends For 2025</h2>
+        <div class="d-flex align-items-center mb-3 ">
+          <img src="https://i.pravatar.cc/32?img=1" class="rounded-circle me-2" width="32" height="32" />
+          <span>Author Name &nbsp;•&nbsp; 24 January 2025</span>
+        </div>
+        <img src="https://nmohub.com.sa/en/wp-content/uploads/sites/2/2025/01/image16.png" class="rounded-4 w-100 mb-4"
+          style="max-height: 600px; object-fit: cover" alt="Blog Main" />
+      </div>
+      <div class="col-lg-8">
+        <p class="mb-4">
+          In a promising step to support innovation in Saudi Arabia,
+        </p>
+
+        <h4 class="fw-semibold mb-2">“NmoHub”</h4>
+        <p class="mb-2">
+          We at “NmoHub” Incubator and Accelerator are pleased to announce the
+          signing of a cooperation agreement with the Ministry of Industry and
+          Mineral Resources to launch the “Innovative Industrial and Mining
+          Products Program.”
+        </p>
+        <p class="mb-2">
+          This program aims to enhance the success of innovators in the
+          industrial and mining sectors, providing comprehensive services
+          throughout the innovators’ journey from idea to production and export.
+        </p>
+        <p class="mb-4">
+          Together, we will create a pioneering model for a national industry
+          that competes globally.
+        </p>
+
+        <h4 class="fw-bold mt-5 mb-2">How Paynext is Leading the Charge</h4>
+        <p class="mb-5">
+          Paynext is pioneering the application of these trends...
+        </p>
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="https://nmohub.com.sa/en/wp-content/uploads/sites/2/2025/01/image16.png"
+              class="rounded-4 w-100 mb-4" style="max-height: 600px; object-fit: cover" alt="Blog Main" />
+          </div>
+          <div class="col-lg-6">
+            <img src="https://nmohub.com.sa/en/wp-content/uploads/sites/2/2025/01/image16.png"
+              class="rounded-4 w-100 mb-4" style="max-height: 600px; object-fit: cover" alt="Blog Main" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <!-- Latest Posts -->
+        <div class="mb-5">
+          <h4 class="fw-semibold mb-3">Latest Post</h4>
+
+          <div class="d-flex flex-column gap-3">
+            <div *ngFor="let news of latestNews" class="d-flex">
+              <img [src]="news.img" class="rounded-2 me-3" style="height: 64px; min-width: 64px" alt="News image" />
+              <div>
+                <p class="mb-1 fw-semibold lh-base">{{ news.title }}</p>
+                <span class="text-muted small">{{ news.date }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="mb-5">
+          <h4 class="fw-semibold mb-3">Categories</h4>
+          <div class="d-flex flex-wrap gap-2" id="category">
+            <span class="badge bg-light text-dark">Fintech</span>
+            <span class="badge bg-light text-dark">Finance Tips</span>
+            <span class="badge bg-light text-dark">Security</span>
+            <span class="badge bg-light text-dark">Budgeting</span>
+            <span class="badge bg-light text-dark">Technology</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <!-- <div class="mb-5">
+        <h6 class="fw-semibold mb-3">Popular Tags</h6>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge bg-secondary-subtle text-primary-emphasis">#FintechTrends</span>
+          <span class="badge bg-secondary-subtle text-primary-emphasis">#DigitalPayments</span>
+          <span class="badge bg-secondary-subtle text-primary-emphasis">#BudgetTips</span>
+          <span class="badge bg-secondary-subtle text-primary-emphasis">#AIinFinance</span>
+          <span class="badge bg-secondary-subtle text-primary-emphasis">#SecureTransactions</span>
+        </div>
+      </div> -->
+
+        <!-- Social Media -->
+        <div>
+          <h4 class="fw-semibold mb-3">Social Media</h4>
+          <div class="d-flex gap-3">
+            <a href="#"><i class="bi bi-facebook fs-5 text-muted"></i></a>
+            <a href="#"><i class="bi bi-twitter-x fs-5 text-muted"></i></a>
+            <a href="#"><i class="bi bi-instagram fs-5 text-muted"></i></a>
+            <a href="#"><i class="bi bi-linkedin fs-5 text-muted"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer id="fh5co-footer" role="contentinfo" class="border-top">
+    <div class="container">
+      <div class="row row-pb-md">
+        <div class="col-md-4 fh5co-widget">
+          <h3>NMO HUB.</h3>
+          <p class="mb-1">
+            <i class="bi bi-telephone-fill me-2"></i><span i18n>0116220200 | 0503522288</span>
+          </p>
+
+          <p class="mb-1">
+            <i class="bi bi-calendar3 me-2"></i><span i18n>Sunday–Thursday, 9 AM–5 PM</span>
+          </p>
+          <p>
+            <i class="bi bi-envelope-fill me-2"></i><a href=""><span i18n>info"&#64;"nmohub.com.sa</span></a>
+          </p>
+          <p>
+            <i class="bi bi-geo-alt-fill me-2"></i><span i18n>Al Malqa, Imam Saud bin Faisal Road,<br />
+              Riyadh, Saudi Arabia
+            </span>
+          </p>
+          <p>
+            Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia
+            reprehenderit. Eos cumque dicta adipisci architecto culpa amet.
+          </p>
+          <p><a href="javascript:void(0);">Learn More</a></p>
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+          <ul class="fh5co-footer-links">
+            <li><a href="javascript:void(0);">About</a></li>
+            <li><a href="javascript:void(0);">Programs</a></li>
+            <li><a href="javascript:void(0);">Register</a></li>
+            <!-- <li><a href="javascript:void(0);">Terms</a></li>
+              <li><a href="javascript:void(0);">Meetups</a></li> -->
+          </ul>
+        </div>
+
+        <!-- <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+            <ul class="fh5co-footer-links">
+              <li><a href="javascript:void(0);">Shop</a></li>
+              <li><a href="javascript:void(0);">Privacy</a></li>
+              <li><a href="javascript:void(0);">Testimonials</a></li>
+              <li><a href="javascript:void(0);">Handbook</a></li>
+              <li><a href="javascript:void(0);">Held Desk</a></li>
+            </ul>
+          </div> -->
+
+        <!-- <div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1">
+            <ul class="fh5co-footer-links">
+              <li><a href="javascript:void(0);">Find Designers</a></li>
+              <li><a href="javascript:void(0);">Find Developers</a></li>
+              <li><a href="javascript:void(0);">Teams</a></li>
+              <li><a href="javascript:void(0);">Advertise</a></li>
+              <li><a href="javascript:void(0);">API</a></li>
+            </ul>
+          </div> -->
+      </div>
+
+      <div class="row copyright">
+        <div class="col-md-12 text-center">
+          <p>
+            <small class="block">&copy; 2025 NmoHub. All Rights Reserved.</small>
+          </p>
+
+          <ul class="fh5co-social-icons">
+            <li>
+              <a href="javascript:void(0);"><i class="icon-twitter"></i></a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"><i class="icon-facebook"></i></a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"><i class="icon-linkedin"></i></a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"><i class="icon-dribbble"></i></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>

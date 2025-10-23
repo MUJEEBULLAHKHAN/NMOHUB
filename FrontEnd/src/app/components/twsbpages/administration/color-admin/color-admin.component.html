@@ -1,0 +1,50 @@
+<div class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack" [routerLink]="['../admin']">
+          <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+
+</div>
+
+
+<div class="row">
+  <div style="width: 50%; height: 50%; float:left;">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table text-nowrap">
+          <tbody>
+          <tr>
+              <td><b>Color List</b></td>
+              <td style="text-align: right;border-right: 1px solid">
+                <!-- Add New <a href="javascript:;" (click)="AddNewColor()"><i class="fas fa-plus fa-fw" style="color:green"></i></a> -->
+                <a href="javascript:;" (click)="AddNewColor()" class="btn btn-success btn-sm btn-rounded pl-2 pr-3">
+                  <i class="fa fa-plus mr-1"></i> Add New</a>
+               </td>
+          </tr>
+          <tr>
+              <td colspan="2" style="border-right: 1px solid"><input class="header-search-bar form-control" type="text" placeholder="search..."  (keyup)="searchColorList($event)"></td>
+              
+          </tr>
+          <tr *ngIf="showColorActionRow">
+            
+            <td>
+              <input type="text" placeholder="Add Color Name" class="header-search-bar form-control" #modelColorName id="uniqueRefValue"/>
+            </td>
+            <td>
+              <a href="javascript:;" (click)="submitNewColor(modelColorName.value)">save</a> | 
+              <a href="javascript:;" (click)="cancelColorAdd()">cancel</a>
+            </td>
+        </tr>
+             <tr *ngFor="let make of colorList">
+                 <td >{{make.colorName}}</td>
+                 <td></td>
+             </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  </div>
+
+</div>

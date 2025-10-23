@@ -1,0 +1,142 @@
+<div class="container mt-4">
+    <h2>Generate Day-wise Availability Slots</h2>
+
+    <!-- Loading State for Experts -->
+    <div *ngIf="isLoading" class="text-center py-3">
+        <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading experts...</span>
+        </div>
+        <span class="ms-2">Loading experts...</span>
+    </div>
+
+    <form *ngIf="!isLoading" [formGroup]="availabilityForm" (ngSubmit)="onSubmit()" class="mt-4">
+
+        <!-- Expert Selection -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <!-- <label for="expertId" class="form-label">Select Expert *</label>
+                <select class="form-select" id="expertId" formControlName="expertId"
+                    [class.is-invalid]="availabilityForm.get('expertId')?.invalid && availabilityForm.get('expertId')?.touched">
+                    <option value="">Select an expert</option>
+                    <option *ngFor="let expert of experts" [value]="expert.expertID">
+                        {{ expert.fullName }} (ID: {{ expert.expertID }})
+                    </option>
+                </select>
+                <div *ngIf="availabilityForm.get('expertId')?.invalid && availabilityForm.get('expertId')?.touched"
+                    class="invalid-feedback">
+                    Please select an expert
+                </div> -->
+            </div>
+
+            <div class="col-md-6">
+                <label for="slotDate" class="form-label">Date *</label>
+                <input type="date" class="form-control" id="slotDate" formControlName="slotDate"
+                    [min]="formatDate(today)"
+                [class.is-invalid]="availabilityForm.get('slotDate')?.invalid &&
+                availabilityForm.get('slotDate')?.touched">
+                <div *ngIf="availabilityForm.get('slotDate')?.invalid && availabilityForm.get('slotDate')?.touched"
+                    class="invalid-feedback">
+                    Date is required
+                </div>
+            </div>
+        </div>
+
+        <!-- Availability Type -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label">Availability Type *</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="isPhysical" formControlName="isPhysical">
+                    <label class="form-check-label" for="isPhysical">Physical</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="isVirtual" formControlName="isVirtual">
+                    <label class="form-check-label" for="isVirtual">Virtual</label>
+                </div>
+                <div *ngIf="!availabilityForm.get('isPhysical')?.value && !availabilityForm.get('isVirtual')?.value && availabilityForm.touched"
+                    class="text-danger small mt-1">
+                    Please select at least one availability type
+                </div>
+            </div>
+        </div>
+
+        <!-- Time Slots -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label">Time Slots *</label>
+                <div formArrayName="timeSlots" class="time-slots-container">
+                    <div *ngFor="let timeSlot of timeSlots.controls; let i = index" [formGroupName]="i"
+                        class="row mb-2 align-items-center">
+                        <div class="col-md-4">
+                            <input type="time" class="form-control" [formControlName]="'startTime'"
+                                [class.is-invalid]="timeSlot.get('startTime')?.invalid && timeSlot.get('startTime')?.touched">
+                            <div *ngIf="timeSlot.get('startTime')?.invalid && timeSlot.get('startTime')?.touched"
+                                class="invalid-feedback">
+                                Valid time is required
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-outline-danger" (click)="removeTimeSlot(i)"
+                                [disabled]="timeSlots.length === 1">
+                                <i class="bi bi-trash"></i> Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-primary mt-2" (click)="addTimeSlot()">
+                    <i class="bi bi-plus-circle"></i> Add Time Slot
+                </button>
+            </div>
+        </div>
+
+        <!-- Submit Buttons -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary me-2" [disabled]="isSubmitting">
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                    Generate Slots
+                </button>
+                <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">Reset Form</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Response Message -->
+    <div *ngIf="responseMessage" class="alert mt-3" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
+        {{ responseMessage }}
+    </div>
+
+    <!-- Generated Slots -->
+    <div *ngIf="generatedSlots.length > 0" class="mt-4">
+        <h3>Generated Availability Slots</h3>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <!-- <th>Expert</th> -->
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let slot of generatedSlots">
+                        <!-- <td>{{ getExpertName(slot.expertId) }}</td> -->
+                        <td>{{ slot.availableSlotDate | date }}</td>
+                        <td>{{ formatTime(slot.startTime) }}</td>
+                        <td>{{ formatTime(slot.endTime) }}</td>
+                        <td>
+                            <span *ngIf="slot.isPhysical" class="badge bg-primary me-1">Physical</span>
+                            <span *ngIf="slot.isVirtual" class="badge bg-info">Virtual</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-success">{{ slot.status }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

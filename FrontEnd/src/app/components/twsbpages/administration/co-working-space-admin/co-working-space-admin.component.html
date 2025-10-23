@@ -1,0 +1,68 @@
+<div
+  class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+  <div>
+    <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack"
+      [routerLink]="['../admin']">
+      <i class="bi bi-arrow-left-circle align-middle"></i> Back
+    </button>
+  </div>
+</div>
+
+<div class="row" id="div">
+  <div class="col-12 col-md-6">
+    <div class="container mt-3">
+      <h3>Co Working Space Admin</h3>
+      <form [formGroup]="coWorkingSpaceForm" (ngSubmit)="updateCoWorkingSpaceForm()">
+        <div class="form-group mb-2">
+          <label>Price</label>
+          <input formControlName="price" type="number" class="form-control" />
+          <div class="text-danger" *ngIf="hasError('price', 'required')">
+            Price is required.
+          </div>
+          <div class="text-danger" *ngIf="hasError('price', 'min')">
+            Price must be greater than 0.
+          </div>
+        </div>
+
+
+        <div class="form-group mb-2">
+          <label>Quantity</label>
+          <input formControlName="totalQuantity" type="number" class="form-control" />
+          <div class="text-danger" *ngIf="hasError('totalQuantity', 'required')">
+            Quantity is required.
+          </div>
+          <div class="text-danger" *ngIf="hasError('totalQuantity', 'min')">
+            Quantity must be greater than 0.
+          </div>
+        </div>
+
+        <div class="form-group mb-2">
+          <label>Desk Type</label>
+          <select class="form-control" formControlName="deskType" id="deskType" name="deskType" required>
+            <option value="Shared workspace" style="color: black;"> Shared workspace </option>
+          </select>
+          <div class="text-danger" *ngIf="hasError('deskType', 'required')">
+            Access Scope is required.
+          </div>
+        </div>
+
+
+
+        <div class="form-group mb-2">
+          <label>Access Scope</label>
+          <input formControlName="accessScopeHour" type="number" class="form-control" />
+          <div class="text-danger" *ngIf="hasError('accessScopeHour', 'required')">
+            Access Scope is required.
+          </div>
+          <div class="text-danger" *ngIf="hasError('accessScopeHour', 'min')">
+            Access Scope must be greater than 0.
+          </div>
+        </div>
+
+        <button type="submit" class="btn mt-2" [disabled]="coWorkingSpaceForm.pristine || coWorkingSpaceForm.invalid">
+          Update
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

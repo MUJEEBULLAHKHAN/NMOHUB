@@ -1,0 +1,128 @@
+<div class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack" [routerLink]="['../admin']">
+          <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Workshop Survey Question
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div>
+            <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+              (keyup)="updateFilter($event)" aria-label=".form-control-sm example">
+          </div>
+          <div ngbDropdown class="dropdown">
+            <div class="ml-auto margin-5px" (click)="AddWorkshopSurveyQuestionPopUp()">
+              <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                  class="fa fa-plus mr-1"></i> Add New</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Question</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of workshopSurveyQuestionList">
+                <td>{{item.type}}</td>
+                <td>
+                  <span>{{item.question}} </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-icon btn-secondary-light btn-wave" (click)="Edit(item)">
+                    <i class="ri-edit-line"></i>
+                  </button>
+                </td>
+                <td>
+                  <a href="javascript:void(0);" (click)="Delete(item.workshopSurveyQuestionId)">
+                    <i class="bi bi-trash" style="color: red;"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <!-- <div class="d-flex align-items-center">
+          <div> Showing 6 Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i> </div>
+          <div class="ms-auto">
+            <nav aria-label="Page navigation" class="pagination-style-4">
+              <ul class="pagination mb-0">
+                <li class="page-item disabled"> <a class="page-link" href="javascript:void(0);"> Prev </a> </li>
+                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                <li class="page-item"> <a class="page-link text-primary" href="javascript:void(0);"> next </a> </li>
+              </ul>
+            </nav>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalSurveyQuestionPopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">Add</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <div class="col-md-12 mb-3">
+    <div class="row">
+        <div class="form-group text-start">
+          <label>Answer Type <span class="text-danger">*</span></label>
+          <select class="form-control col-md-12" [(ngModel)]="workshopSurveyQuestionModel.answerTypeId" id="answerTypeId"
+            name="answerTypeId" required #answerTypeIdSelect="ngModel">
+            <option *ngFor="let item of answerTypeList" [value]="item.answerTypeId">{{item.type}}
+            </option>
+          </select>
+          <div *ngIf="answerTypeIdSelect.invalid && answerTypeIdSelect.touched">
+            <span class="text-danger">Please Select Question Type.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mb-3">
+        <div class="form-group text-start">
+          <label>Question <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="workshopSurveyQuestionModel.question"
+            class="form-control" placeholder="Enter your Type" type="text" required #question="ngModel">
+            <div *ngIf="question.invalid && question.touched">
+              <span class="text-danger">Question is Required.</span>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" (click)="Submit()"  *ngIf="workshopSurveyQuestionModel.workshopSurveyQuestionId == 0"
+          >Submit</button>
+
+          <button class="btn ripple btn-primary btn-block" *ngIf="workshopSurveyQuestionModel.workshopSurveyQuestionId != 0"
+          (click)="Update()">Update</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

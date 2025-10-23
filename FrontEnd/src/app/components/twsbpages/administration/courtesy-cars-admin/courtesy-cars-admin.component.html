@@ -1,0 +1,214 @@
+<div
+  class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+  <div>
+    <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack"
+      [routerLink]="['../admin']">
+      <i class="bi bi-arrow-left-circle align-middle"></i> Back
+    </button>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Courtesy Cars
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div>
+            <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+              (keyup)="updateFilter($event)" aria-label=".form-control-sm example">
+          </div>
+          <div ngbDropdown class="dropdown">
+            <div class="ml-auto margin-5px" (click)="AddCourtesyCarsPopUp()">
+              <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                  class="fa fa-plus mr-1"></i> Add
+                New</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Vehicle Make</th>
+                <th scope="col">Vehicle Model</th>
+                <th scope="col">Registration Number</th>
+                <th scope="col">Mileage</th>
+                <th scope="col">Is Available</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of courtesyCarsList">
+                <td class="text-center">{{item.vehicleMake}}</td>
+                <td>{{item.vehicleModel}}</td>
+                <td>{{item.registrationNumber}}</td>
+                <td>{{item.mileage}}</td>
+                <td>
+                  <span *ngIf="item.isAvailable">Yes</span>
+                  <span *ngIf="!item.isAvailable">No</span>
+                </td>
+                <td>
+                  <a href="javascript:void(0);" (click)="EditWorkShopCourtesyCars(item)">Edit</a>
+                </td>
+                <td>
+                  <a href="javascript:void(0);" (click)="RemoveCourtesyCars(item.courtesyCarId)"><i
+                      class='bx bxs-box'></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalAddCourtesyCarsPopUp let-c="close" let-d="dismiss" class="modal-lg">
+  <div class="modal-header">
+    <h6 class="modal-title">Add / Update</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Vehicle Make <span class="text-danger">*</span></label>
+          <select class="form-control col-md-12" [(ngModel)]="vehicleMake" id="vehicleMake" name="vehicleMake" required
+            #vehicleMakeSelect="ngModel" (change)="getModels(vehicleMake)">
+            <option *ngFor="let item of vehicleMakeList" [value]="item.makeId">{{item.name}}
+            </option>
+          </select>
+          <div *ngIf="vehicleMakeSelect.invalid && vehicleMakeSelect.touched">
+            <span class="text-danger">Vehicle Make selection is required.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Vehicle Model <span class="text-danger">*</span></label>
+          <select class="form-control col-md-12" [(ngModel)]="workShopCourtesyCarsModel.vehicleModel" id="vehicleModel"
+            name="vehicleModel" required #vehicleModelSelect="ngModel">
+            <option *ngFor="let item of vehicleModelList" [value]="item.modelDesc">{{item.modelDesc}}
+            </option>
+          </select>
+          <div *ngIf="vehicleModelSelect.invalid && vehicleModelSelect.touched">
+            <span class="text-danger">Vehicle Model selection is required.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Registration Number <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="workShopCourtesyCarsModel.registrationNumber" class="form-control"
+            placeholder="Enter your Registration Number" type="text" required #registrationNumberInput="ngModel">
+          <div *ngIf="registrationNumberInput.invalid && registrationNumberInput.touched">
+            <span class="text-danger">Registration Number is required.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Mileage <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="workShopCourtesyCarsModel.mileage" class="form-control"
+            placeholder="Enter your Mileage" type="text" required #mileageInput="ngModel">
+          <div *ngIf="mileageInput.invalid && mileageInput.touched">
+            <span class="text-danger">Mileage is required.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Is Available <span class="text-danger">*</span></label>
+          <!-- <p class="onoffswitch2 my-0">
+            <span>Yes</span>
+            <input type="radio" name="onoffswitch5" id="myonoffswitch11" [(ngModel)]="workShopCourtesyCarsModel.status"
+              [value]="'Available'">
+            <span>No</span>
+            <input type="radio" name="onoffswitch5" id="myonoffswitch11" [(ngModel)]="workShopCourtesyCarsModel.status"
+              [value]="'Booked'">
+          </p> -->
+
+          <div class="row p-2">
+            <div class="col-sm-4 col-6">
+              <div class="form-check switch-select"><label for="status" class="form-check-label"> Yes </label>
+                <input [(ngModel)]="workShopCourtesyCarsModel.status" [value]="'Available'" type="radio" name="status"
+                  id="status" class="form-check-input">
+              </div>
+            </div>
+            <div class="col-sm-4 col-6">
+              <div class="form-check switch-select"><label for="status" class="form-check-label"> No </label>
+                <input [(ngModel)]="workShopCourtesyCarsModel.status" [value]="'Booked'" type="radio" name="status"
+                  id="status" class="form-check-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-4 form-check switch-select"><label for="status" class="form-check-label"> Yes
+                </label><input [(ngModel)]="workShopCourtesyCarsModel.status" [value]="'Available'" type="radio"
+                  name="status" id="status" class="form-check-input"></div>
+
+              <div class="col-md-4 form-check switch-select"><label for="status" class="form-check-label"> No
+                </label><input [(ngModel)]="workShopCourtesyCarsModel.status" [value]="'Booked'" type="radio"
+                  name="status" id="status" class="form-check-input"></div>
+            </div>
+          </div> -->
+
+
+
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group input-group-sm row">
+          <label for="vatNumber" class="col-md-4 col-form-label addClaimFont">Logo</label>
+          <div class="col-md-8">
+            <img src="{{workShopCourtesyCarsModel.image}}" style="max-height: 50%;max-width: 50%;"
+              *ngIf="workShopCourtesyCarsModel.image != null && workShopCourtesyCarsModel.image != undefined && undefined != ''">
+            <img src="../../../../../assets/img/NIS.png" style="height:95px;width:94px"
+              *ngIf="workShopCourtesyCarsModel.image == null || workShopCourtesyCarsModel.image == undefined || undefined == ''">
+            <br>
+            <input #fileUpload type="file" (click)="fileUpload.value"
+              (change)="uploadCSIImage($event)" style="display:none" accept="image/*">
+            <a href="javascript:;" (click)="fileUpload.click()">change</a>
+            <br>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" *ngIf="workShopCourtesyCarsModel.courtesyCarId == 0"
+          (click)="Submit()">Submit</button>
+        <button class="btn ripple btn-primary btn-block" *ngIf="workShopCourtesyCarsModel.courtesyCarId != 0"
+          (click)="UpdateWorkShopCourtesyCars()">Update</button>
+
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,318 @@
+<div
+    class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light p-1" id="btnNavigateBack"
+            [routerLink]="['../admin']">
+            <i class="bi bi-arrow-left-circle align-middle"></i> Back
+        </button>
+    </div>
+
+</div>
+
+
+
+<div class="d-flex flex-row-reverse bd-highlight mb-4">
+    <div>
+        <button (click)="AddMeetingSlot()" class="btn btn-primary-light btn-wave me-2 waves-effect waves-light  p-1">
+            <i class="ri-add-line align-middle me-1 fw-medium d-inline-block"></i> Add Slot </button>
+    </div>
+</div>
+
+
+<div class="row" id="div">
+    <div class="col-xl-9">
+
+        <!-- Header with navigation -->
+        <div class="calendar-header" style="background-color: white;">
+            <div class="nav-controls">
+                <button class="nav-btn" (click)="navigatePrevious()">&#8249;</button>
+                <button class="nav-btn" (click)="navigateNext()">&#8250;</button>
+                <button class="today-btn" (click)="goToToday()">today</button>
+            </div>
+            <div class="date-range">{{ getDateRangeDisplay() }}</div>
+            <div class="view-controls">
+                <!-- <button 
+            class="view-btn" 
+            [class.active]="currentView === 'month'"
+            (click)="setView('month')">month</button> -->
+                <button class="view-btn" [class.active]="currentView === 'week'" (click)="setView('week')">week</button>
+                <!-- <button 
+            class="view-btn" 
+            [class.active]="currentView === 'year'"
+            (click)="setView('year')">year</button> -->
+            </div>
+        </div>
+
+        <!-- Weekly View -->
+        <div class="calendar-grid" *ngIf="currentView === 'week'">
+            <!-- Day headers -->
+            <div class="day-headers" style="background-color: white;">
+                <div class="time-column"></div>
+                <div class="day-header" *ngFor="let day of currentWeekDays">
+                    <div class="day-name">{{ formatDayHeader(day) }}</div>
+                </div>
+            </div>
+
+            <!-- Time slots and events -->
+            <div class="time-grid">
+                <div class="time-row" *ngFor="let timeSlot of timeSlots">
+                    <div class="time-label" style="background-color: white;">{{ timeSlot }}</div>
+                    <div class="day-cell" *ngFor="let day of currentWeekDays"
+                        [class.selectable]="!isSlotOccupied(day, timeSlot)"
+                        [class.selected]="isSlotSelected(day, timeSlot) && !isSelectedSlotMerged(day, timeSlot)"
+                        [class.selected-merged-start]="isSelectedSlotStart(day, timeSlot)"
+                        [class.selected-merged-middle]="isSelectedSlotMiddle(day, timeSlot)"
+                        [class.selected-merged-end]="isSelectedSlotEnd(day, timeSlot)"
+                        [class.merged-slot-start]="isMergedSlotStart(day, timeSlot)"
+                        [class.merged-slot-middle]="isMergedSlotMiddle(day, timeSlot)"
+                        [class.merged-slot-end]="isMergedSlotEnd(day, timeSlot)">
+                        <div *ngFor="let event of getEventsForDayAndTime(day, timeSlot)" class="event"
+                            [class.event-gray]="event.type === 'gray'" [class.event-green]="event.type === 'green'"
+                            [style.height.px]="getEventHeight(event)" [style.z-index]="10">
+                            <div class="event-time"> {{ formatTime(event.startTime) }} - {{ formatTime(event.endTime) }}
+                            </div>
+                            <div class="event-title">{{ event.title }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Monthly View -->
+        <div class="calendar-grid" *ngIf="currentView === 'month'">
+            <div class="month-grid">
+                <div class="month-header">
+                    <div class="month-day-header" *ngFor="let day of weekDayNames">{{ day }}</div>
+                </div>
+                <div class="month-week" *ngFor="let week of monthWeeks">
+                    <div class="month-day-cell" *ngFor="let day of week"
+                        [class.other-month]="!isSameMonth(day, currentDate)" [class.today]="isToday(day)">
+                        <div class="month-day-number">{{ day.getDate() }}</div>
+                        <div class="month-events">
+                            <div *ngFor="let event of getEventsForDay(day)" class="month-event"
+                                [class.event-gray]="event.type === 'gray'" [class.event-green]="event.type === 'green'">
+                                {{ event.title }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yearly View -->
+        <div class="calendar-grid" *ngIf="currentView === 'year'">
+            <div class="year-grid">
+                <div class="year-month" *ngFor="let month of yearMonths">
+                    <div class="year-month-header">{{ getMonthName(month) }}</div>
+                    <div class="year-month-days">
+                        <div class="year-week-header">
+                            <div class="year-day-header" *ngFor="let day of weekDayAbbrev">{{ day }}</div>
+                        </div>
+                        <div class="year-week" *ngFor="let week of getMonthWeeks(month)">
+                            <div class="year-day-cell" *ngFor="let day of week"
+                                [class.other-month]="!isSameMonth(day, month)" [class.has-events]="hasEventsOnDay(day)">
+                                {{ day.getDate() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xl-3">
+        <div class="col-md-12" style="margin: 0px 10px;">
+            <div class="card custom-card">
+                <div class="card-body p-0">
+                    <div class="p-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="fw-medium">Activity :</h6>
+                            <!-- <button class="btn btn-primary-light btn-sm btn-wave waves-effect waves-light">
+                            View All
+                        </button> -->
+                        </div>
+                    </div>
+                    <div class="p-3 border-bottom simplebar-scrollable-y" id="full-calendar-activity"
+                        data-simplebar="init">
+                        <div class="simplebar-wrapper" style="margin: -16px">
+                            <div class="simplebar-height-auto-observer-wrapper">
+                                <div class="simplebar-height-auto-observer"></div>
+                            </div>
+                            <div class="simplebar-mask">
+                                <div class="simplebar-offset" style="right: 0px; bottom: 0px">
+                                    <div class="simplebar-content-wrapper" tabindex="0" role="region"
+                                        aria-label="scrollable content" style="height: auto; overflow: hidden scroll">
+                                        <div class="simplebar-content" style="padding: 16px">
+                                            <ul class="list-unstyled mb-0 fullcalendar-events-activity">
+                                                <li *ngFor="let item of filteredSlots; let i = index">
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between flex-wrap">
+                                                        <a href="javascript:void(0);">
+                                                            <p class="mb-1 fw-medium">
+                                                                {{ item.date | date:'MMM dd, yyyy' }}
+                                                            </p>
+
+                                                            <p class="mb-1 fw-medium">
+                                                                From {{item.startTime}} To {{item.endTime}}
+                                                            </p>
+
+                                                        </a>
+                                                    </div>
+                                                    <p class="mb-0 text-muted fs-12">
+                                                        <span *ngIf="item.status == 'Available'"
+                                                            style="color: green;font-weight: bold;">
+                                                            {{item.status}}
+                                                        </span>
+
+                                                        <span *ngIf="item.status == 'Booked'"
+                                                            style="color: red;font-weight: bold;">
+                                                            {{item.status}}
+                                                        </span>
+                                                    </p>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="simplebar-placeholder" style="width: 306px; height: 421px"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden">
+                            <div class="simplebar-scrollbar" style="width: 0px; display: none"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-vertical" style="visibility: visible">
+                            <div class="simplebar-scrollbar" style="
+                  height: 348px;
+                  transform: translate3d(0px, 0px, 0px);
+                  display: block;
+                "></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 
+<ng-template #modalAddCourtesyCarsPopUp let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">{{ modalData.action }}</h5>
+        <button type="button" class="btn-close" (click)="close()">
+            
+        </button>
+    </div>
+    <div class="modal-body">
+        <form action="#" class="form form-horizontal">
+            <div class="form-body">
+                <div class="form-group mb-2">
+                    <label>Event Title:</label>
+                    <input type="text" name="event-title" class="form-control" [(ngModel)]="modalData['event']['title']"
+                        (keyup)="refresh.next(true)" autocomplete="off" />
+                </div>
+                <div class="form-group">
+                    <label>Starts At:</label>
+                    <input class="form-control" name="event-title2" type="text" mwlFlatpickr
+                        [(ngModel)]="modalData['event']['start']" ngbDatepicker #d="ngbDatepicker"
+                        (click)="d.toggle()" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="close()">OK</button>
+    </div>
+</ng-template> -->
+
+
+<ng-template #modalAddSlotPopUp let-c="close" let-d="dismiss" class="modal-lg">
+    <div class="p-3" id="div">
+        <div class="modal-header">
+            <h5 class="modal-title"> Add Slot</h5>
+            <button type="button" class="btn-close" (click)="CloseSlotPopUp()">
+
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group text-start">
+                            <label> Start Date <span class="text-danger">*</span></label>
+                            <input matInput [(ngModel)]="bookingSlot.startDate" class="form-control"
+                                placeholder="Start Date" type="date" required #methodStartInput="ngModel"
+                                style="text-transform: uppercase;">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group text-start">
+                            <div class="form-group text-start">
+                                <label> End Date <span class="text-danger">*</span></label>
+                                <input matInput [(ngModel)]="bookingSlot.endDate" class="form-control"
+                                    placeholder="End Date" type="date" required #methodEndInput="ngModel"
+                                    style="text-transform: uppercase;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- <div class="col-md-6">
+
+                        <div class="form-group text-start">
+                            <label> For Room 1 <span class="text-danger">*</span></label>
+                            <label class="time-slot" style="width: 95px;">
+                                <input type="checkbox" [(ngModel)]="isMeetingRoomOne" name="MeetingRoomOne" value="true">
+                                <span class="slot-display"> Room 1 </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group text-start">
+                            <label> For Room 2 <span class="text-danger">*</span></label>
+                            <label class="time-slot" style="width: 95px;">
+                                <input type="checkbox"  [(ngModel)]="isMeetingRoomTwo"  name="MeetingRoomTwo" value="true">
+                                <span class="slot-display"> Room 2 </span>
+                            </label>
+                        </div>
+                    </div> -->
+
+                </div>
+
+                <div class="row mb-3">
+
+                    <div class="time-slots-container">
+                        <div class="time-slots-grid">
+                            <label class="time-slot" *ngFor="let timeSlot of timeSlots; let i = index"
+                                style="width: 95px;">
+                                <input type="checkbox" (click)="SelectSlot(timeSlot)" name="timeSlot"
+                                    value="{{timeSlot}}">
+                                <span class="slot-display"> {{timeSlot}} </span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <ul>
+                    <li *ngFor="let date of dateList">
+                        {{ date }}
+                    </li>
+                </ul> -->
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn p-2" (click)="SubmitSlot()">Submit
+                <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                    *ngIf="showLoader"></span>
+            </button>
+        </div>
+    </div>
+</ng-template>

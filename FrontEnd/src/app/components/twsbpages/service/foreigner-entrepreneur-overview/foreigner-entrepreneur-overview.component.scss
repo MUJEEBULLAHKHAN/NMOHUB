@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    gap: 4px;
+}
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+}
+.card.custom-card {
+    margin-bottom: 1rem;
+}

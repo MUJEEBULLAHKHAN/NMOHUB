@@ -1,0 +1,164 @@
+<div class="container mt-4">
+  <h2>Create New Booking</h2>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="mt-4">
+
+    <!-- Basic Information -->
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="expertId" class="form-label">Expert *</label>
+        <select class="form-select" id="expertId" formControlName="expertId"
+          [class.is-invalid]="bookingForm.get('expertId')?.invalid && bookingForm.get('expertId')?.touched">
+          <option value="">Select an expert</option>
+          <option *ngFor="let expert of experts" [value]="expert.expertID">
+            {{ expert.fullName }} (ID: {{ expert.expertID }})
+          </option>
+        </select>
+        <div *ngIf="bookingForm.get('expertId')?.invalid && bookingForm.get('expertId')?.touched"
+          class="invalid-feedback">
+          Please select an expert
+        </div>
+      </div>
+
+      <!-- <div class="col-md-6">
+        <label for="bookedBy" class="form-label">Customer ID *</label>
+        <input 
+          type="number" 
+          class="form-control" 
+          id="bookedBy" 
+          formControlName="bookedBy"
+          [class.is-invalid]="bookingForm.get('bookedBy')?.invalid && bookingForm.get('bookedBy')?.touched">
+        <div *ngIf="bookingForm.get('bookedBy')?.invalid && bookingForm.get('bookedBy')?.touched" 
+             class="invalid-feedback">
+          Valid customer ID is required
+        </div>
+      </div> -->
+    </div>
+
+    <!-- Availability Slots -->
+    <div *ngIf="selectedExpertId" class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Available Time Slots</h5>
+      </div>
+      <div class="card-body">
+        <div *ngIf="isLoadingSlots" class="text-center py-3">
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading slots...</span>
+          </div>
+          <span class="ms-2">Loading available slots...</span>
+        </div>
+
+        <div *ngIf="!isLoadingSlots && filteredSlots.length === 0" class="alert alert-warning">
+          No available slots found for this expert.
+        </div>
+
+        <div *ngIf="!isLoadingSlots && filteredSlots.length > 0" class="row g-2">
+          <div class="col-md-4" *ngFor="let slot of filteredSlots">
+            <div class="card slot-card" [class.selected]="slot.isChecked === true"
+              [class.border-primary]="slot.isChecked === true" (click)="onSlotSelect(slot)">
+              <div class="card-body text-center">
+                <h6 class="card-title">{{ formatSlotDateTime(slot) }}</h6>
+                <span class="badge" [ngClass]="getSlotTypeClass(slot)">
+                  {{ getSlotTypeBadge(slot) }}
+                </span>
+                <div class="mt-2">
+                  <small class="text-muted">Slot ID: {{ slot.availabilityId }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Details -->
+    <div *ngIf="selectedSlot" class="card mb-3">
+      <div class="card-header">
+        <h5 class="mb-0">Booking Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="meetingType" class="form-label">Meeting Type *</label>
+            <select class="form-select" id="meetingType" formControlName="meetingType"
+              [class.is-invalid]="bookingForm.get('meetingType')?.invalid && bookingForm.get('meetingType')?.touched">
+              <option value="">Select meeting type</option>
+              <option *ngFor="let option of meetingTypeOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+            <div *ngIf="bookingForm.get('meetingType')?.invalid && bookingForm.get('meetingType')?.touched"
+              class="invalid-feedback">
+              Please select meeting type
+            </div>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <label for="bookingStatus" class="form-label">Booking Status *</label>
+            <select class="form-select" id="bookingStatus" formControlName="bookingStatus"
+              [class.is-invalid]="bookingForm.get('bookingStatus')?.invalid && bookingForm.get('bookingStatus')?.touched">
+              <option *ngFor="let option of bookingStatusOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div> -->
+        </div>
+
+        <!-- <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="paymentStatus" class="form-label">Payment Status *</label>
+            <select class="form-select" id="paymentStatus" formControlName="paymentStatus"
+              [class.is-invalid]="bookingForm.get('paymentStatus')?.invalid && bookingForm.get('paymentStatus')?.touched">
+              <option *ngFor="let option of paymentStatusOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="paymentId" class="form-label">Payment ID</label>
+            <input type="number" class="form-control" id="paymentId" formControlName="paymentId">
+          </div>
+        </div> -->
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="sessionLink" class="form-label">Session Link (for Virtual meetings)</label>
+            <input type="url" class="form-control" id="sessionLink" formControlName="sessionLink"
+              placeholder="https://meet.google.com/...">
+          </div>
+
+          <div class="col-md-6">
+            <label for="locationDetails" class="form-label">Location Details (for Physical meetings)</label>
+            <input type="text" class="form-control" id="locationDetails" formControlName="locationDetails"
+              placeholder="Office address, room number, etc.">
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="col-12">
+            <label for="cancellationReason" class="form-label">Cancellation Reason (if applicable)</label>
+            <textarea class="form-control" id="cancellationReason" formControlName="cancellationReason" rows="2"
+              placeholder="Reason for cancellation..."></textarea>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="isSubmitting || !selectedSlot">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+          Create Booking
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="resetForm()">Reset Form</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Response Message -->
+  <div *ngIf="responseMessage" class="alert mt-3" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
+    {{ responseMessage }}
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-xl-12">
+
+        <div  *ngIf="showLoader" class="text-center mb-4"><button class="btn btn-info-light btn-loader mx-auto"><span
+                    class="me-2">Loading</span><span class="loading"><i
+                        class="ri-loader-4-line fs-16"></i></span></button>
+        </div>
+
+        <ul class="notification">
+            <li *ngFor="let item of notesList; let i = index">
+                <div class="notification-time">
+                    <span class="date">{{  item.createAt | date:'EEEE' }}</span>
+                    <span class="time"> {{  item.createAt | date:'HH:mm:ss a' }} </span>
+                </div>
+                <div class="notification-icon"><a href="javascript:void(0);"></a></div>
+                <div class="notification-body">
+                    <div class="d-flex align-items-start gap-3 flex-wrap">
+                        <!-- <div><span class="avatar avatar-lg online">
+                            <img src="./assets/images/faces/1.jpg" alt=""></span>
+                        </div> -->
+                        <div class="flex-fill w-50">
+                            <!-- <h5 class="mb-1 fs-15 fw-medium text-dark">Event: Launch Party
+                            </h5> -->
+                            <p class="mb-0 mb-0 text-muted">
+                                {{item.fullDescription}}
+                            </p>
+                        </div>
+                        <div><span class="badge bg-light text-default"><p>{{ item.createAt | date:'MMMM d, y' }}</span></div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+</div>

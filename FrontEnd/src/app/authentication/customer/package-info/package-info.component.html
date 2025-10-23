@@ -1,0 +1,215 @@
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DISEE - Invoice Template</title>
+    <!-- <link rel="stylesheet" href="invoice.css"> -->
+  </head>
+  <body>
+    <div class="invoice-table" *ngIf="serviceModel; else noData">
+      <div class="container">
+        <div class="invoice-wrapper">
+          <!-- Header -->
+          <div class="invoice-header">
+            <div class="company-info">
+              <h1 class="company-name">Package Details</h1>
+            </div>
+            <div class="invoice-badge">
+              <!-- <span class="invoice-label">INVOICE</span> -->
+              <div class="invoice-details">
+                <div class="detail-item">
+                  <span class="label">Invoice Number</span>
+                  <span class="value">#{{ serviceModel.id }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Invoice Date</span>
+                  <span class="value">{{
+                    serviceModel.createdAt | date : "dd MMM yyyy"
+                  }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Status</span>
+                  <span class="value">{{ serviceModel.status }}</span>
+                </div>
+                <div class="detail-item">
+                  <span class="label">Payment Status</span>
+                  <span class="value">{{ serviceModel.paymentStatus }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Client Information -->
+          <div class="client-section">
+            <div class="invoice-to">
+              <h3>{{ serviceModel.service.name }}</h3>
+              <p>{{ serviceModel.service.description }}</p>
+              <p><strong>Employee:</strong> {{ employee.firstNames }}</p>
+              <p><strong>Service ID:</strong> {{ serviceModel.serviceId }}</p>
+              <p>
+                <strong>Has Packages:</strong>
+                {{ serviceModel.service.hasPackages ? "Yes" : "No" }}
+              </p>
+              <!-- <div class="client-info">
+                        <h4>JHON SMITH</h4>
+                        <p>Theme Vessel</p>
+                        // <p>info@themevessel.com</p> 
+                        <p>32-34 Green Street, Maherpur, Bangladesh</p>
+                    </div> -->
+            </div>
+            <div class="invoice-from">
+              <h3>{{ serviceModel.package.name }}</h3>
+              <!-- <p>{{ serviceModel.package.packageDescription }}</p> -->
+              <p><strong>Package ID:</strong> {{ serviceModel.packageId }}</p>
+              <p>
+                <strong>Package Plan:</strong>
+                <!-- {{ serviceModel.package.packagePlan }} -->
+              </p>
+              <p>
+                <strong>Created By:</strong>
+                {{ employee.firstNames  }}
+              </p>
+              <!-- <div class="client-info">
+              <h4>ANNAS POKY</h4>
+              <p>Apple Inc</p>
+              // <p>themy@apple.com</p> 
+              <p>459 Youngland, Bangladesh</p>
+            </div> -->
+            </div>
+          </div>
+
+          <!-- Invoice Table -->
+          <div class="invoice-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>NO.</th>
+                  <th>ITEM DESCRIPTION</th>
+                  <th>PRICE</th>
+                  <th>QUANTITY/PERSONS</th>
+                  <th>AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="No.">01</td>
+                  <td data-label="Item Description">
+                    {{ serviceModel.service.name }} -
+                    {{ serviceModel.package.name }}
+                  </td>
+                  <td data-label="Price">${{ serviceModel.package.price }}</td>
+                  <td data-label="Quantity/Persons">
+                    <!-- {{ serviceModel.package.personsQty }} -->
+                  </td>
+                  <td data-label="Amount">${{ serviceModel.package.price }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Totals -->
+          <div class="totals-section">
+            <div class="totals">
+              <!-- <div class="total-row">
+              <span>Sub Total</span>
+              <span>${{ serviceModel.package.amount }}</span>
+            </div>
+            <div class="total-row">
+              <span>Discount</span>
+              <span> ({{ serviceModel.package.discountPercent }}%)</span>
+            </div> -->
+              <div class="total-row grand-total">
+                <span>Grand Total</span>
+                <!-- <span
+                >${{
+                  (
+                    serviceModel.package.amount -
+                    (serviceModel.package.amount *
+                      serviceModel.package.discountPercent) /
+                      100
+                  ).toFixed(2)
+                }}</span
+              > -->
+                <span>${{ serviceModel.package.price }}</span>
+              </div>
+              <button
+                class="btn btn-theme custom-btn-pay w-100"
+                (click)="SubmitUpdatePaymentStatus()"
+                *ngIf="serviceModel?.status === 'Created' && role?.[0]?.name !== 'Administrator' && role?.[0]?.name !== 'Super Administrator'
+  "
+              >
+                Pay Now
+                <span
+                  role="status"
+                  aria-hidden="true"
+                  class="spinner-border spinner-border-sm align-middle"
+                  *ngIf="showLoader"
+                ></span>
+              </button>
+
+              <button
+                class="btn btn-theme custom-btn-pay w-100"
+                (click)="SubmitUpdateServiceActive()"
+                *ngIf="
+                  serviceModel?.status === 'Payment Done' &&
+                  (role[0]?.name === 'Administrator' ||
+                    role[0]?.name === 'Super Administrator')
+                "
+              >
+                Service Active
+                <span
+                  role="status"
+                  aria-hidden="true"
+                  class="spinner-border spinner-border-sm align-middle"
+                  *ngIf="showLoader"
+                ></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="invoice-footer">
+            <div class="terms">
+              <h4>Duration & Time</h4>
+              <p>
+                <!-- <strong>Duration:</strong> {{ serviceModel.package.duration }} -->
+                <!-- {{ serviceModel.package.uom }} -->
+              </p>
+              <p>
+                <strong>Daily Hours:</strong>
+                <!-- {{ serviceModel.package.dailyHours }} hrs/day -->
+              </p>
+              <p>
+                <!-- <strong>Unit of Measure:</strong> {{ serviceModel.package.uom }} -->
+              </p>
+            </div>
+            <div class="payment-method">
+              <h4>Verification Status</h4>
+              <p>
+                <strong>Nafath Verified:</strong>
+                {{ serviceModel.isNafathVerfied ? "Yes" : "No" }}
+              </p>
+              <p><strong>Status ID:</strong> {{ serviceModel.statusId }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noData>
+      <div class="text-center container py-4" *ngIf="!showDetailsLoader">
+        <h4 class="text-light mb-2">No service data available</h4>
+        <p class="text-light">{{ error || "Please check again later." }}</p>
+      </div>
+    </ng-template>
+    <div *ngIf="showDetailsLoader" class="backdrop-loader">
+      <div class="spinner-border text-light" role="status"></div>
+      <p class="text-light mt-2">Loading Package Details...</p>
+    </div>
+  </body>
+</html>

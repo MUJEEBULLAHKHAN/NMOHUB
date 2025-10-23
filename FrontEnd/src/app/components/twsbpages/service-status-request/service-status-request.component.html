@@ -1,0 +1,234 @@
+<div id="div"
+    class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <div>
+            <h1 class="page-title medium fs-18 mb-2">Search</h1>
+
+        </div>
+
+
+    </div>
+    <div>
+        <!-- <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" (click)="AddRequestPopup()">
+            <i class="las la-edit align-middle"></i> Add New Request
+        </button> -->
+        <a href="javascript:;" (click)="generateReport()" class="btn btn-sm btn-rounded pl-2 pr-3">Export
+            Data</a>
+
+    </div>
+</div>
+<!-- End::page-header -->
+
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div>
+                    <!-- <input class="form-control" type="text" placeholder="Search Here"
+                        aria-label=".form-control-sm example"> -->
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <div ngbDropdown class="dropdown">
+                        <a ngbDropdownToggle href="javascript:void(0);" class="btn btn-light btn-wave no-caret"
+                            data-bs-toggle="dropdown" aria-expanded="false"> Sort By<i
+                                class="ri-arrow-down-s-line align-middle ms-1 d-inline-block"></i>
+                        </a>
+                        <ul ngbDropdownMenu class="dropdown-menu" role="menu">
+                            <li><a class="dropdown-item" href="javascript:void(0);">New</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Popular</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Relevant</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0 position-relative" id="todo-content">
+                <div>
+                    <div class="table-responsive">
+                        <table class="table text-nowrap">
+                            <thead>
+                                <tr>
+
+                                    <!-- <th class="todolist-handle-drag">
+                                    </th> -->
+                                    <th scope="col">Project Name</th>
+                                    <th scope="col">Brief Description</th>
+                                    <th scope="col">Partner Available</th>
+                                    <th scope="col">Already Participated Program</th>
+                                    <th scope="col">Is Written Business Plan</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col" class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="todo-drag">
+                                <tr class="todo-box" *ngFor="let row of projectRequestList">
+
+                                    <td>
+                                        <span class="medium">{{row.projectName}}</span>
+                                    </td>
+                                    <td>
+
+                                        <span *ngIf="row.briefDescription.length <= 50">
+                                            {{row.briefDescription}}
+                                        </span>
+
+                                        <span title="row.briefDescription" *ngIf="row.briefDescription.length > 50">
+                                            {{row.briefDescription | slice:0:50}} ...
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <span *ngIf="row.isPartnerAvailable">
+                                            Yes
+                                        </span>
+                                        <span *ngIf="!row.isPartnerAvailable">
+                                            No
+                                        </span>
+
+                                    </td>
+                                    <td>
+
+                                        <span *ngIf="row.alreadyParticipatedProgram">
+                                            Yes
+                                        </span>
+                                        <span *ngIf="!row.alreadyParticipatedProgram">
+                                            No
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <span *ngIf="row.isWrittenBusinessPlan">
+                                            Yes
+                                        </span>
+                                        <span *ngIf="!row.isWrittenBusinessPlan">
+                                            No
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{row.createAt | date: 'dd-MM-yyyy'}}
+                                    </td>
+                                    <td class="text-end">
+                                        <a class="btn btn-primary-light btn-wave me-2 waves-effect waves-light"
+                                            href="javascript:void(0);"
+                                            [routerLink]="['/service-overview', row.projectID]"
+                                            [queryParams]="{id: row.projectID, serv:row.serviceId}"><i
+                                                class="fe fe-eye me-2"></i>View</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modalServicePopUp let-c="close" let-d="dismiss" class="modal-dialog modal-xl">
+    <div class="modal-header">
+        <h6 class="modal-title">Add / Update</h6>
+    </div>
+    <div class="card-body padding-1rem">
+        @if(role=="Super Administrator"){
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group text-start">
+                    <label>First Name <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="serviceReqModel.entrepreneur.firstNames" type="text"
+                        placeholder="Enter First Name" class="form-control" required #name="ngModel" />
+                    <div *ngIf="name.invalid && name.touched && role=='Super Administrator'">
+                        <span class="text-danger">First Name is required.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group text-start">
+                    <label>Last Name <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="serviceReqModel.entrepreneur.lastName" type="text" placeholder="Enter Last Name"
+                        class="form-control" required #name="ngModel" />
+                    <div *ngIf="name.invalid && name.touched && role=='Super Administrator'">
+                        <span class="text-danger">Full Name is required.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group text-start">
+                    <label>Password <span class="text-danger">*</span></label>
+                    <div class="position-relative">
+                        <input [(ngModel)]="serviceReqModel.entrepreneur.password"
+                            [type]="showPassword ? 'text' : 'password'" placeholder="Enter password"
+                            class="form-control" required #password="ngModel" />
+                    </div>
+                    <div *ngIf="password.invalid && password.touched && role=='Super Administrator'">
+                        <span class="text-danger">Password is required.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group text-start">
+                    <label>Confirm Password <span class="text-danger">*</span></label>
+                    <div class="position-relative">
+                        <input [(ngModel)]="serviceReqModel.entrepreneur.confirmpassword"
+                            [type]="showPassword ? 'text' : 'password'" placeholder="Confirm password"
+                            class="form-control" required #cnfPwd="ngModel" />
+                    </div>
+                    <div *ngIf="cnfPwd.invalid && cnfPwd.touched && role=='Super Administrator'">
+                        <span class="text-danger">Confirm Password is required.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group text-start">
+                <label>Email <span class="text-danger">*</span></label>
+                <input [(ngModel)]="serviceReqModel.entrepreneur.emailAddress" type="email" placeholder="Enter Email"
+                    class="form-control" required #email="ngModel" />
+                <div *ngIf="email.invalid && email.touched && role=='Super Administrator'">
+                    <span class="text-danger">Email is required.</span>
+                </div>
+            </div>
+        </div>
+        }
+        <div class="row mb-3">
+            <div class="form-group text-start">
+                <label>Select service <span class="text-danger">*</span></label>
+                <select [(ngModel)]="serviceReqModel.serviceId" class="form-control" required #name="ngModel">
+                    <option value="">--select service--</option>
+                    <option *ngFor="let service of serviceList" [value]="service.id">{{service.name}}</option>
+                </select>
+                <div *ngIf="name.invalid && name.touched">
+                    <span class="text-danger">Service is required.</span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="form-group text-start">
+                <label>Select Package <span class="text-danger">*</span></label>
+                <select [(ngModel)]="serviceReqModel.packageId" class="form-control" required #name="ngModel">
+                    <option value="">--select package--</option>
+                    <option *ngFor="let package of packageList" [value]="package.packageId">{{package.name}}</option>
+                </select>
+
+                <div *ngIf="name.invalid && name.touched">
+                    <span class="text-danger">Package is required.</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn ripple btn-primary btn-block" *ngIf="serviceReqModel.id == 0">Submit</button>
+                <button class="btn ripple btn-primary btn-block" *ngIf="serviceReqModel.id != 0">Update</button>
+
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

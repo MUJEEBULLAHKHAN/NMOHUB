@@ -1,0 +1,772 @@
+<div class="multi-step-container">
+  <div class="form-card">
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step-indicator-inner">
+        <div
+          class="step-circle"
+          style="cursor: pointer"
+          [ngClass]="step == 1 ? 'active' : 'inactive'"
+          id="step-1"
+        >
+          1
+        </div>
+        <h6 class="step-form-title" *ngIf="step == 1">Founder Details</h6>
+
+        <div class="step-connector incomplete" id="connector-1"></div>
+        <div
+          class="step-circle"
+          style="cursor: pointer"
+          [ngClass]="step == 2 ? 'active' : 'inactive'"
+          id="step-2"
+        >
+          2
+        </div>
+        <h6 class="step-form-title" *ngIf="step == 2">Startup Information</h6>
+        <div class="step-connector incomplete" id="connector-2"></div>
+        <div
+          class="step-circle"
+          style="cursor: pointer"
+          [ngClass]="step == 3 ? 'active' : 'inactive'"
+          id="step-3"
+        >
+          3
+        </div>
+        <h6 class="step-form-title" *ngIf="step == 3">Goals & Commitment</h6>
+        <div class="step-connector incomplete" id="connector-3"></div>
+        <div
+          class="step-circle"
+          style="cursor: pointer"
+          [ngClass]="step == 4 ? 'active' : 'inactive'"
+          id="step-4"
+        >
+          4
+        </div>
+        <h6 class="step-form-title" *ngIf="step == 4">Email Verification</h6>
+
+        <div
+          class="step-connector incomplete"
+          id="connector-4"
+          *ngIf="!isRegistrationOTPByPass"
+        ></div>
+        <div
+          class="step-circle"
+          style="cursor: pointer"
+          *ngIf="!isRegistrationOTPByPass"
+          [ngClass]="step == 5 ? 'active' : 'inactive'"
+          id="step-5"
+        >
+          5
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Content -->
+
+    <div class="form-content">
+      <!-- Step 1: Personal Data -->
+      <form [formGroup]="preacStep1Form">
+        <div id="step-1-content" class="step-content" *ngIf="step == 1">
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="fullName" class="form-label mb-0">Full Name</label>
+              </span>
+              <input
+                type="text"
+                class="form-control form-input custom-input"
+                placeholder="Enter your Full Name"
+                formControlName="fullName"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="step1['fullName'].valid && step1['fullName'].touched"
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="step1['fullName'].touched && step1['fullName'].invalid"
+            >
+              <span *ngIf="step1['fullName'].errors?.['required']"
+                >Full name is required</span
+              >
+              <span *ngIf="step1['fullName'].errors?.['minlength']"
+                >Full name must be at least 2 characters</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="mobileNumber" class="form-label mb-0"
+                  >Mobile Number</label
+                >
+              </span>
+              <input
+                type="tel"
+                class="form-control form-input custom-input"
+                placeholder="e.g. +966512345678"
+                formControlName="mobileNumber"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="
+                    step1['mobileNumber'].valid && step1['mobileNumber'].touched
+                  "
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                step1['mobileNumber'].touched && step1['mobileNumber'].invalid
+              "
+            >
+              <span *ngIf="step1['mobileNumber'].errors?.['required']"
+                >Mobile number is required</span
+              >
+              <span *ngIf="step1['mobileNumber'].errors?.['pattern']"
+                >Enter valid number with country code (e.g. +9665XXXXXXX)</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="email" class="form-label mb-0">Email Address</label>
+              </span>
+              <input
+                type="email"
+                class="form-control form-input custom-input"
+                placeholder="Enter your Email"
+                formControlName="emailAddress"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="
+                    step1['emailAddress'].valid && step1['emailAddress'].touched
+                  "
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                step1['emailAddress'].touched && step1['emailAddress'].invalid
+              "
+            >
+              <span *ngIf="step1['emailAddress'].errors?.['required']"
+                >Email is required</span
+              >
+              <span *ngIf="step1['emailAddress'].errors?.['email']"
+                >Invalid email format</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="linkedin" class="form-label mb-0"
+                  >LinkedIn Profile</label
+                >
+              </span>
+              <input
+                type="url"
+                class="form-control form-input custom-input"
+                placeholder="https://linkedin.com/in/yourprofile"
+                formControlName="linkedInProfileLink"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="
+                    step1['linkedInProfileLink'].valid &&
+                    step1['linkedInProfileLink'].touched
+                  "
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                step1['linkedInProfileLink'].touched &&
+                step1['linkedInProfileLink'].invalid
+              "
+            >
+              <span *ngIf="step1['linkedInProfileLink'].errors?.['pattern']"
+                >Enter a valid URL (https://...)</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label">Prior Programs (Yes/No)</label>
+            <div>
+              <input
+                type="radio"
+                formControlName="priorPrograms"
+                [value]="true"
+              />
+              <span style="padding: 0px 6px; color: lighten(#151a2c, 10%)"
+                >Yes</span
+              >
+
+              <input
+                type="radio"
+                formControlName="priorPrograms"
+                [value]="false"
+              />
+              <span style="padding: 0px 6px; color: lighten(#151a2c, 10%)"
+                >No</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field" *ngIf="step1['priorPrograms'].value === true">
+            <label for="priorProgramList" class="form-label"
+              >List Programs</label
+            >
+            <textarea
+              rows="4"
+              formControlName="priorProgramList"
+              class="form-input"
+              placeholder="List the programs you've participated in..."
+            ></textarea>
+            <div
+              class="error-message"
+              *ngIf="
+                step1['priorProgramList'].touched &&
+                step1['priorProgramList'].invalid
+              "
+            >
+              <span *ngIf="step1['priorProgramList'].errors?.['required']"
+                >Please list the programs</span
+              >
+              <span *ngIf="step1['priorProgramList'].errors?.['maxlength']"
+                >Maximum 200 characters allowed</span
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- Step 2: Project Data -->
+      <form [formGroup]="preacStep2Form">
+        <div id="step-2-content" class="step-content" *ngIf="step == 2">
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="startupName" class="form-label mb-0"
+                  >Startup Name</label
+                >
+              </span>
+              <input
+                type="text"
+                id="startupName"
+                class="form-control form-input custom-input"
+                placeholder="Enter your startup name"
+                formControlName="startupName"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="
+                    step2['startupName'].valid && step2['startupName'].touched
+                  "
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                step2['startupName'].touched && step2['startupName'].invalid
+              "
+            >
+              <span *ngIf="step2['startupName'].errors?.['required']"
+                >Startup name is required</span
+              >
+              <span *ngIf="step2['startupName'].errors?.['minlength']"
+                >Startup name must be at least 2 characters</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="currentStage" class="form-label mb-0"
+                  >Current Phase of the Project</label
+                >
+              </span>
+              <select
+                class="form-select custom-input custom-select"
+                formControlName="currentStage"
+                id="currentStage"
+              >
+                <option value="">Select current stage</option>
+                <option
+                  *ngFor="let item of projectPhases"
+                  [value]="item.name"
+                  style="color: black"
+                >
+                  {{ item.name }}
+                </option>
+              </select>
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="
+                    step2['currentStage'].valid && step2['currentStage'].touched
+                  "
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                step2['currentStage'].touched && step2['currentStage'].invalid
+              "
+            >
+              <span *ngIf="step2['currentStage'].errors?.['required']"
+                >Please select current stage</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="problemSolved" class="form-label"
+              >Main Problem You Solve</label
+            >
+            <!-- maxlength="250" -->
+            <textarea
+              id="problemSolved"
+              rows="4"
+              formControlName="problemSolved"
+              class="form-input"
+              placeholder="Describe the main problem your startup solves..."
+            ></textarea>
+            <div
+              class="error-message"
+              *ngIf="
+                step2['problemSolved'].touched && step2['problemSolved'].invalid
+              "
+            >
+              <span *ngIf="step2['problemSolved'].errors?.['required']"
+                >Problem description is required</span
+              >
+              <span *ngIf="step2['problemSolved'].errors?.['maxlength']"
+                >Maximum 250 characters allowed</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="teamSize" class="form-label mb-0">Team Size</label>
+              </span>
+              <input
+                type="number"
+                id="teamSize"
+                class="form-control form-input custom-input"
+                placeholder="Enter team size"
+                formControlName="teamSize"
+                min="1"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="step2['teamSize'].valid && step2['teamSize'].touched"
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="step2['teamSize'].touched && step2['teamSize'].invalid"
+            >
+              <span *ngIf="step2['teamSize'].errors?.['required']"
+                >Team size is required</span
+              >
+              <span *ngIf="step2['teamSize'].errors?.['min']"
+                >Team size must be at least 1</span
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- Step 3: Project Data -->
+      <form [formGroup]="preacStep3Form">
+        <div id="step-2-content" class="step-content" *ngIf="step == 3">
+          <div class="form-field">
+            <label for="hopeAchieve" class="form-label"
+              >What do you hope to achieve?</label
+            >
+            <textarea
+              id="hopeAchieve"
+              rows="4"
+              formControlName="hopeAchieve"
+              class="form-input"
+              placeholder="What do you hope to achieve?"
+            ></textarea>
+            <div
+              class="error-message"
+              *ngIf="
+                step3['hopeAchieve'].touched && step3['hopeAchieve'].invalid
+              "
+            >
+              <span *ngIf="step3['hopeAchieve'].errors?.['maxlength']"
+                >Maximum 300 characters allowed</span
+              >
+            </div>
+          </div>
+
+          <div class="form-field">
+            <div class="input-group">
+              <span class="input-group-text label-group">
+                <label for="availability" class="form-label mb-0"
+                  >Availability (hours/week)</label
+                >
+              </span>
+              <!-- id="availability" -->
+              <input
+                type="number"
+                class="form-control form-input custom-input"
+                placeholder="Hours per week available"
+                formControlName="availability"
+                min="0"
+                max="168"
+              />
+              <span class="input-group-text icon-group">
+                <ng-container
+                  *ngIf="
+                    step3['availability'].valid && step3['availability'].touched
+                  "
+                >
+                  <i class="bi bi-check-lg"></i>
+                </ng-container>
+              </span>
+            </div>
+            <div
+              class="error-message"
+              *ngIf="
+                step3['availability'].touched && step3['availability'].invalid
+              "
+            >
+              <span *ngIf="step3['availability'].errors?.['required']"
+                >Availability is required</span
+              >
+              <span *ngIf="step3['availability'].errors?.['min']"
+                >Availability cannot be negative</span
+              >
+              <span *ngIf="step3['availability'].errors?.['max']"
+                >Maximum 168 hours per week</span
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+      <form [formGroup]="preacStep4Form">
+        <!-- Step 4: Document Upload -->
+        <div id="step-4-content" class="step-content" *ngIf="step == 4">
+          <div class="upload-container">
+            <div class="upload-section">
+              <h3 class="section-title">
+                Business Model Canvas (BMC) <span class="required">*</span>
+              </h3>
+              <div class="upload-area" data-type="accident">
+                <div class="upload-icon">
+                  <a
+                    href="javascript:void(0);"
+                    *ngIf="IsBusinessModelCanvasFile"
+                    (click)="RemoveFile('Business Model Canvas')"
+                  >
+                    Remove File
+                  </a>
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline points="14,2 14,8 20,8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10,9 9,9 8,9" />
+                  </svg>
+                </div>
+                <input
+                  type="file"
+                  (change)="onFileSelected($event, 'Business Model Canvas')"
+                  formControlName="businessModelCanvas"
+                  style="width: -webkit-fill-available"
+                  class="select-file-btn"
+                  accept=".docx,.pdf"
+                />
+
+                <p class="support-text">Only Support</p>
+                <p class="file-types">.DOCX, .PDF</p>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    step4['businessModelCanvas'].touched &&
+                    step4['businessModelCanvas'].hasError('required')
+                  "
+                >
+                  Business Model Canvas is required
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-section">
+              <h3 class="section-title">Pitch Deck</h3>
+              <div class="upload-area" data-type="taqdeer">
+                <div class="upload-icon">
+                  <a
+                    href="javascript:void(0);"
+                    *ngIf="IsPitchDeckFile"
+                    (click)="RemoveFile('Background Market Reports')"
+                  >
+                    Remove File
+                  </a>
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                    />
+                    <polyline points="14,2 14,8 20,8" />
+                    <line x1="12" y1="18" x2="12" y2="12" />
+                    <line x1="9" y1="15" x2="15" y2="15" />
+                  </svg>
+                </div>
+
+                <input
+                  type="file"
+                  (change)="onFileSelected($event, 'Pitch Deck')"
+                  formControlName="pitchDeck"
+                  style="width: -webkit-fill-available"
+                  class="select-file-btn"
+                  accept=".docx,.pdf"
+                />
+                <p class="support-text">Only Support</p>
+                <p class="file-types">.DOCX, .PDF</p>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    step4['pitchDeck'].touched &&
+                    step4['pitchDeck'].hasError('required')
+                  "
+                >
+                  Pitch Deck is required
+                </div>
+
+                <!-- <input type="file" class="file-input" accept=".jpg,.jpeg,.png,.pdf" hidden> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- Step 4: Email Verification -->
+
+      <div id="step-4-content" class="step-content" *ngIf="step == 5">
+        <div class="form-field">
+          <div class="otp-inputs">
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              #otp1
+              [(ngModel)]="emailOTP1"
+              (keyup)="moveToNext($event, otp2)"
+              (paste)="handlePaste($event)"
+            />
+
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              #otp2
+              [(ngModel)]="emailOTP2"
+              (keyup)="moveToNext($event, otp3, otp1)"
+            />
+
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              #otp3
+              [(ngModel)]="emailOTP3"
+              (keyup)="moveToNext($event, otp4, otp2)"
+            />
+
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              #otp4
+              [(ngModel)]="emailOTP4"
+              (keyup)="moveToNext($event, otp5, otp3)"
+            />
+
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              #otp5
+              [(ngModel)]="emailOTP5"
+              (keyup)="moveToNext($event, otp6, otp4)"
+            />
+
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-box"
+              #otp6
+              [(ngModel)]="emailOTP6"
+              (keyup)="moveToNext($event, null, otp5)"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="form-navigation">
+      <button
+        type="button"
+        id="previous-btn"
+        class="nav-button previous-button"
+        [disabled]="step <= 1"
+        (click)="GoToPrevious()"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+        Previous
+      </button>
+
+      <button
+        type="button"
+        id="next-btn"
+        *ngIf="step <= 4 && !isRegistrationOTPByPass"
+        class="nav-button next-button"
+        (click)="GoToNext()"
+        [disabled]="step >= lastStep"
+      >
+        Next
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+
+        <span
+          role="status"
+          aria-hidden="true"
+          class="spinner-border spinner-border-sm align-middle"
+          *ngIf="step == 4 && showLoader"
+        ></span>
+      </button>
+
+      <button
+        type="button"
+        id="next-btn"
+        *ngIf="step == 5 && !isRegistrationOTPByPass"
+        class="nav-button next-button"
+        (click)="SubmitProject()"
+      >
+        Submit
+        <span
+          role="status"
+          aria-hidden="true"
+          class="spinner-border spinner-border-sm align-middle"
+          *ngIf="showLoader"
+        ></span>
+      </button>
+
+      <button
+        type="button"
+        id="next-btn"
+        *ngIf="step <= 3 && isRegistrationOTPByPass"
+        class="nav-button next-button"
+        (click)="GoToNext()"
+        [disabled]="step >= lastStep"
+      >
+        Next
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        id="next-btn"
+        *ngIf="step == 4 && isRegistrationOTPByPass"
+        class="nav-button next-button"
+        (click)="SubmitWithoutOTP()"
+      >
+        Submit
+        <span
+          role="status"
+          aria-hidden="true"
+          class="spinner-border spinner-border-sm align-middle"
+          *ngIf="showLoader"
+        ></span>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="form-footer">
+      <p class="footer-text">
+        Already have an account?
+        <a href="/customer-register" class="footer-link">Sign in</a>
+      </p>
+      <p class="footer-text">
+        Go To Home
+        <a href="/home" class="footer-link">Home</a>
+      </p>
+    </div>
+  </div>
+</div>

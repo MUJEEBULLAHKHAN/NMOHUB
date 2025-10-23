@@ -1,0 +1,203 @@
+<head>
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
+    rel="stylesheet"
+  />
+
+  <!-- Animate.css -->
+  <link
+    rel="stylesheet"
+    href="../home-customer1/assets/staticwebsite/css/animate.css"
+  />
+  <!-- <link rel="stylesheet" href="./assets/staticwebsite/css/animate.css"> -->
+  <!-- Icomoon Icon Fonts-->
+  <link
+    rel="stylesheet"
+    href="../home-customer1/assets/staticwebsite/css/icomoon.css"
+  />
+  <!-- Bootstrap  -->
+  <link
+    rel="stylesheet"
+    href="../home-customer1/assets/staticwebsite/css/bootstrap.css"
+  />
+
+  <!-- Magnific Popup -->
+  <link
+    rel="stylesheet"
+    href="../home-customer1/assets/staticwebsite/css/magnific-popup.css"
+  />
+
+  <!-- Theme style  -->
+  <link
+    rel="stylesheet"
+    href="../home-customer1/assets/staticwebsite/css/style.css"
+  />
+
+  <!-- Modernizr JS -->
+  <script src="../home-customer1/assets/staticwebsite/js/modernizr-2.6.2.min.js"></script>
+  <!-- <script src="./assets/js/modernizr-2.6.2.min.js"></script> -->
+</head>
+<body>
+  <header
+    id="fh5co-contact-header"
+    class="fh5co-contact-cover"
+    role="banner"
+    style="background-image: url('./assets/staticwebsite/images/img_bg_1.jpg')"
+  >
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row align-items-center" style="height: 100%">
+        <div class="col-md-7  text-center">
+          <div class="display-tc animate-box" data-animate-effect="fadeInUp">
+            <h1 class="mb-3" i18n>
+              {{ "CONTACT.HERO_SECTION.TITLE" | translate }}
+            </h1>
+            <p class="lead text-light mb-3" i18n>
+              {{ "CONTACT.HERO_SECTION.SUBTITLE" | translate }}
+            </p>
+            <p class="lead text-light" i18n>
+              {{ "CONTACT.HERO_SECTION.DESCRIPTION" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div id="fh5co-contact-section" class="border">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-md-push-1 animate-box">
+          <div class="fh5co-contact-info">
+            <h3 class="h3">{{ "CONTACT.CONTACT_SECTION.CITY" | translate }}</h3>
+            <ul>
+              <li class="address  text-start">
+                {{ "CONTACT.CONTACT_SECTION.ADDRESS_PART1" | translate }}
+                <br />
+                {{ "CONTACT.CONTACT_SECTION.ADDRESS_PART2" | translate }}
+              </li>
+              <li class="phone">
+                <a href="tel://0116220200">
+                  {{ "CONTACT.CONTACT_SECTION.PHONE.NUMBER" | translate }}</a
+                >
+                <p>
+                  {{ "CONTACT.CONTACT_SECTION.PHONE.NOTE_PART1" | translate }}
+                  <br />
+                  {{ "CONTACT.CONTACT_SECTION.PHONE.NOTE_PART2" | translate }}
+                </p>
+              </li>
+              <li class="email">
+                <a href="mailto:info@nmohub.com.sa">
+                  {{ "CONTACT.CONTACT_SECTION.EMAIL" | translate }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 animate-box">
+          <h3 class="h3">
+            {{ "CONTACT.CONTACT_SECTION.GET_IN_TOUCH.TITLE" | translate }}
+          </h3>
+          <form>
+            <div class="row form-group">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <label for="fname">{{
+                  "CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.FIRST_NAME_LABEL"
+                    | translate
+                }}</label>
+                <input
+                  type="text"
+                  id="fname"
+                  class="form-control"
+                  placeholder="{{
+                    'CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.FIRST_NAME_PLACEHOLDER'
+                      | translate
+                  }}"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="lname">{{
+                  "CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.LAST_NAME_LABEL"
+                    | translate
+                }}</label>
+                <input
+                  type="text"
+                  id="lname"
+                  class="form-control"
+                  placeholder="{{
+                    'CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.LAST_NAME_PLACEHOLDER'
+                      | translate
+                  }}"
+                />
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12 ">
+                <label for="email">{{
+                  "CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.EMAIL_LABEL"
+                    | translate
+                }}</label>
+                <input
+                  type="text"
+                  id="email"
+                  class="form-control"
+                  placeholder="{{
+                    'CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.EMAIL_PLACEHOLDER'
+                      | translate
+                  }}"
+                />
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <label for="subject">{{
+                  "CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.SUBJECT_LABEL"
+                    | translate
+                }}</label>
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-control"
+                  placeholder="{{
+                    'CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.SUBJECT_PLACEHOLDER'
+                      | translate
+                  }}"
+                />
+              </div>
+            </div>
+
+            <div class="row form-group">
+              <div class="col-md-12">
+                <label for="message">{{
+                  "CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.MESSAGE_LABEL"
+                    | translate
+                }}</label>
+                <textarea
+                  name="message"
+                  id="message"
+                  cols="30"
+                  rows="10"
+                  class="form-control"
+                  placeholder="{{
+                    'CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.MESSAGE_PLACEHOLDER'
+                      | translate
+                  }}"
+                ></textarea>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <input
+                type="submit"
+                value="{{
+                  'CONTACT.CONTACT_SECTION.GET_IN_TOUCH.FORM.SUBMIT' | translate
+                }}"
+                class="btn btn-lg text-light"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

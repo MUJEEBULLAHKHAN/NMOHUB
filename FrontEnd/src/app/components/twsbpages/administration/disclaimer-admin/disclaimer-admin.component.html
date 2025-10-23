@@ -1,0 +1,118 @@
+<div class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div>
+        <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack" [routerLink]="['../admin']">
+          <i class="bi bi-arrow-left-circle align-middle"></i> Back
+      </button>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Disclaimer
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div>
+            <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+              (keyup)="updateFilter($event)" aria-label=".form-control-sm example">
+          </div>
+          <div ngbDropdown class="dropdown">
+            <div class="ml-auto margin-5px" (click)="DisclaimerPopUp()">
+              <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                  class="fa fa-plus mr-1"></i> Add New</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Disclaimer Type</th>
+                <th scope="col">Disclaimer Text</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of disclaimerList">
+                <td>{{item.disclaimerType}}</td>
+                <td>
+                  <span>{{item.disclaimerText}} </span>
+                </td>
+                <td>
+                  <a href="javascript:void(0);" (click)="EditDisclaimer(item)">Edit</a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <!-- <div class="d-flex align-items-center">
+          <div> Showing 6 Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i> </div>
+          <div class="ms-auto">
+            <nav aria-label="Page navigation" class="pagination-style-4">
+              <ul class="pagination mb-0">
+                <li class="page-item disabled"> <a class="page-link" href="javascript:void(0);"> Prev </a> </li>
+                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                <li class="page-item"> <a class="page-link text-primary" href="javascript:void(0);"> next </a> </li>
+              </ul>
+            </nav>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalDisclaimerPopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">Add / Update</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <div class="form-group text-start">
+          <label>Disclaimer Type <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="disclaimerModel.disclaimerType" [disabled]="disclaimerModel.disclaimerTypeId != 0"
+            class="form-control" placeholder="Enter your Disclaimer Type" type="text" required #disclaimerType="ngModel">
+            <div *ngIf="disclaimerType.invalid && disclaimerType.touched">
+              <span class="text-danger">DisclaimerType is required.</span>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12 mb-3">
+        <div class="form-group text-start">
+          <label>Disclaimer Text <span class="text-danger">*</span></label>
+          <textarea matInput rows="5" [(ngModel)]="disclaimerModel.disclaimerText" class="form-control"
+            placeholder="Enter your Disclaimer Text" type="text" required #disclaimerTextInput="ngModel">
+          </textarea>
+          <div *ngIf="disclaimerTextInput.invalid && disclaimerTextInput.touched">
+            <span class="text-danger">Disclaimer Text is required.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" *ngIf="disclaimerModel.disclaimerTypeId == 0" (click)="Submit()"
+          >Submit</button>
+        <button class="btn ripple btn-primary btn-block" *ngIf="disclaimerModel.disclaimerTypeId != 0"
+          (click)="Update()">Update</button>
+
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,1118 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" />
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/animate.css" />
+  <!-- <link rel="stylesheet" href="./assets/staticwebsite/css/animate.css"> -->
+  <!-- Icomoon Icon Fonts-->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/icomoon.css" />
+  <!-- Bootstrap  -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/bootstrap.css" />
+
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/magnific-popup.css" />
+
+  <!-- Theme style  -->
+  <link rel="stylesheet" href="../home-customer1/assets/staticwebsite/css/style.css" />
+
+  <!-- Modernizr JS -->
+  <script src="../home-customer1/assets/staticwebsite/js/modernizr-2.6.2.min.js"></script>
+  <!-- <script src="./assets/js/modernizr-2.6.2.min.js"></script> -->
+</head>
+
+<body>
+  <header id="fh5co-co-working-space-header" class="fh5co-co-working-space-cover" role="banner" style="
+      background-image: url('https://nmohub.com.sa/en/wp-content/uploads/sites/2/2024/10/nmo-pic-2-2-1536x1022.png');
+    ">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row align-items-center" style="height: 100%">
+        <div class="col-md-7 text-center">
+          <div class="display-tc animate-box" data-animate-effect="fadeInUp">
+            <span class="text-white" style="text-transform: uppercase; letter-spacing: 2px">
+              {{ "CO_WORKING_SPACES.HERO_SECTION.SUBTITLE" | translate }}</span>
+            <h1 class="mb-3">
+              {{ "CO_WORKING_SPACES.HERO_SECTION.TITLE" | translate }}
+            </h1>
+            <p class="lead text-light mb-3">
+              {{ "CO_WORKING_SPACES.HERO_SECTION.DESCRIPTION" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-md-8 text-center fh5co-heading mb-5">
+        <span>{{
+          "CO_WORKING_SPACES.ADDITIONAL_SERVICES.SUBTITLE" | translate
+          }}</span>
+        <h2>{{ "CO_WORKING_SPACES.ADDITIONAL_SERVICES.TITLE" | translate }}</h2>
+      </div>
+      <div class="col-lg-6">
+        <div class="d-flex mb-4" *ngFor="let service of translations">
+          <i class="{{ service.ICON }} fs-3 text-primary me-3"></i>
+          <div>
+            <h4 class="mb-1">{{ service.TITLE }}</h4>
+            <p class="mb-0 text-muted">
+              {{ service.DESCRIPTION }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: Image -->
+      <div class="col-lg-6" style="height: -webkit-fill-available">
+        <img src="https://nmohub.com.sa/en/wp-content/uploads/sites/2/2024/10/nmo-pic-2-2-1536x1022.png"
+          class="img-fluid rounded-4 shadow" alt="Office Environment"
+          style="height: -webkit-fill-available; object-fit: cover" />
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5" id="co-working">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="pricing-card">
+          <h5 class="plan-title align-text-left text-left">
+            Meeting Access Room
+          </h5>
+          <h2 class="price text-left">SAR {{ meetingRoom.price }} Hourly</h2>
+          <div class="info-row">
+            <div>
+              <i class="bi bi-clock"></i>
+              <small> {{ meetingRoom.dailyHours }} Hour</small>
+            </div>
+            <!-- <div>
+              <i class="bi bi-calendar-event"></i>
+              <small> {{ meetingRoom.bIllingCycleUnit }}</small>
+            </div> -->
+          </div>
+
+          <ul class="feature-list  text-center mt-3">
+            <li *ngFor="let item of meetingRoomFeatures">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              <span>
+                {{ item }}
+              </span>
+            </li>
+          </ul>
+          <button class="btn btn-theme w-100" (click)="openBookingModal(bookingModal)">
+            <i class="bi bi-calendar-check"></i> Book Now
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+              *ngIf="bookingLoader"></span>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-4">
+        <div class="pricing-card">
+          <h5 class="plan-title align-text-left text-left">Co Working Space</h5>
+          <h2 class="price text-left">SAR {{ coWorkingSpace?.price }} Monthly </h2>
+          <div class="info-row">
+            <div>
+              <i class="bi bi-clock"></i>
+              <small> {{ coWorkingSpace?.accessScopeHour }} Hour</small>
+            </div>
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              <small> {{ coWorkingSpace?.deskType }}</small>
+            </div>
+          </div>
+
+          <ul class="feature-list  text-center mt-3">
+            <li>
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Available Seats {{ coWorkingSpace?.totalQuantity }}
+            </li>
+          </ul>
+          <button class="btn btn-theme w-100" (click)="openCoWorkingSpaceModal(coWorkingSpaceModal)">
+            <i class="bi bi-calendar-check"></i> Book Now
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+              *ngIf="coWorkingSpaceLoader"></span>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-4">
+        <div class="pricing-card">
+          <h5 class="plan-title align-text-left text-left">Closed Officce Space</h5>
+          <h2 class="price text-left">Total Offices 8 </h2>
+          <div class="info-row">
+            <div>
+              <i class="bi bi-clock"></i>
+              <small> Pricing Set As Per Office</small>
+            </div>
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              <small> Office Sizes As Per Office </small>
+            </div>
+          </div>
+
+          <ul class="feature-list  text-center mt-3">
+            <li>
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Contract Model: Manual contract, signed via OTP or upload
+            </li>
+          </ul>
+          <button class="btn btn-theme w-100" (click)="openClosedOfficeModal(closedOfficeModal)">
+            <i class="bi bi-calendar-check"></i> Book Now
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="pricing-card">
+          <h5 class="plan-title align-text-left text-left">Custom Package</h5>
+          <h2 class="price text-left">Customized Your Package </h2>
+          <div class="info-row">
+            <div>
+              <i class="bi bi-clock"></i>
+              <small> Custom Meeting Room</small>
+            </div>
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              <small> Custom Co Working Space </small>
+            </div>
+
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              <small> Custom Closed Office </small>
+            </div>
+
+          </div>
+
+          <!-- <ul class="feature-list  text-center mt-3">
+            <li>
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Contract Model: Manual contract, signed via OTP or upload
+            </li>
+          </ul> -->
+          <button class="btn btn-theme w-100" (click)="openCustomPackageModal(customerPackageModal)">
+            <i class="bi bi-calendar-check"></i> Book Now
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="pricing-card">
+          <h5 class="plan-title align-text-left text-left">Virtual Office</h5>
+          <h2 class="price text-left" style="font-size: 20px;"> Price Based On Package </h2>
+          <div class="info-row">
+            <div>
+              <i class="bi bi-clock"></i>
+              <small> Pricing Set As Per Office</small>
+            </div>
+            <div>
+              <i class="bi bi-calendar-event"></i>
+              <small> Office Sizes As Per Office </small>
+            </div>
+          </div>
+
+          <ul class="feature-list  text-center mt-3">
+            <li>
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Contract Model: Manual contract, signed via OTP or upload
+            </li>
+          </ul>
+          <button class="btn btn-theme w-100" (click)="openVitualOfficeModal(VitualOfficeModal)">
+            <i class="bi bi-calendar-check"></i> Select Package
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #modalPackagePopUp let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Book</h4>
+    </div>
+    <div class="card-body padding-1rem">
+      <div class="row mx-1 mt-3">
+        <div class="col-md-12 mb-3">
+          <label>Email</label>
+          <input [(ngModel)]="emailAddress" type="text" class="form-control" placeholder="EmailAddress" />
+        </div>
+
+        <div class="col-md-12 mb-3">
+          <label>Full Name</label>
+          <input [(ngModel)]="fullName" type="text" class="form-control" placeholder="Full Name" />
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="row">
+        <div class="col-md-6">
+          <button class="btn ripple   btn-block mb-0" (click)="Submit()">
+            Submit
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-white mb-0" (click)="c('Close click')">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #bookingModal let-modal style="z-index: 1500 !important">
+    <div class="modal-header">
+      <h5 class="modal-title">Book Meeting Room</h5>
+      <button type="button" class="btn-close" aria-label="Close"
+        (click)="modal.dismiss(); bookingForm.reset(); selectedSlot = null"></button>
+    </div>
+
+    <form [formGroup]="bookingForm" (ngSubmit)="confirmBooking()">
+      <div class="modal-body" style="padding:40px">
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="emailAddress"
+            [readonly]="_userInfo?.emailAddress ? true : false" />
+          <div class="text-danger" *ngIf="
+              bookingForm.get('emailAddress')?.touched &&
+              bookingForm.get('emailAddress')?.errors &&
+              !_userInfo?.emailAddress
+            ">
+            <span *ngIf="bookingForm.get('emailAddress')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="bookingForm.get('emailAddress')?.errors?.['email']">
+              Enter a valid email address
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input type="text" class="form-control" formControlName="fullName" [readonly]="
+              _userInfo?.firstNames || _userInfo?.lastName ? true : false
+            " />
+          <div class="text-danger" *ngIf="
+              (bookingForm.get('fullName')?.touched &&
+                bookingForm.get('fullName')?.errors &&
+                !_userInfo?.firstNames) ||
+              !_userInfo?.lastName
+            ">
+            <span *ngIf="bookingForm.get('fullName')?.errors?.['required']">
+              Full name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Mobile Number</label>
+          <input type="text" class="form-control" formControlName="mobileNumber"
+            [readonly]="_userInfo?.mobileNumber ? true : false" />
+          <div class="text-danger" *ngIf="
+              bookingForm.get('mobileNumber')?.touched &&
+              bookingForm.get('mobileNumber')?.errors &&
+              !_userInfo?.mobileNumber
+            ">
+            <span *ngIf="bookingForm.get('mobileNumber')?.errors?.['required']">
+              Mobile number is required
+            </span>
+            <span *ngIf="bookingForm.get('mobileNumber')?.errors?.['pattern']">
+              Enter a valid mobile number (8–15 digits)
+            </span>
+          </div>
+        </div>
+
+
+
+        <div class="mb-3">
+          <label>Applicant Type </label>
+          <select class="form-control" formControlName="applicantType" id="applicantType" name="applicantType" required>
+            <option value="Individual" style="color: black;"> Individual </option>
+            <option value="Company" style="color: black;"> Company </option>
+          </select>
+        </div>
+
+        <div class="mb-3" *ngIf="bookingForm.get('applicantType')?.value === 'Individual'">
+          <label>National ID</label>
+          <input type="text" class="form-control" formControlName="nationalID" required />
+        </div>
+
+        <div class="mb-3" *ngIf="bookingForm.get('applicantType')?.value === 'Company'">
+          <label>Commercial Registration</label>
+          <input type="text" class="form-control" formControlName="commercialRegistration" required />
+        </div>
+
+        <div class="mb-3" *ngIf="bookingForm.get('applicantType')?.value === 'Company'">
+          <label>Company Name</label>
+          <input type="text" class="form-control" formControlName="companyName" required />
+        </div>
+
+        <div class="mb-3" *ngIf="isOTPSendText">
+          <label>OTP</label>
+          <input type="text" class="form-control" formControlName="otp" />
+        </div>
+
+
+        <div class="alert alert-primary" *ngIf="selectedSlot">
+          <strong>Selected Slot: {{meetingRoomNo}}</strong><br />
+          Date: {{ selectedSlot.slotDate | date : "fullDate" }}<br />
+          Time: {{ startTime }} -
+          {{ endTime }}
+        </div>
+        <div class="calendar-container">
+          <!-- Header with navigation -->
+          <div class="calendar-header mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="nav-controls">
+                <button type="button" class="btn  -primary btn-sm me-2"
+                  (click)="navigatePrevious(); $event.stopPropagation()" [disabled]="shouldDisableBackNavigation()">
+                  &#8249;
+                </button>
+                <button type="button" class="btn  -primary btn-sm me-2"
+                  (click)="navigateNext(); $event.stopPropagation()">
+                  &#8250;
+                </button>
+                <button type="button" class="btn   btn-sm" (click)="goToToday(); $event.stopPropagation()">
+                  Today
+                </button>
+              </div>
+
+              <div class="date-range">
+                <h5 class="mb-0">{{ getDateRangeDisplay() }}</h5>
+              </div>
+
+              <div class="view-controls">
+                <button type="button" class="btn btn-sm" [class.active]="currentView === 'week'"
+                  (click)="setView('week'); $event.stopPropagation()">
+                  Week
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly Calendar View -->
+          <div class="calendar-grid" *ngIf="currentView === 'week'">
+            <!-- Day headers -->
+            <div class="row day-headers mb-2">
+              <div class="col-1 time-column"></div>
+              <div class="col day-header text-center" *ngFor="let day of currentWeekDays">
+                <div class="day-name fw-bold">{{ formatDayHeader(day) }}</div>
+              </div>
+            </div>
+
+            <!-- Time slots and events -->
+            <div class="time-grid">
+              <div class="row time-row" *ngFor="let timeSlot of timeSlots">
+                <div class="col-1 time-label text-end pe-2">
+                  <small class="text-muted">{{ timeSlot }}</small>
+                </div>
+
+                <div class="col day-cell position-relative" *ngFor="let day of currentWeekDays" [class.border]="true"
+                  [class.border-primary]="isSlotSelected(day, timeSlot)"
+                  [class.bg-light]="isSlotSelected(day, timeSlot)"
+                  [class.cursor-pointer]="isSlotOccupied(day, timeSlot)" style="min-height: 50px; cursor: pointer">
+                  <!-- Events for this time slot -->
+                  <div *ngFor="let event of getEventsForDayAndTime(day, timeSlot)" class="mb-1 w-100"
+                    [class.bg-success]="event.type === 'green'" [class.text-white]="event.type === 'green'"
+                    [class.bg-primary]="event.type === 'gray'" [class.text-white]="event.type === 'gray'">
+                    <div class="event-content" (click)="selectTimeSlot(day, timeSlot, event)">
+
+                      <!-- <small class="event-time d-block">
+                  {{ event.startTime | date:'shortTime' }} - {{ event.endTime |
+                  date:'shortTime' }}
+                </small> -->
+                      <small class="event-time d-block">
+                        <!-- {{ event.startTime }} - {{ event.endTime }} -->
+                        {{ formatTimeSlot(event.startTime) }} -
+                        {{ formatTimeSlot(event.endTime) }}
+                      </small>
+                      <small class="event-title fw-bold">
+                        <span *ngIf="event.status === 'Available'" class="text-white">
+                          Available
+                          <span *ngIf="event.isMeetingRoomOne"> Room 1 </span>
+                          <span *ngIf="event.isMeetingRoomTwo"> Room 2 </span>
+                        </span>
+                        <span *ngIf="event.status === 'Booked'" class="text-white">
+                          Booked
+                        </span>
+                      </small>
+                    </div>
+                  </div>
+
+                  <!-- Selection indicator -->
+                  <div *ngIf="isSlotSelected(day, timeSlot)" class="position-absolute top-50 start-50 translate-middle">
+                    <i class="fas fa-check-circle text-primary"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"
+          (click)="modal.dismiss(); bookingForm.reset(); selectedSlot = null">
+          Cancel
+        </button>
+        <button *ngIf="!isOTPSend" type="submit" class="btn " [disabled]="bookingForm.invalid">
+          Confirm
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="bookingLoader"></span>
+        </button>
+
+        <button *ngIf="isOTPSend" type="button" class="btn " [disabled]="bookingForm.invalid"
+          (click)="SendOtp('MeetingRoomAccess','')">
+          Send OTP
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="bookingLoader"></span>
+        </button>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #closedOfficeModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Book Closed Office</h5>
+      <button type="button" class="btn-close" aria-label="Close"
+        (click)="modal.dismiss(); closedOfficeForm.reset()"></button>
+    </div>
+
+    <form [formGroup]="closedOfficeForm" (ngSubmit)="confirmClosedOfficeBooking()">
+      <div class="modal-body" style="padding:40px">
+
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="emailAddress"
+            [readonly]="_userInfo?.emailAddress ? true : false" />
+          <div class="text-danger" *ngIf="
+              closedOfficeForm.get('emailAddress')?.touched &&
+              closedOfficeForm.get('emailAddress')?.errors &&
+              !_userInfo?.emailAddress
+            ">
+            <span *ngIf="closedOfficeForm.get('emailAddress')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="closedOfficeForm.get('emailAddress')?.errors?.['email']">
+              Enter a valid email address
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input type="text" class="form-control" formControlName="fullName" [readonly]="
+              _userInfo?.firstNames || _userInfo?.lastName ? true : false
+            " />
+          <div class="text-danger" *ngIf="
+              (closedOfficeForm.get('fullName')?.touched &&
+                closedOfficeForm.get('fullName')?.errors &&
+                !_userInfo?.firstNames) ||
+              !_userInfo?.lastName
+            ">
+            <span *ngIf="closedOfficeForm.get('fullName')?.errors?.['required']">
+              Full name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Mobile Number</label>
+          <input type="text" class="form-control" formControlName="mobileNumber"
+            [readonly]="_userInfo?.mobileNumber ? true : false" />
+          <div class="text-danger" *ngIf="
+              closedOfficeForm.get('mobileNumber')?.touched &&
+              closedOfficeForm.get('mobileNumber')?.errors &&
+              !_userInfo?.mobileNumber
+            ">
+            <span *ngIf="closedOfficeForm.get('mobileNumber')?.errors?.['required']">
+              Mobile number is required
+            </span>
+            <span *ngIf="closedOfficeForm.get('mobileNumber')?.errors?.['pattern']">
+              Enter a valid mobile number (8–15 digits)
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Applicant Type </label>
+          <select class="form-control" formControlName="applicantType" id="applicantType" name="applicantType" required>
+            <option value="Individual" style="color: black;"> Individual </option>
+            <option value="Company" style="color: black;"> Company </option>
+          </select>
+        </div>
+
+        <div class="mb-3" *ngIf="closedOfficeForm.get('applicantType')?.value === 'Individual'">
+          <label>National ID</label>
+          <input type="text" class="form-control" formControlName="nationalID" />
+        </div>
+
+        <div class="mb-3" *ngIf="closedOfficeForm.get('applicantType')?.value === 'Company'">
+          <label>Commercial Registration</label>
+          <input type="text" class="form-control" formControlName="commercialRegistration" required />
+        </div>
+
+        <div class="mb-3" *ngIf="closedOfficeForm.get('applicantType')?.value === 'Company'">
+          <label>Company Name</label>
+          <input type="text" class="form-control" formControlName="companyName" required />
+        </div>
+
+        <div class="mb-3" *ngIf="isOTPSendText">
+          <label>OTP</label>
+          <input type="text" class="form-control" formControlName="otp" />
+        </div>
+
+        <div class="">
+          <div class="col-md-4 col-lg-4 mb-2" *ngFor="let close of closedOffice">
+            <div class="pricing-card">
+              <h6 class="plan-title align-text-left text-left">{{close.closeOfficeName}}</h6>
+              <h6 class="price text-left"> Price {{close.price}} </h6>
+              <div class="info-row">
+                <div>
+                  <i class="bi bi-clock"></i>
+                  <small> Office Sizes {{close.officeSizes}}</small>
+                </div>
+                <div>
+                  <i class="bi bi-calendar-event"></i>
+                  <small> {{close.accessModel}} </small>
+                </div>
+              </div>
+              <button *ngIf="isOTPSend && isClosedOfficeSelected" class="btn btn-theme w-100"
+                [disabled]="closedOfficeForm.invalid" (click)="selectClosedOffice(close)">
+                <i class="bi bi-calendar-check"></i> Select
+
+                <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                  *ngIf="closedOfficeLoader"></span>
+              </button>
+
+
+              <div *ngIf="close.status === true">
+                <button type="button" class="btn  -danger" disabled style="color: red;font-weight: bold;">
+                  Booked
+                </button>
+              </div>
+
+              <div *ngIf="close.status === false">
+                <button *ngIf="isOTPSend && !isClosedOfficeSelected" type="button" class="btn  "
+                  [disabled]="closedOfficeForm.invalid" (click)="SendOtp('ClosedOffice', close)">
+                  Book
+                </button>
+              </div>
+
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="closedOfficeLoader"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button *ngIf="!isOTPSend" type="submit" class="btn  " [disabled]="closedOfficeForm.invalid">
+          Confirm
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="closedOfficeLoader"></span>
+        </button>
+
+        <!-- <button *ngIf="isOTPSend" type="button" class="btn  " [disabled]="coWorkingSpaceForm.invalid"
+          (click)="SendOtp('CoWorkingSpace')">
+          Send OTP
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="coWorkingSpaceLoader"></span>
+        </button> -->
+
+        <button type="button" class="btn  " (click)="modal.dismiss(); closedOfficeForm.reset()">
+          Cancel
+        </button>
+        <!-- <button type="submit" class="btn  " [disabled]="closedOfficeForm.invalid">
+          Confirm
+        </button> -->
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #coWorkingSpaceModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Book Co-Working Space</h5>
+      <button type="button" class="btn-close" aria-label="Close"
+        (click)="modal.dismiss(); coWorkingSpaceForm.reset()"></button>
+    </div>
+
+    <form [formGroup]="coWorkingSpaceForm" (ngSubmit)="confirmCoWorkingSpaceBooking()">
+      <div class="modal-body" style="padding:40px">
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="emailAddress"
+            [readonly]="_userInfo?.emailAddress ? true : false" />
+          <div class="text-danger" *ngIf="
+              coWorkingSpaceForm.get('emailAddress')?.touched &&
+              coWorkingSpaceForm.get('emailAddress')?.errors &&
+              !_userInfo?.emailAddress
+            ">
+            <span *ngIf="coWorkingSpaceForm.get('emailAddress')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="coWorkingSpaceForm.get('emailAddress')?.errors?.['email']">
+              Enter a valid email
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input type="text" class="form-control" formControlName="fullName" [readonly]="
+              _userInfo?.firstNames || _userInfo?.lastName ? true : false
+            " />
+          <div class="text-danger" *ngIf="
+              (coWorkingSpaceForm.get('fullName')?.touched &&
+                coWorkingSpaceForm.get('fullName')?.errors &&
+                !_userInfo?.firstNames) ||
+              !_userInfo?.lastName
+            ">
+            <span *ngIf="coWorkingSpaceForm.get('fullName')?.errors?.['required']">
+              Full name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Mobile Number</label>
+          <input type="text" class="form-control" formControlName="mobileNumber"
+            [readonly]="_userInfo?.mobileNumber ? true : false" />
+          <div class="text-danger" *ngIf="
+              coWorkingSpaceForm.get('mobileNumber')?.touched &&
+              coWorkingSpaceForm.get('mobileNumber')?.errors &&
+              !_userInfo?.mobileNumber
+            ">
+            <span *ngIf="coWorkingSpaceForm.get('mobileNumber')?.errors?.['required']">
+              Mobile number is required
+            </span>
+            <span *ngIf="coWorkingSpaceForm.get('mobileNumber')?.errors?.['pattern']">
+              Enter a valid mobile number (8–15 digits)
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Seat Quantity</label>
+          <input type="number" class="form-control" formControlName="quantity" required />
+          <div class="text-danger" *ngIf="
+              coWorkingSpaceForm.get('quantity')?.touched &&
+              coWorkingSpaceForm.get('quantity')?.errors
+            ">
+            <span *ngIf="coWorkingSpaceForm.get('quantity')?.errors?.['required']">
+              Quantity is required
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Applicant Type </label>
+          <select class="form-control" formControlName="applicantType" id="applicantType" name="applicantType" required>
+            <option value="Individual" style="color: black;"> Individual </option>
+            <option value="Company" style="color: black;"> Company </option>
+          </select>
+        </div>
+
+        <div class="mb-3" *ngIf="coWorkingSpaceForm.get('applicantType')?.value === 'Individual'">
+          <label>National ID</label>
+          <input type="text" class="form-control" formControlName="nationalID" />
+        </div>
+
+        <div class="mb-3" *ngIf="coWorkingSpaceForm.get('applicantType')?.value === 'Company'">
+          <label>Commercial Registration</label>
+          <input type="text" class="form-control" formControlName="commercialRegistration" required />
+        </div>
+
+        <div class="mb-3" *ngIf="coWorkingSpaceForm.get('applicantType')?.value === 'Company'">
+          <label>Company Name</label>
+          <input type="text" class="form-control" formControlName="companyName" required />
+        </div>
+
+        <div class="mb-3" *ngIf="isOTPSendText">
+          <label>OTP</label>
+          <input type="text" class="form-control" formControlName="otp" />
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn  " (click)="modal.dismiss(); coWorkingSpaceForm.reset()">
+          Cancel
+        </button>
+        <button *ngIf="!isOTPSend" type="submit" class="btn  " [disabled]="coWorkingSpaceForm.invalid">
+          Confirm
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="coWorkingSpaceLoader"></span>
+        </button>
+
+        <button *ngIf="isOTPSend" type="button" class="btn  " [disabled]="coWorkingSpaceForm.invalid"
+          (click)="SendOtp('CoWorkingSpace','')">
+          Send OTP
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="coWorkingSpaceLoader"></span>
+        </button>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #customerPackageModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Book Custom Package</h5>
+      <button type="button" class="btn-close" aria-label="Close"
+        (click)="modal.dismiss(); customerPackageForm.reset()"></button>
+    </div>
+
+    <form [formGroup]="customerPackageForm" (ngSubmit)="confirmCustomPackage()">
+      <div class="modal-body" style="padding:40px">
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="emailAddress"
+            [readonly]="_userInfo?.emailAddress ? true : false" />
+          <div class="text-danger" *ngIf="
+              customerPackageForm.get('emailAddress')?.touched &&
+              customerPackageForm.get('emailAddress')?.errors &&
+              !_userInfo?.emailAddress
+            ">
+            <span *ngIf="customerPackageForm.get('emailAddress')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="customerPackageForm.get('emailAddress')?.errors?.['email']">
+              Enter a valid email
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input type="text" class="form-control" formControlName="fullName" [readonly]="
+              _userInfo?.firstNames || _userInfo?.lastName ? true : false
+            " />
+          <div class="text-danger" *ngIf="
+              (customerPackageForm.get('fullName')?.touched &&
+                customerPackageForm.get('fullName')?.errors &&
+                !_userInfo?.firstNames) ||
+              !_userInfo?.lastName
+            ">
+            <span *ngIf="customerPackageForm.get('fullName')?.errors?.['required']">
+              Full name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Mobile Number</label>
+          <input type="text" class="form-control" formControlName="mobileNumber"
+            [readonly]="_userInfo?.mobileNumber ? true : false" />
+          <div class="text-danger" *ngIf="
+              customerPackageForm.get('mobileNumber')?.touched &&
+              customerPackageForm.get('mobileNumber')?.errors &&
+              !_userInfo?.mobileNumber
+            ">
+            <span *ngIf="customerPackageForm.get('mobileNumber')?.errors?.['required']">
+              Mobile number is required
+            </span>
+            <span *ngIf="customerPackageForm.get('mobileNumber')?.errors?.['pattern']">
+              Enter a valid mobile number (8–15 digits)
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Applicant Type </label>
+          <select class="form-control" formControlName="applicantType" id="applicantType" name="applicantType" required>
+            <option value="Individual" style="color: black;"> Individual </option>
+            <option value="Company" style="color: black;"> Company </option>
+          </select>
+        </div>
+
+        <div class="mb-3" *ngIf="customerPackageForm.get('applicantType')?.value === 'Individual'">
+          <label>National ID</label>
+          <input type="text" class="form-control" formControlName="nationalID" />
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3" *ngIf="customerPackageForm.get('applicantType')?.value === 'Company'">
+              <label>Commercial Registration</label>
+              <input type="text" class="form-control" formControlName="commercialRegistration" />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3" *ngIf="customerPackageForm.get('applicantType')?.value === 'Company'">
+              <label>Company Name</label>
+              <input type="text" class="form-control" formControlName="companyName" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>service Name </label>
+              <select class="form-control" formControlName="serviceName" id="serviceName" name="serviceName" required>
+                <option value="Meeting Access Room" style="color: black;"> Meeting Access Room </option>
+                <option value="Co Working Space" style="color: black;"> Co Working Space </option>
+                <option value="Closed Officce Space" style="color: black;"> Closed Officce Space </option>
+
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>meeting Room Access Required Hour</label>
+              <input type="number" class="form-control" formControlName="meetingRoomAccessRequiredHour" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Co Working Space Monthly </label>
+              <input type="number" class="form-control" formControlName="coWorkingSpaceMonthly" />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Co Working Space Required Seats</label>
+              <input type="number" class="form-control" formControlName="coWorkingSpaceRequiredSeats" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>closed Office Monthly</label>
+              <input type="number" class="form-control" formControlName="closedOfficeMonthly" />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>closed Office Size Request</label>
+              <input type="number" class="form-control" formControlName="closedOfficeSizeRequest" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Budget Amount</label>
+              <input type="number" class="form-control" formControlName="budgetAmount" />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Description</label>
+              <input type="text" class="form-control" formControlName="description" />
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3" *ngIf="isOTPSendText">
+          <label>OTP</label>
+          <input type="text" class="form-control" formControlName="otp" />
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn  " (click)="modal.dismiss(); customerPackageForm.reset()">
+          Cancel
+        </button>
+        <button *ngIf="!isOTPSend" type="submit" class="btn  " [disabled]="customerPackageForm.invalid">
+          Confirm
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="customerPackageLoader"></span>
+        </button>
+
+        <button *ngIf="isOTPSend" type="button" class="btn  " [disabled]="customerPackageForm.invalid"
+          (click)="SendOtp('customerPackage','')">
+          Send OTP
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="customerPackageLoader"></span>
+        </button>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #VitualOfficeModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Vitual Office</h5>
+      <button type="button" class="btn-close" aria-label="Close"
+        (click)="modal.dismiss(); virtualPackageForm.reset()"></button>
+    </div>
+
+    <form [formGroup]="virtualPackageForm" (ngSubmit)="confirmVirtualOffice()">
+      <div class="modal-body" style="padding:40px">
+
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" class="form-control" formControlName="emailAddress"
+            [readonly]="_userInfo?.emailAddress ? true : false" />
+          <div class="text-danger" *ngIf="
+              virtualPackageForm.get('emailAddress')?.touched &&
+              virtualPackageForm.get('emailAddress')?.errors &&
+              !_userInfo?.emailAddress
+            ">
+            <span *ngIf="virtualPackageForm.get('emailAddress')?.errors?.['required']">
+              Email is required
+            </span>
+            <span *ngIf="virtualPackageForm.get('emailAddress')?.errors?.['email']">
+              Enter a valid email address
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Full Name</label>
+          <input type="text" class="form-control" formControlName="fullName" [readonly]="
+              _userInfo?.firstNames || _userInfo?.lastName ? true : false
+            " />
+          <div class="text-danger" *ngIf="
+              (virtualPackageForm.get('fullName')?.touched &&
+                virtualPackageForm.get('fullName')?.errors &&
+                !_userInfo?.firstNames) ||
+              !_userInfo?.lastName
+            ">
+            <span *ngIf="virtualPackageForm.get('fullName')?.errors?.['required']">
+              Full name is required
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Mobile Number</label>
+          <input type="text" class="form-control" formControlName="mobileNumber"
+            [readonly]="_userInfo?.mobileNumber ? true : false" />
+          <div class="text-danger" *ngIf="
+              virtualPackageForm.get('mobileNumber')?.touched &&
+              virtualPackageForm.get('mobileNumber')?.errors &&
+              !_userInfo?.mobileNumber
+            ">
+            <span *ngIf="virtualPackageForm.get('mobileNumber')?.errors?.['required']">
+              Mobile number is required
+            </span>
+            <span *ngIf="virtualPackageForm.get('mobileNumber')?.errors?.['pattern']">
+              Enter a valid mobile number (8–15 digits)
+            </span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Applicant Type </label>
+          <select class="form-control" formControlName="applicantType" id="applicantType" name="applicantType" required>
+            <option value="Individual" style="color: black;"> Individual </option>
+            <option value="Company" style="color: black;"> Company </option>
+          </select>
+        </div>
+
+        <div class="mb-3" *ngIf="virtualPackageForm.get('applicantType')?.value === 'Individual'">
+          <label>National ID</label>
+          <input type="text" class="form-control" formControlName="nationalID" />
+        </div>
+
+        <div class="mb-3" *ngIf="virtualPackageForm.get('applicantType')?.value === 'Company'">
+          <label>Commercial Registration</label>
+          <input type="text" class="form-control" formControlName="commercialRegistration" required />
+        </div>
+
+        <div class="mb-3" *ngIf="virtualPackageForm.get('applicantType')?.value === 'Company'">
+          <label>Company Name</label>
+          <input type="text" class="form-control" formControlName="companyName" required />
+        </div>
+
+        <div class="mb-3" *ngIf="isOTPSendText">
+          <label>OTP</label>
+          <input type="text" class="form-control" formControlName="otp" />
+        </div>
+
+        <div class="">
+          <div class="col-md-4 col-lg-4 mb-2" *ngFor="let package of packageList">
+            <div class="pricing-card" style="padding: 2rem 1.0rem;">
+              <h6 class="plan-title align-text-left text-left">{{package.name}}</h6>
+              <h6 class="price text-left"> Price {{package.price}} </h6>
+              <div class="info-row">
+                <div style="text-align: left;">
+                  <span> Meeting Access Room Consume {{package.meetingAccessRoomConsume}}</span>
+                </div>
+
+                <br>
+
+                <div style="text-align: left;">
+                  <span> Billing Package {{package.billingPackage}}</span>
+                </div>
+<!-- 
+                <br>
+
+                <div style="text-align: left;">
+                  <span>Features {{package.features}}</span>
+                </div> -->
+
+                <ul class="feature-list  text-center mt-3">
+                  <li *ngFor="let item of package.featureList">
+                    <i class="bi bi-check-circle-fill text-success me-2"></i>
+                    <span>
+                      {{ item }}
+                    </span>
+                  </li>
+                </ul>
+
+              </div>
+              <button *ngIf="isOTPSend && isClosedOfficeSelected" class="btn btn-theme w-100"
+                [disabled]="virtualPackageForm.invalid" (click)="selectVirtualOffice(package)">
+                <i class="bi bi-calendar-check"></i> Select
+
+                <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                  *ngIf="closedOfficeLoader"></span>
+              </button>
+
+              <button *ngIf="isOTPSend && !isClosedOfficeSelected" type="button" class="btn  "
+                [disabled]="virtualPackageForm.invalid" (click)="SendOtp('VirtualOfficeData', package)">
+                Book
+              </button>
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="closedOfficeLoader"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button *ngIf="!isOTPSend" type="submit" class="btn  " [disabled]="virtualPackageForm.invalid">
+          Confirm
+
+          <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+            *ngIf="closedOfficeLoader"></span>
+        </button>
+
+        <button type="button" class="btn  " (click)="modal.dismiss(); virtualPackageForm.reset()">
+          Cancel
+        </button>
+
+      </div>
+    </form>
+  </ng-template>
+
+</body>

@@ -1,0 +1,277 @@
+<div
+  class="my-4 page-header-breadcrumb single-page-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+  <div>
+    <button class="btn btn-primary-light btn-wave me-2 waves-effect waves-light" id="btnNavigateBack"
+      [routerLink]="['../admin']">
+      <i class="bi bi-arrow-left-circle align-middle"></i> Back
+    </button>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Workshop Rate
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div>
+            <input class="form-control form-control-sm" placeholder="Type to filter the name column..." type="search"
+              (keyup)="updateFilter($event)" aria-label=".form-control-sm example">
+          </div>
+          <div ngbDropdown class="dropdown">
+            <div class="ml-auto margin-5px" (click)="AddWorkShopRatePopUp()">
+              <a href="javascript:;" class="btn btn-success btn-sm btn-rounded pl-2 pr-3"><i
+                  class="fa fa-plus mr-1"></i> Add New</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Branch Name</th>
+                <th scope="col">Labour Rate</th>
+                <th scope="col">Paint Rate</th>
+                <th scope="col">Parts Markup</th>
+                <th scope="col">Strip Assembly Rate</th>
+                <th scope="col">Out Of Warranty Rate</th>
+                <th scope="col">Warranty Rate</th>
+                <th scope="col">MsrRate</th>
+                <th scope="col">NsrRate</th>
+                <th scope="col">RateDescription</th>
+                <th scope="col">Part Sundry Percent</th>
+                <th scope="col">Paint Sundry Percent</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of WorkshopRateList">
+                <td>{{item.branchName}}</td>
+                <td>{{item.labourRate}}</td>
+                <td>{{item.paintRate}}</td>
+                <td>{{item.partsMarkup}}</td>
+                <td>{{item.stripAssemblyRate}}</td>
+                <td>
+                  <span *ngIf="item.isOutOfWarrantyRate">Yes</span>
+                  <span *ngIf="item.isOutOfWarrantyRate == false">No</span>
+                </td>
+                <td>
+                  <span *ngIf="item.isWarrantyRate">Yes</span>
+                  <span *ngIf="item.isWarrantyRate == false">No</span>
+                </td>
+                <td>{{item.msrRate}}</td>
+                <td>{{item.nsrRate}}</td>
+                <td>{{item.rateDescription}}</td>
+                <td>{{item.partSundryPercent}}</td>
+                <td>{{item.paintSundryPercent}}</td>
+
+                <td>
+                  <a href="javascript:void(0);" (click)="EditRate(item)">Edit</a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer">
+        <!-- <div class="d-flex align-items-center">
+          <div> Showing 6 Entries <i class="bi bi-arrow-right ms-2 fw-semibold"></i> </div>
+          <div class="ms-auto">
+            <nav aria-label="Page navigation" class="pagination-style-4">
+              <ul class="pagination mb-0">
+                <li class="page-item disabled"> <a class="page-link" href="javascript:void(0);"> Prev </a> </li>
+                <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+                <li class="page-item"> <a class="page-link text-primary" href="javascript:void(0);"> next </a> </li>
+              </ul>
+            </nav>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalAddCompanyPopUp let-c="close" let-d="dismiss" class="modal-xl">
+  <div class="modal-header">
+    <h6 class="modal-title">Add / Update</h6>
+  </div>
+  <div class="card-body padding-1rem">
+    <div class="row  mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Branch <span class="text-danger">*</span></label>
+          <select class="form-control col-md-12" [(ngModel)]="WorkshopRateModel.companyBranchId" id="companyBranchId"
+            name="companyBranchId" required #companyBranchIdSelect="ngModel">
+            <option *ngFor="let item of companyBranchList" [value]="item.companyBranchId">{{item.branchName}}
+            </option>
+          </select>
+          <div *ngIf="companyBranchIdSelect.invalid && companyBranchIdSelect.touched">
+            <span class="text-danger">Company Branch is required.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Labour Rate <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="WorkshopRateModel.labourRate" class="form-control"
+            placeholder="Enter Labour Rate" type="text" required #labourRateInput="ngModel">
+          <div *ngIf="labourRateInput.invalid && labourRateInput.touched">
+            <span class="text-danger">Labour Rate is required.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row  mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Paint Rate <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="WorkshopRateModel.paintRate" class="form-control"
+            placeholder="Enter Paint Rate Number" ngPattern="^-?[0-9]+(\.[0-9]+)?$" type="text" required
+            #paintRateInput="ngModel">
+          <div *ngIf="paintRateInput.invalid && paintRateInput.touched">
+            <span class="text-danger">Paint Rate is required.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Parts Markup <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="WorkshopRateModel.partsMarkup" class="form-control"
+            placeholder="Enter Parts Markup" type="text" required #partsMarkupInput="ngModel">
+          <div *ngIf="partsMarkupInput.invalid && partsMarkupInput.touched">
+            <span class="text-danger">Parts Markup is required.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row  mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Strip Assembly Rate <span class="text-danger">*</span></label>
+          <input matInput [(ngModel)]="WorkshopRateModel.stripAssemblyRate" class="form-control"
+            placeholder="Enter Strip Assembly Rate" type="text" required #stripAssemblyRateInput="ngModel">
+          <div *ngIf="stripAssemblyRateInput.invalid && stripAssemblyRateInput.touched">
+            <span class="text-danger">Strip Assembly Rate is required.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>NSR Rate</label>
+          <input matInput [(ngModel)]="WorkshopRateModel.nsrRate" class="form-control" placeholder="Enter NSR Rate"
+            type="text" required #nsrRateInput="ngModel">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row  mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Rate Description</label>
+          <input matInput [(ngModel)]="WorkshopRateModel.rateDescription" class="form-control"
+            placeholder="Enter Rate Description" type="text" required #rateDescriptionInput="ngModel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>MSR Rate</label>
+          <input matInput [(ngModel)]="WorkshopRateModel.msrRate" class="form-control" placeholder="Enter MSR Rate"
+            type="text" required #msrRateInput="ngModel">
+        </div>
+      </div>
+    </div>
+
+    <div class="row  mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Part Sundry Percent</label>
+          <input matInput [(ngModel)]="WorkshopRateModel.partSundryPercent" class="form-control"
+            placeholder="Enter Part Sundry Percent" type="number" #ratePartSundryPercentInput="ngModel">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Paint Sundry Percent</label>
+          <input [(ngModel)]="WorkshopRateModel.paintSundryPercent" class="form-control" placeholder="Enter Paint Sundry Percent"
+            type="number" #msrPaintSundryPercentInput="ngModel">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row  mb-3">
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Out Of Warranty Rates</label>
+          <!-- <input matInput [(ngModel)]="WorkshopRateModel.outOfWarrantyRate" class="form-control"
+            placeholder="Enter FullStreet Address" type="text" required #outOfWarrantyRateInput="ngModel"> -->
+          <div class="row pt-2 gx-0">
+            <div class="col-sm-6 col-6">
+              <div class="form-check switch-select"><label for="IsOutOfWarrantyRate" class="form-check-label"> Yes
+                </label>
+                <input [(ngModel)]="WorkshopRateModel.isOutOfWarrantyRate" [value]="true" type="radio"
+                  name="IsOutOfWarrantyRate" id="IsOutOfWarrantyRate" class="form-check-input">
+              </div>
+            </div>
+            <div class="col-sm-6 col-6">
+              <div class="form-check switch-select"><label for="IsOutOfWarrantyRate" class="form-check-label"> No
+                </label>
+                <input [(ngModel)]="WorkshopRateModel.isOutOfWarrantyRate" [value]="false" type="radio"
+                  name="IsOutOfWarrantyRate" id="IsOutOfWarrantyRate" class="form-check-input">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group text-start">
+          <label>Warranty Rate</label>
+          <!-- <input matInput [(ngModel)]="WorkshopRateModel.warrantyRate" class="form-control"
+            placeholder="Enter Warranty Rate" type="text" required #warrantyRateInput="ngModel"> -->
+          <div class="row pt-2 gx-0">
+            <div class="col-sm-6 col-6">
+              <div class="form-check switch-select"><label for="IsWarrantyRate" class="form-check-label"> Yes </label>
+                <input [(ngModel)]="WorkshopRateModel.isWarrantyRate" [value]="true" type="radio" name="IsWarrantyRate"
+                  id="IsWarrantyRate" class="form-check-input">
+              </div>
+            </div>
+            <div class="col-sm-6 col-6">
+              <div class="form-check switch-select"><label for="IsWarrantyRate" class="form-check-label"> No </label>
+                <input [(ngModel)]="WorkshopRateModel.isWarrantyRate" [value]="false" type="radio" name="IsWarrantyRate"
+                  id="IsWarrantyRate" class="form-check-input">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn ripple btn-primary btn-block" *ngIf="WorkshopRateModel.rateAgreementId == 0"
+          (click)="Submit()">Submit</button>
+        <button class="btn ripple btn-primary btn-block" *ngIf="WorkshopRateModel.rateAgreementId != 0"
+          (click)="Update()">Update</button>
+
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-white" (click)="c('Close click')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,233 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Expert Calendar</h2>
+    <button class="btn btn-primary" (click)="refreshCalendar()" [disabled]="isLoadingCalendar || !selectedExpertId">
+      <i class="bi bi-arrow-clockwise"></i> Refresh
+    </button>
+  </div>
+
+  <!-- Calendar Controls -->
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-center">
+        <div class="col-md-4">
+          <label for="expertId" class="form-label">Select Expert</label>
+          <select 
+            class="form-select" 
+            id="expertId" 
+            formControlName="expertId"
+            (change)="onExpertChange()">
+            <option value="">Select an expert</option>
+            <option *ngFor="let expert of experts" [value]="expert.expertID">
+              {{ expert.fullName }} (ID: {{ expert.expertID }})
+            </option>
+          </select>
+        </div>
+        
+        <div class="col-md-3">
+          <label for="eventType" class="form-label">Event Type</label>
+          <select 
+            class="form-select" 
+            id="eventType" 
+            formControlName="eventType"
+            (change)="onFilterChange()">
+            <option *ngFor="let option of eventTypeOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-3">
+          <label for="viewType" class="form-label">View</label>
+          <select 
+            class="form-select" 
+            id="viewType" 
+            formControlName="viewType"
+            (change)="onViewChange()">
+            <option value="day">Day</option>
+            <option value="week">Week</option>
+            <option value="month">Month</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Date Navigation -->
+      <div *ngIf="selectedExpertId" class="row mt-3">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary" (click)="onDateChange('prev')">
+              <i class="bi bi-chevron-left"></i> Previous
+            </button>
+            
+            <h4 class="mb-0 text-center">
+              {{ getDateRangeTitle() }}
+            </h4>
+            
+            <div>
+              <button class="btn btn-outline-primary me-2" (click)="onDateChange('today')">
+                Today
+              </button>
+              <button class="btn btn-outline-secondary" (click)="onDateChange('next')">
+                Next <i class="bi bi-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading States -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading experts...</span>
+    </div>
+    <p class="mt-2">Loading experts...</p>
+  </div>
+
+  <div *ngIf="isLoadingCalendar" class="text-center py-3">
+    <div class="spinner-border spinner-border-sm" role="status">
+      <span class="visually-hidden">Loading calendar...</span>
+    </div>
+    <span class="ms-2">Loading calendar events...</span>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+    <button *ngIf="selectedExpertId" class="btn btn-sm btn-outline-danger ms-3" (click)="loadCalendarEvents(selectedExpertId)">
+      Retry
+    </button>
+  </div>
+
+  <!-- Calendar Events -->
+  <div *ngIf="selectedExpertId && !isLoadingCalendar && !errorMessage">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4>{{ getViewTitle() }}</h4>
+      <span class="badge bg-secondary">{{ filteredEvents.length }} events</span>
+    </div>
+
+    <div *ngIf="filteredEvents.length === 0" class="alert alert-info">
+      No calendar events found for the selected criteria.
+    </div>
+
+    <div *ngIf="filteredEvents.length > 0">
+      <!-- Group events by date -->
+      <div *ngFor="let dateKey of getSortedDateKeys(groupEventsByDate())" class="card mb-3">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">{{ formatDate(dateKey) }}</h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-12" *ngFor="let event of groupEventsByDate()[dateKey]">
+              <div class="card event-card" [class.border-success]="event.eventType === 'Availability'" 
+                   [class.border-primary]="event.eventType === 'Booking'" 
+                   [class.border-secondary]="event.eventType === 'Blocked'">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h6 class="card-title mb-1">
+                        <span class="badge me-2" [ngClass]="getEventTypeBadgeClass(event.eventType)">
+                          {{ event.eventType }}
+                        </span>
+                        {{ event.title }}
+                      </h6>
+                      <p class="card-text text-muted mb-1" *ngIf="event.description">
+                        {{ event.description }}
+                      </p>
+                      <div class="text-muted small">
+                        <i class="bi bi-clock me-1"></i>
+                        {{ formatTime(event.startDateTime) }} - {{ formatTime(event.endDateTime) }}
+                        ({{ getDuration(event.startDateTime, event.endDateTime) }})
+                      </div>
+                    </div>
+                    <div class="text-end">
+                      <div *ngIf="event.eventType === 'Booking' && event.bookingStatus" 
+                           class="badge mb-2" [ngClass]="getBookingStatusBadgeClass(event.bookingStatus)">
+                        {{ event.bookingStatus }}
+                      </div>
+                      <div *ngIf="event.meetingType" class="badge bg-info">
+                        {{ event.meetingType }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Booking Details -->
+                  <div *ngIf="event.eventType === 'Booking'" class="mt-2 pt-2 border-top">
+                    <div class="row">
+                      <div class="col-md-6" *ngIf="event.customerId">
+                        <small class="text-muted">Customer: #{{ event.customerId }}</small>
+                      </div>
+                      <div class="col-md-6" *ngIf="event.location">
+                        <small class="text-muted">Location: {{ event.location }}</small>
+                      </div>
+                      <div class="col-12" *ngIf="event.sessionLink">
+                        <small class="text-muted">
+                          Session Link: <a [href]="event.sessionLink" target="_blank">{{ event.sessionLink }}</a>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Replace the summary statistics section with this: -->
+
+<!-- Summary Statistics -->
+<div *ngIf="filteredEvents.length > 0" class="row mt-4">
+  <div class="col-md-2">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ getTotalEventsCount() }}</h5>
+        <p class="card-text">Total Events</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-white bg-success mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ getAvailabilityEventsCount() }}</h5>
+        <p class="card-text">Available</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-white bg-info mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ getBookingEventsCount() }}</h5>
+        <p class="card-text">Bookings</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-white bg-secondary mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ getBlockedEventsCount() }}</h5>
+        <p class="card-text">Blocked</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-white bg-warning mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ getConfirmedBookingsCount() }}</h5>
+        <p class="card-text">Confirmed</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="card text-white bg-dark mb-3">
+      <div class="card-body text-center">
+        <h5 class="card-title">{{ getVirtualMeetingsCount() }}</h5>
+        <p class="card-text">Virtual</p>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

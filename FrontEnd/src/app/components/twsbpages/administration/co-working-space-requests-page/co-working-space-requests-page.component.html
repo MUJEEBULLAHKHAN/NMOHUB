@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <h3 class="medium">Co Working Request</h3>
+
+  <div *ngIf="showLoader" class="text-center my-4">
+    <div class="spinner-border" role="status"></div>
+  </div>
+ <a href="javascript:;" (click)="generateReport()" class="btn">
+                     Export Data</a>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered" *ngIf="!showLoader && coWorkingSpaceRequests.length > 0">
+      <thead class="table-dark">
+        <tr>
+          <th>Employee</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Total Price</th>
+          <!-- <th>National ID</th>
+          <th>Company Name</th>
+          <th>Commercial Registration</th> -->
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of coWorkingSpaceRequests">
+          <td>{{ req.firstNames }} </td>
+          <td>{{ req.createDate | date : "d/M/yyyy" }}</td>
+          <td>
+            {{ req.price}}
+          </td>
+          <td>
+            {{ req.quantity}}
+          </td>
+
+          <td>
+            {{ req.startDate | date : "d/M/yyyy"}}
+          </td>
+
+          <td>
+            {{ req.endDate | date : "d/M/yyyy"}}
+          </td>
+
+          <td>{{ req.totalPrice }}</td>
+          <!-- <td>{{ req.nationalID }}</td>
+          <td>{{ req.companyName }}</td>
+          <td>{{ req.commercialRegistration }}</td> -->
+          <td>
+            <span [class]="
+                req.status === 'Submit'
+                  ? 'badge bg-danger'
+                  : 'badge bg-success'
+              ">
+              {{ req.status }}
+            </span>
+          </td>
+          <td>
+            <button *ngIf="req.status === 'Submit'" type="submit" class="btn btn-primary m-1"
+              (click)="ApproveCoWorkingSpaceRequest(req.coWorkingSpaceRequestId)">
+              Accept
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="coWorkingSpaceLoader"></span>
+            </button>
+
+            <button *ngIf="req.status === 'Submit'" type="submit" class="btn btn-primary"
+              (click)="RejectCoWorkingSpaceRequest(req.coWorkingSpaceRequestId)">
+              Reject
+
+              <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle"
+                *ngIf="coWorkingSpaceLoader"></span>
+            </button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!showLoader && coWorkingSpaceRequests.length === 0" class="alert alert-warning">
+    No Meeting Access Requests found.
+  </div>
+</div>
+

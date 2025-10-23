@@ -1,0 +1,81 @@
+<div id="div">
+  <header id="fh5co-news-header" class="fh5co-news-cover d-flex align-items-center justify-content-center text-center"
+  style="background-image: url('./assets/staticwebsite/images/img_bg_1.jpg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="animate-box" data-animate-effect="fadeInUp">
+          <h1 class="news-title">Latest News</h1>
+          <p class="news-subtitle">Stay updated with our latest announcements</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Accordion News -->
+<div id="fh5co-news" class="news-section">
+  <div class="container">
+    <div class="row g-4">
+      <div *ngFor="let news of newsletters; let i = index" ngbAccordionItem class="col-md-6">
+        <div class="card news-card shadow-sm h-100">
+          <div class="news-image-wrapper">
+            <div class="news-content news-img" [innerHTML]="htmlData(news.content)"></div>
+            <!-- <img [src]="news.image" alt="Featured News" class="news-img" /> -->
+          
+          </div>
+          <div class="card-body">
+            <p class="text-accent small fw-semibold mb-1">
+              {{ news.category }}
+            </p>
+            <h4 class="fw-bold mb-2">{{ news.title }}</h4>
+              <span class="badge bg-accent position-absolute top-0 start-0 m-3">
+              Featured
+            </span>
+            <!-- <span class="text-muted small">{{ news.date }}</span> -->
+          </div>
+        </div>
+        <!-- <h2 ngbAccordionHeader class="accordion-header">
+        <button ngbAccordionButton class="accordion-button fw-semibold">
+          <i class="bi bi-newspaper me-2 text-primary"></i>
+          {{ news.title }}
+        </button>
+      </h2>
+      <div ngbAccordionCollapse class="accordion-collapse">
+        <div ngbAccordionBody class="accordion-body bg-light">
+          <div class="news-content" [innerHTML]="htmlData(news.content)"></div>
+        </div>
+      </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Featured & Other News Section -->
+<!-- <div id="fh5co-news" class="news-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6" *ngFor="let news of featuredNews">
+        <a [routerLink]="['/news', news.slug]" class="text-decoration-none text-dark">
+          <div class="card news-card shadow-sm h-100">
+            <div class="news-image-wrapper">
+              <img [src]="news.image" alt="Featured News" class="news-img" />
+              <span class="badge bg-accent position-absolute top-0 start-0 m-3">
+                Featured
+              </span>
+            </div>
+            <div class="card-body">
+              <p class="text-accent small fw-semibold mb-1">
+                {{ news.categories }}
+              </p>
+              <h4 class="fw-bold mb-2">{{ news.title }}</h4>
+              <span class="text-muted small">{{ news.date }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div> -->
+</div>

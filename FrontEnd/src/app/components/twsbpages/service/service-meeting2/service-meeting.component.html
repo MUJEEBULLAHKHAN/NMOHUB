@@ -1,0 +1,178 @@
+<div class="timeline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="timeline-container">
+                    <!-- <div class="timeline-end">
+                        <span
+                            class="avatar avatar-lg avatar-rounded bg-primary-transparent backdrop-blur text-center border border-primary border-opacity-10"><span
+                                class="fs-13">2024</span></span>
+                    </div> -->
+                    <div class="timeline-continue" *ngFor="let item of timeLineList; let i = index">
+                        <div class="row timeline-right" *ngIf="i % 2 === 0">
+                            <div class="col-md-6">
+                                <p class="timeline-date"> {{item.createAt | date: 'dd-MM-yyyy'}} </p><span
+                                    class="timeline-time fs-12 text-muted fw-medium d-block"> {{item.createAt | date:
+                                    'hh:mm:ss a'}} </span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="timeline-box">
+                                    <p class="mb-2"> User <b>{{item.userName}}</b>
+                                        Commented on <b>{{item.statusName}}</b>
+                                    </p>
+                                    <!-- post <a href="javascript:void(0);"
+                                            class="text-secondary"><u>#beautiful
+                                                day</u></a>. </p> -->
+                                    <!-- <p class="profile-activity-media mb-0"><a href="javascript:void(0);"><img
+                                                src="./assets/images/media/media-17.jpg" alt=""></a><a
+                                            href="javascript:void(0);"><img src="./assets/images/media/media-18.jpg"
+                                                alt=""></a></p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row timeline-left" *ngIf="i % 2 !== 0">
+                            <div class="col-md-6">
+                                <div class="timeline-box ms-md-auto">
+                                    <p class="text-muted mb-2"><span class="text-default">
+                                            User <b>{{item.userName}}</b>
+                                            Commented on <b>{{item.statusName}}</b>
+                                        </span>. </p>
+                                    <!-- <p class="text-muted mb-0"> Lorem ipsum dolor sit amet
+                                        consectetur adipisicing elit. Repudiandae, repellendus rem rerum excepturi
+                                        aperiam ipsam temporibus inventore ullam tempora eligendi libero sequi
+                                        dignissimos cumque, et a sint tenetur consequatur omnis! </p> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="timeline-date"> {{item.createAt | date: 'dd-MM-yyyy'}} </p><span
+                                    class="timeline-time fs-12 text-muted fw-medium d-block text-start"> {{item.createAt
+                                    | date: 'hh:mm:ss a'}} </span>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <div class="timeline-year"><span
+                                        class="avatar avatar-lg avatar-rounded bg-success-transparent backdrop-blur text-center border border-success border-opacity-10"><span
+                                            class="fs-13">2024</span></span></div>
+                            </div>
+                        </div>
+                        <div class="row timeline-right">
+                            <div class="col-md-6">
+                                <p class="timeline-date"> 01 Jan 2024 </p><span
+                                    class="timeline-time fs-12 text-muted fw-medium d-block"> 17:25PM </span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="timeline-box">
+                                    <p class="text-muted mb-2"><span class="text-default"><b>Alicia Keys</b> shared a
+                                            document with <b>you</b></span>. </p>
+                                    <p class="profile-activity-media mb-0"><a href="javascript:void(0);"><img
+                                                src="./assets/images/media/file-manager/f3.png" alt=""></a><span
+                                            class="fs-11 text-muted">432.87KB</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row timeline-left">
+                            <div class="col-md-6">
+                                <div class="timeline-box ms-md-auto">
+                                    <p class="text-muted mb-2"><span class="text-default"><b>You</b> shared a post with
+                                            4 people</span>.
+                                    </p>
+                                    <p class="profile-activity-media mb-2"><a href="javascript:void(0);"><img
+                                                src="./assets/images/media/media-75.jpg" alt=""></a></p>
+                                    <div>
+                                        <div class="avatar-list-stacked"><span
+                                                class="avatar avatar-sm avatar-rounded"><img
+                                                    src="./assets/images/faces/2.jpg" alt="img"></span><span
+                                                class="avatar avatar-sm avatar-rounded"><img
+                                                    src="./assets/images/faces/8.jpg" alt="img"></span><span
+                                                class="avatar avatar-sm avatar-rounded"><img
+                                                    src="./assets/images/faces/2.jpg" alt="img"></span><span
+                                                class="avatar avatar-sm avatar-rounded"><img
+                                                    src="./assets/images/faces/10.jpg" alt="img"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="timeline-date"> 19 Dec 2024 </p><span
+                                    class="timeline-time fs-12 text-muted fw-medium d-block text-start"> 11:55AM </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="timeline-year"><span
+                                        class="avatar avatar-lg avatar-rounded bg-danger-transparent backdrop-blur text-center border border-danger border-opacity-10"><span
+                                            class="fs-13"> 2024</span></span></div>
+                            </div>
+                        </div>
+                        <div class="row timeline-right">
+                            <div class="col-md-6">
+                                <p class="timeline-date"> 25 Nov 2024 </p><span
+                                    class="timeline-time fs-12 text-muted fw-medium d-block"> 07:45AM </span>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="timeline-box">
+                                    <p class="text-muted mb-1"><span class="text-default"><b>Melissa Blue</b> liked your
+                                            post <b>travel excites</b></span>.<span
+                                            class="float-end fs-11 text-muted">11,Dec 2022
+                                            - 11:18</span></p>
+                                    <p class="text-muted">you are already feeling the tense
+                                        atmosphere of the video playing in the background</p>
+                                    <p class="profile-activity-media mb-0"><a href="javascript:void(0);"><img
+                                                src="./assets/images/media/media-59.jpg" alt="" class="m-1"></a><a
+                                            href="javascript:void(0);"><img src="./assets/images/media/media-60.jpg"
+                                                alt="" class="m-1"></a><a href="javascript:void(0);"><img
+                                                src="./assets/images/media/media-61.jpg" alt="" class="m-1"></a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row timeline-left">
+                            <div class="col-md-6">
+                                <div class="timeline-box ms-md-auto">
+                                    <p class="mb-1"><b>You</b>
+                                        Commented on <b>Peter Engola</b> post <a href="javascript:void(0);"
+                                            class="text-secondary"><u>#Mother
+                                                Nature</u></a>.<span class="float-end fs-11 text-muted">24,Dec 2022 -
+                                            14:34</span></p>
+                                    <p class="text-muted">Technology id developing rapidly
+                                        kepp uo your work 👌</p>
+                                    <p class="profile-activity-media mb-0"><a href="javascript:void(0);"><img
+                                                src="./assets/images/media/media-26.jpg" alt=""></a><a
+                                            href="javascript:void(0);"><img src="./assets/images/media/media-29.jpg"
+                                                alt=""></a></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="timeline-date"> 16 Dec 2024 </p><span
+                                    class="timeline-time fs-12 text-muted fw-medium d-block text-start"> 15:56PM </span>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- <div class="timeline-start">
+                        <span
+                            class="avatar avatar-lg avatar-rounded bg-warning-transparent backdrop-blur text-center border border-warning border-opacity-10"><span
+                                class="fs-13">2024</span></span>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+
+                <!-- <label *ngIf="hasStatusSeven && hasStatusSeven.length <= 0" style="color: red;">Awaiting Authorization. Claim cannot be transferred.</label> -->
+                <!-- <label style="color: red;">
+                    transferred. </label> -->
+                <div *ngFor="let status of statusList;let i = index;">
+                    <div class="checkbox checkbox-css mt-2">
+                        <input type="checkbox" id="status{{i}}" *ngIf="status.statusId < currentStatusId"
+                            [(ngModel)]="status.statusId" #name="ngModel" disabled
+                             />
+                        <label for="status{{i}}" *ngIf="status.statusId < currentStatusId"><s>{{status.statusName}}</s></label>
+                        <label for="status{{i}}" *ngIf="status.statusId > currentStatusId">{{status.statusName}}</label>
+                        <label for="status{{i}}" *ngIf="status.statusId === currentStatusId"><strong>{{status.statusName}}</strong></label>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

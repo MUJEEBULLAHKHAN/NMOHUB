@@ -1,0 +1,35 @@
+
+
+<div class="d-flex align-items-center justify-content-between my-4 page-header-breadcrumb flex-wrap gap-2">
+    <div>
+        <p class="fw-medium fs-20 mb-0">Hi, {{firstName | titlecase}} {{lastName | titlecase}}</p>
+        <p class="fs-13 text-muted mb-0">Please select a workshop from below to continue</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2"> 
+        <div> 
+            <span role="status" aria-hidden="true" class="spinner-border spinner-border-sm align-middle" *ngIf="showLoader"></span>
+            <input class="form-control form-control-sm" type="text" placeholder="Search" aria-label=".form-control-sm example"> 
+        </div> 
+       
+    </div>
+    </div>
+
+  
+  <!-- Start:: row-2 -->
+  <div class="row">
+   
+    <div class="d-flex align-items-center gap-4 mb-4 flex-wrap" >
+        <div class="nft-tag nft-tag-primary active" *ngFor="let item of _workshops">
+            <a href="javascript:void(0);" class="stretched-link" (click)="selectWorkshop(item)"></a>
+            <span class="nft-tag-icon"><i class="ti ti-world fs-16"></i></span>
+            <!-- <img class="circle-icon" style="top: 15px;height: 53px;width: 100px;" src="{{item.workshopLogo}}" /> -->
+            <span class="nft-tag-text">{{item.workshopName}}</span>
+           
+        </div>
+       
+    </div>
+
+   
+           
+        </div> 
+

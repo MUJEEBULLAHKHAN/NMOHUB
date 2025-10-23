@@ -1,0 +1,156 @@
+// ::ng-deep{
+//     .sidebar {
+//         /* Styles for the sidebar container */
+//         width: 200px; /* Adjust width as needed */
+//         background-color: #f0f0f0;
+//         display: flex; /* Allow flexbox for horizontal layout */
+//         flex-direction: column; /* Vertical layout by default */
+//       }
+
+//       .sidebar.horizontal {
+//         /* Styles for horizontal mode */
+//         flex-direction: row;
+//       }
+
+//       .sidebar ul {
+//         list-style: none;
+//         margin: 0;
+//         padding: 0;
+//       }
+
+//       .sidebar li {
+//         /* Styles for menu items */
+//         line-height: 30px; /* Adjust as needed */
+//         cursor: pointer;
+//       }
+
+//       .sidebar li.submenu > a {
+//         /* Styles for submenu toggles */
+//         padding-right: 15px;
+//       }
+
+//       .sidebar li.submenu > a::after {
+//         content: '\f105'; /* Font Awesome icon for dropdown (adjust as needed) */
+//         font-family: FontAwesome; /* Adjust font family as needed */
+//         font-size: 10px;
+//         margin-left: 5px;
+//       }
+
+//       .sidebar ul.sub-menu {
+//         /* Styles for submenus */
+//         position: absolute;
+//         top: 100%; /* Positioned below parent item */
+//         left: 0;
+//         width: max-content; /* Restrict width to content */
+//         /* Limit width if necessary: */
+//         /* max-width: 200px; */
+//         background-color: #fff;
+//         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+//         display: none;
+//       }
+
+//       .sidebar li.submenu.active > ul.sub-menu {
+//         display: block;
+//       }
+// }
+
+:root {
+    /* Accent – Insightful Cyan */
+    --accent-50: #F2FAFB;
+    --accent-100: #E0F5F8;
+    --accent-200: #BBEBF3;
+    --accent-300: #90E0EB;
+    --accent-400: #5FCEE3;
+    --accent-500: #33C2DB;
+    --accent-600: #00B3C9;
+    --accent-700: #0096AC;
+    --accent-800: #007B8C;
+    --accent-900: #006574;
+
+    /* Secondary – Navigator Navy */
+    --secondary-50: #F2F4F7;
+    --secondary-100: #E1E7EE;
+    --secondary-200: #C3D0DF;
+    --secondary-300: #A2B9CE;
+    --secondary-400: #7E9FBA;
+    --secondary-500: #5B86A4;
+    --secondary-600: #396C8E;
+    --secondary-700: #1F4A6F;
+    --secondary-800: #0C345C;
+    --secondary-900: #051A46;
+
+    /* Light mode defaults */
+    --bg-primary: var(--secondary-50);
+    --bg-secondary: var(--secondary-100);
+    --bg-header: var(--secondary-900);
+    --text-primary: var(--secondary-900);
+    --text-secondary: var(--secondary-700);
+    --text-inverse: var(--secondary-100);
+    --border-color: var(--secondary-300);
+}
+
+.dark-mode {
+    --bg-primary: var(--secondary-900);
+    --bg-secondary: var(--secondary-800);
+    --bg-header: var(--secondary-900);
+    --text-primary: var(--secondary-100);
+    --text-secondary: var(--secondary-300);
+    --text-inverse: var(--secondary-100);
+    --border-color: var(--secondary-700);
+}
+
+* {
+    // margin: 0;
+    // padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+aside {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+aside.arabic {
+    font-family: 'Noto Sans Arabic', 'Noto Sans', sans-serif;
+    direction: rtl;
+}
+
+.app-sidebar,
+.main-sidebar-header {
+    background-color: #051A46;
+    color: white;
+    border: 0px;
+}
+
+.category-name {
+    color: white;
+}
+
+.card.custom-card .card-body {
+    color: #051A46;
+}
+
+.side-menu__label {
+    color: white;
+}
+
+.side-menu__item:hover .side-menu__label {
+    color: var(--secondary-900);
+}
+
+.side-menu__item {
+    color: white;
+}
+
+// .has-sub a:hover {
+//     color: var(--secondary-900);
+// }
+
+.app-sidebar .main-sidebar-header {
+    height: 6.25rem;
+    width: 15rem;
+    transition: all 0.05s ease;
+}

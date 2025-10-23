@@ -1,0 +1,374 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: rgba(42, 51, 86, 0.9);
+    min-height: 100vh;
+    padding: 20px;
+    justify-content: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 6rem;
+}
+
+.invoice-wrapper {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Header */
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.company-name {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.invoice-badge {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 15px;
+    text-align: right;
+    min-width: 250px;
+}
+
+.invoice-label {
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.invoice-details .detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.invoice-details .label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.invoice-details .value {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Client Section */
+.client-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.client-section h3 {
+    color: #ff6b35;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.client-info h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.client-info p {
+    color: #666;
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.invoice-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.invoice-table table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}
+
+thead th {
+    background: #f8f9fa;
+    padding: 15px 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+tbody td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 14px;
+    color: #333;
+}
+
+tbody tr:hover {
+    background: #f8f9fa;
+}
+
+tbody td:first-child {
+    font-weight: 600;
+    color: #666;
+}
+
+tbody td:last-child {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Totals Section */
+.totals-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+}
+
+.totals {
+    min-width: 300px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.grand-total {
+    margin-top: 10px;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ff6b35 !important;
+}
+
+.grand-total span:last-child {
+    color: #ff6b35;
+    font-size: 18px;
+}
+
+/* Footer */
+.invoice-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #e9ecef;
+}
+
+.invoice-footer h4 {
+    color: #ff6b35;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.invoice-footer p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+/* Contact Info */
+.contact-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+    font-size: 14px;
+    color: #666;
+}
+
+.custom-btn-pay {
+    padding: 15px 30px;
+    background: #ff6b35;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+    margin-top: 16px;
+}
+
+.custom-btn-pay:hover {
+    color: #fff;
+    background: #e65b2c;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.custom-btn-pay:active {
+    color: #fff;
+    background: #cc5026;
+    transform: scale(0.96);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .invoice-wrapper {
+        padding: 20px;
+    }
+
+    .invoice-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .invoice-badge {
+        min-width: auto;
+        text-align: left;
+    }
+
+    .client-section {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .invoice-footer {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 8px 6px;
+    }
+
+    .company-name {
+        font-size: 24px;
+    }
+
+    .invoice-label {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .invoice-wrapper {
+        padding: 15px;
+    }
+
+    table {
+        font-size: 10px;
+    }
+
+    thead th,
+    tbody td {
+        padding: 8px 8px;
+    }
+}
+
+.invoice-table {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* smooth scrolling on iOS */
+}
+
+.invoice-table table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+    /* ensure columns don’t shrink too much */
+}
+
+.invoice-table::-webkit-scrollbar {
+    height: 6px;
+    /* slim horizontal scrollbar */
+}
+
+.invoice-table::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.invoice-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .invoice-table table {
+        font-size: 13px;
+        min-width: 600px;
+        /* prevent columns from becoming unreadable */
+    }
+}
+
+@media (max-width: 480px) {
+    .invoice-table table {
+        font-size: 12px;
+        min-width: 500px;
+    }
+
+    .totals {
+        width: -webkit-fill-available;
+        min-width: auto;
+    }
+    
+    .invoice-badge {
+        width: -webkit-fill-available;
+    }
+}
+.backdrop-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* semi-transparent backdrop */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1050; /* higher than modals */
+}
