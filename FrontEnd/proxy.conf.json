@@ -1,0 +1,9 @@
+{
+    "/api": { 
+      "target": "https://www.twsbtest-api.co.za/chatHub",
+      "secure": false,
+      "logLevel": "debug",
+      "ws": true,
+      "changeOrigin": true
+    }
+  }
