@@ -1,6 +1,0 @@
-to add a new component within WorkshopBossFrontEndV3, follow these steps :
-
-navigate to components/twsbpages
-create a new component of your choice
-go to nav.service.ts, inject your new component within the menu if need be.
-go to twsbpagesmodule, add a reference path to your new component
