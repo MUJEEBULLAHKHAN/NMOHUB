@@ -1,0 +1,154 @@
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Italic.eot');
+    src: url('Groteska-Italic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Italic.woff2') format('woff2'),
+        url('Groteska-Italic.woff') format('woff'),
+        url('Groteska-Italic.svg#Groteska-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-LightItalic.eot');
+    src: url('Groteska-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-LightItalic.woff2') format('woff2'),
+        url('Groteska-LightItalic.woff') format('woff'),
+        url('Groteska-LightItalic.svg#Groteska-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-HeavyItalic.eot');
+    src: url('Groteska-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-HeavyItalic.woff2') format('woff2'),
+        url('Groteska-HeavyItalic.woff') format('woff'),
+        url('Groteska-HeavyItalic.svg#Groteska-HeavyItalic') format('svg');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Medium.eot');
+    src: url('Groteska-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Medium.woff2') format('woff2'),
+        url('Groteska-Medium.woff') format('woff'),
+        url('Groteska-Medium.svg#Groteska-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-MediumItalic.eot');
+    src: url('Groteska-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-MediumItalic.woff2') format('woff2'),
+        url('Groteska-MediumItalic.woff') format('woff'),
+        url('Groteska-MediumItalic.svg#Groteska-MediumItalic') format('svg');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Light.eot');
+    src: url('Groteska-Light.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Light.woff2') format('woff2'),
+        url('Groteska-Light.woff') format('woff'),
+        url('Groteska-Light.svg#Groteska-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-BoldItalic.eot');
+    src: url('Groteska-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-BoldItalic.woff2') format('woff2'),
+        url('Groteska-BoldItalic.woff') format('woff'),
+        url('Groteska-BoldItalic.svg#Groteska-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Regular.eot');
+    src: url('Groteska-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Regular.woff2') format('woff2'),
+        url('Groteska-Regular.woff') format('woff'),
+        url('Groteska-Regular.svg#Groteska-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Bold.eot');
+    src: url('Groteska-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Bold.woff2') format('woff2'),
+        url('Groteska-Bold.woff') format('woff'),
+        url('Groteska-Bold.svg#Groteska-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska Book';
+    src: url('Groteska-Book.eot');
+    src: url('Groteska-Book.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Book.woff2') format('woff2'),
+        url('Groteska-Book.woff') format('woff'),
+        url('Groteska-Book.svg#Groteska-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Heavy.eot');
+    src: url('Groteska-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Heavy.woff2') format('woff2'),
+        url('Groteska-Heavy.woff') format('woff'),
+        url('Groteska-Heavy.svg#Groteska-Heavy') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-Thin.eot');
+    src: url('Groteska-Thin.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-Thin.woff2') format('woff2'),
+        url('Groteska-Thin.woff') format('woff'),
+        url('Groteska-Thin.svg#Groteska-Thin') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Groteska';
+    src: url('Groteska-ThinItalic.eot');
+    src: url('Groteska-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-ThinItalic.woff2') format('woff2'),
+        url('Groteska-ThinItalic.woff') format('woff'),
+        url('Groteska-ThinItalic.svg#Groteska-ThinItalic') format('svg');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Groteska Book';
+    src: url('Groteska-BookItalic.eot');
+    src: url('Groteska-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('Groteska-BookItalic.woff2') format('woff2'),
+        url('Groteska-BookItalic.woff') format('woff'),
+        url('Groteska-BookItalic.svg#Groteska-BookItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
